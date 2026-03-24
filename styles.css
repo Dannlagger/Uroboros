@@ -30,6 +30,7 @@ body {
   position: absolute;
   border-radius: 50%;
   will-change: transform;
+  animation: floatBlob 10s ease-in-out infinite;
 }
 
 .hero__blob--one {
@@ -46,6 +47,7 @@ body {
   left: -80px;
   bottom: 6%;
   background: radial-gradient(circle, rgba(255,255,255,0.7), rgba(117,133,110,0.14) 58%, transparent 74%);
+  animation-delay: -3s;
 }
 
 .eyebrow {
@@ -68,6 +70,9 @@ body {
 
 .hero__title {
   max-width: 9ch;
+  opacity: 0;
+  transform: translateY(28px) scale(0.96);
+  animation: heroIn 900ms ease forwards;
 }
 
 .hero__lead,
@@ -76,6 +81,13 @@ body {
 .hero-panel p {
   color: var(--muted);
   line-height: 1.8;
+}
+
+.hero__lead {
+  opacity: 0;
+  transform: translateY(28px);
+  animation: heroIn 900ms ease forwards;
+  animation-delay: 120ms;
 }
 
 .hero-panel,
@@ -91,6 +103,10 @@ body {
 .hero-panel {
   padding: 1.75rem;
   border-radius: 32px;
+  opacity: 0;
+  transform: translateY(36px) scale(0.94) rotate(-2deg);
+  animation: panelIn 950ms cubic-bezier(.2,.7,.2,1) forwards;
+  animation-delay: 220ms;
 }
 
 .hero-panel__tag {
@@ -120,6 +136,7 @@ body {
 .cards-stage {
   position: relative;
   height: 560px;
+  perspective: 1200px;
 }
 
 .floating-card {
@@ -129,8 +146,8 @@ body {
   border-radius: 30px;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 650;
-  transition: transform 180ms linear, opacity 180ms linear;
-  will-change: transform, opacity;
+  transition: transform 120ms linear, opacity 120ms linear, filter 120ms linear;
+  will-change: transform, opacity, filter;
 }
 
 .floating-card--one {
@@ -155,15 +172,38 @@ body {
 
 .reveal {
   opacity: 0;
-  transform: translateY(48px);
-  transition: opacity 700ms ease, transform 700ms ease;
+  transform: translateY(64px) scale(0.94);
+  transition: opacity 850ms ease, transform 850ms cubic-bezier(.2,.7,.2,1);
 }
 
 .reveal--delay {
-  transition-delay: 140ms;
+  transition-delay: 160ms;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+}
+
+@keyframes heroIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes panelIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes floatBlob {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0) scale(1.04);
+  }
 }
