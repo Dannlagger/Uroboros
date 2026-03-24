@@ -32,17 +32,17 @@ function updateScene() {
 
   cards.forEach((card, index) => {
     const offset = index - 1;
-    const driftY = progress * 220 - index * 26;
-    const driftX = progress * offset * 160;
-    const scale = 1 - Math.abs(offset) * 0.08 + progress * 0.1;
-    const rotate = offset * 14 - progress * offset * 30;
-    const opacity = 1 - Math.abs(progress - index * 0.28) * 0.42;
-    const blur = Math.abs(offset) * (1 - progress) * 1.2;
+    const driftY = progress * 180 - index * 18;
+    const driftX = progress * offset * 120;
+    const scale = 1 - Math.abs(offset) * 0.05 + progress * 0.06;
+    const rotate = offset * 10 - progress * offset * 20;
+    const opacity = 1 - Math.abs(progress - index * 0.28) * 0.36;
+    const blur = Math.abs(offset) * (1 - progress) * 0.9;
 
     card.style.translate = `${driftX}px ${driftY}px`;
     card.style.rotate = `${rotate}deg`;
     card.style.scale = `${scale}`;
-    card.style.opacity = String(clamp(opacity, 0.28, 1));
+    card.style.opacity = String(clamp(opacity, 0.42, 1));
     card.style.filter = `blur(${blur}px)`;
   });
 }
