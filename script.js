@@ -1,7 +1,7 @@
-const parallaxNodes = document.querySelectorAll('.parallax');
-const sequence = document.querySelector('.sequence');
-const cards = Array.from(document.querySelectorAll('.floating-card'));
-const reveals = document.querySelectorAll('.reveal');
+const heroParallax = document.querySelectorAll('.hero-parallax');
+const flowSection = document.getElementById('manifesto-flow');
+const systemCards = Array.from(document.querySelectorAll('.system-card'));
+const revealPanels = document.querySelectorAll('.reveal-panel');
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -9,44 +9,43 @@ const revealObserver = new IntersectionObserver(
       if (entry.isIntersecting) entry.target.classList.add('is-visible');
     });
   },
-  { threshold: 0.16, rootMargin: '0px 0px -8% 0px' }
+  { threshold: 0.18, rootMargin: '0px 0px -10% 0px' }
 );
 
-reveals.forEach((node) => revealObserver.observe(node));
+revealPanels.forEach((panel) => revealObserver.observe(panel));
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-function updateScene() {
+function updateExperience() {
   const scrollY = window.scrollY;
 
-  parallaxNodes.forEach((node) => {
+  heroParallax.forEach((node) => {
     const speed = Number(node.dataset.speed || 0);
     node.style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
   });
 
-  const rect = sequence.getBoundingClientRect();
+  const rect = flowSection.getBoundingClientRect();
   const total = rect.height - window.innerHeight;
   const progress = clamp(-rect.top / total, 0, 1);
 
-  cards.forEach((card, index) => {
-    const offset = index - 1;
-    const driftY = progress * 180 - index * 18;
-    const driftX = progress * offset * 120;
-    const scale = 1 - Math.abs(offset) * 0.05 + progress * 0.06;
-    const rotate = offset * 10 - progress * offset * 20;
-    const opacity = 1 - Math.abs(progress - index * 0.28) * 0.36;
-    const blur = Math.abs(offset) * (1 - progress) * 0.9;
+  systemCards.forEach((card, index) => {
+    const row = index < 2 ? -1 : 1;
+    const side = index % 2 === 0 ? -1 : 1;
+    const driftY = progress * (120 + index * 28) * row * -1;
+    const driftX = progress * (110 + index * 24) * side;
+    const scale = 1 - index * 0.03 + progress * 0.08;
+    const rotate = side * (6 + index * 2) - progress * side * 18;
+    const opacity = 1 - Math.abs(progress - index * 0.18) * 0.25;
+    const blur = Math.abs(0.5 - progress) * index * 0.7;
 
-    card.style.translate = `${driftX}px ${driftY}px`;
-    card.style.rotate = `${rotate}deg`;
-    card.style.scale = `${scale}`;
-    card.style.opacity = String(clamp(opacity, 0.42, 1));
+    card.style.transform = `translate3d(${driftX}px, ${driftY}px, 0) rotate(${rotate}deg) scale(${scale})`;
+    card.style.opacity = String(clamp(opacity, 0.45, 1));
     card.style.filter = `blur(${blur}px)`;
   });
 }
 
-updateScene();
-window.addEventListener('scroll', updateScene, { passive: true });
-window.addEventListener('resize', updateScene);
+updateExperience();
+window.addEventListener('scroll', updateExperience, { passive: true });
+window.addEventListener('resize', updateExperience);
