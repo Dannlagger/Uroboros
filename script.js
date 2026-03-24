@@ -1,5 +1,5 @@
 const parallaxNodes = document.querySelectorAll('.parallax');
-const stickySection = document.getElementById('showcase');
+const sequence = document.querySelector('.sequence');
 const cards = Array.from(document.querySelectorAll('.floating-card'));
 const reveals = document.querySelectorAll('.reveal');
 
@@ -26,20 +26,20 @@ function updateScene() {
     node.style.transform = `translateY(${scrollY * speed}px)`;
   });
 
-  const rect = stickySection.getBoundingClientRect();
+  const rect = sequence.getBoundingClientRect();
   const total = rect.height - window.innerHeight;
   const progress = clamp(-rect.top / total, 0, 1);
 
   cards.forEach((card, index) => {
     const offset = index - 1;
-    const driftY = (progress * 160) - index * 22;
+    const driftY = (progress * 180) - index * 18;
     const driftX = progress * offset * 120;
-    const scale = 1 - Math.abs(offset) * 0.06 + progress * 0.04;
-    const rotate = offset * 10 - progress * offset * 18;
-    const opacity = 1 - Math.abs(progress - index * 0.28) * 0.38;
+    const scale = 1 - Math.abs(offset) * 0.08 + progress * 0.06;
+    const rotate = offset * 12 - progress * offset * 20;
+    const opacity = 1 - Math.abs(progress - index * 0.28) * 0.4;
 
     card.style.transform = `translate3d(${driftX}px, ${driftY}px, 0) rotate(${rotate}deg) scale(${scale})`;
-    card.style.opacity = String(clamp(opacity, 0.35, 1));
+    card.style.opacity = String(clamp(opacity, 0.3, 1));
   });
 }
 
