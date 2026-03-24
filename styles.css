@@ -1,0 +1,140 @@
+:root {
+  --bg: #050816;
+  --panel: #0d1226;
+  --text: #edf2ff;
+  --muted: #9aa6c6;
+  --accent: #8ea3ff;
+  --line: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(93, 119, 255, 0.14), transparent 35%),
+    linear-gradient(180deg, #050816 0%, #070b17 100%);
+  color: var(--text);
+}
+
+.hero,
+.panel {
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+.hero {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+}
+
+.hero__inner,
+.panel__copy,
+.sticky-stage__copy {
+  width: min(720px, 100%);
+}
+
+.eyebrow,
+.panel__index {
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+h1,
+h2 {
+  line-height: 0.95;
+  margin: 0.35rem 0 1rem;
+}
+
+h1 {
+  font-size: clamp(3rem, 8vw, 7rem);
+  max-width: 10ch;
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  max-width: 12ch;
+}
+
+.lead,
+.panel p,
+.sticky-stage__copy p {
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  max-width: 56ch;
+  line-height: 1.7;
+}
+
+.panel {
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  border-top: 1px solid var(--line);
+}
+
+.panel--sticky {
+  min-height: 300vh;
+  position: relative;
+}
+
+.sticky-stage {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(260px, 420px) minmax(320px, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.decompose-frame {
+  position: relative;
+  width: min(70vw, 760px);
+  aspect-ratio: 4 / 5;
+  justify-self: end;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #0e1328;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.tile {
+  position: absolute;
+  inset: auto;
+  background-image: linear-gradient(135deg, #bfd2ff 0%, #7c8dff 35%, #1d2758 100%);
+  background-size: 100% 100%;
+  will-change: transform, opacity, filter;
+  transition: transform 80ms linear, opacity 80ms linear, filter 80ms linear;
+}
+
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 42%),
+    radial-gradient(circle at 70% 70%, rgba(6,9,23,0.4), transparent 55%);
+  mix-blend-mode: screen;
+}
+
+@media (max-width: 900px) {
+  .sticky-stage {
+    grid-template-columns: 1fr;
+    padding-block: 3rem;
+  }
+
+  .decompose-frame {
+    width: 100%;
+    justify-self: stretch;
+  }
+}

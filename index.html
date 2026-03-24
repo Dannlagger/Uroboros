@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zero Scroll Lab</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__inner">
+        <p class="eyebrow">Laboratorio visual</p>
+        <h1>Sitio experimental con scroll cinematográfico</h1>
+        <p class="lead">
+          Un prototipo local donde las imágenes se fracturan en piezas mientras avanzas.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel panel--intro">
+        <div class="panel__copy">
+          <span class="panel__index">01</span>
+          <h2>La imagen permanece intacta solo un momento</h2>
+          <p>
+            El scroll controla la tensión visual. Al avanzar, la escena empieza a romperse en
+            fragmentos que se dispersan con profundidad.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel panel--sticky" id="decompose-section">
+        <div class="sticky-stage">
+          <div class="sticky-stage__copy">
+            <span class="panel__index">02</span>
+            <h2>Descomposición en capas</h2>
+            <p>
+              Cada bloque responde a la posición del scroll con desplazamiento, rotación y
+              desvanecimiento.
+            </p>
+          </div>
+          <div class="decompose-frame" id="decompose-frame" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="panel panel--outro">
+        <div class="panel__copy">
+          <span class="panel__index">03</span>
+          <h2>La escena cambia, pero la sensación permanece</h2>
+          <p>
+            Esta base sirve para experimentar con narrativa visual, landing pages artísticas y
+            presentaciones inmersivas.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
