@@ -3,55 +3,85 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zero Scroll Lab</title>
+    <title>Uroboros</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="hero">
-      <div class="hero__inner">
-        <p class="eyebrow">Laboratorio visual</p>
-        <h1>Sitio experimental con scroll cinematográfico</h1>
-        <p class="lead">
-          Un prototipo local donde las imágenes se fracturan en piezas mientras avanzas.
-        </p>
-      </div>
-    </header>
+    <main class="game-shell">
+      <section class="stage">
+        <div class="stage__curtains"></div>
+        <div class="stage__backdrop"></div>
+        <div class="stage__floor"></div>
 
-    <main>
-      <section class="panel panel--intro">
-        <div class="panel__copy">
-          <span class="panel__index">01</span>
-          <h2>La imagen permanece intacta solo un momento</h2>
-          <p>
-            El scroll controla la tensión visual. Al avanzar, la escena empieza a romperse en
-            fragmentos que se dispersan con profundidad.
-          </p>
-        </div>
-      </section>
-
-      <section class="panel panel--sticky" id="decompose-section">
-        <div class="sticky-stage">
-          <div class="sticky-stage__copy">
-            <span class="panel__index">02</span>
-            <h2>Descomposición en capas</h2>
-            <p>
-              Cada bloque responde a la posición del scroll con desplazamiento, rotación y
-              desvanecimiento.
-            </p>
+        <aside class="hud">
+          <div class="hud__logo">UROBOROS</div>
+          <p class="hud__hint">Usa las flechas ↑ ↓ para navegar y Enter para abrir.</p>
+          <div class="hud__arrows">
+            <span>↑</span>
+            <span>↓</span>
+            <span>Enter</span>
           </div>
-          <div class="decompose-frame" id="decompose-frame" aria-hidden="true"></div>
-        </div>
-      </section>
+        </aside>
 
-      <section class="panel panel--outro">
-        <div class="panel__copy">
-          <span class="panel__index">03</span>
-          <h2>La escena cambia, pero la sensación permanece</h2>
-          <p>
-            Esta base sirve para experimentar con narrativa visual, landing pages artísticas y
-            presentaciones inmersivas.
-          </p>
-        </div>
+        <section class="menu-panel">
+          <div class="menu-panel__frame">
+            <p class="menu-panel__label">Main Menu</p>
+            <ul class="menu" id="menu">
+              <li class="menu__item is-active" data-screen="home">Inicio</li>
+              <li class="menu__item" data-screen="story">Historia</li>
+              <li class="menu__item" data-screen="features">Mecánicas</li>
+              <li class="menu__item" data-screen="world">Mundo</li>
+              <li class="menu__item" data-screen="contact">Contacto</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="screen-panel">
+          <article class="screen is-visible" data-screen="home">
+            <span class="screen__tag">Pantalla 01</span>
+            <h1>Un sitio que se siente como entrar a un escenario interactivo</h1>
+            <p>
+              Uroboros ya no será un scroll común. Será una experiencia guiada, con entradas,
+              selección y cambios de escena que recuerdan a un menú de videojuego.
+            </p>
+          </article>
+
+          <article class="screen" data-screen="story">
+            <span class="screen__tag">Pantalla 02</span>
+            <h2>Historia</h2>
+            <p>
+              La información aparece como si cada apartado fuera una pequeña escena de teatro:
+              ligera, visual y fácil de recorrer.
+            </p>
+          </article>
+
+          <article class="screen" data-screen="features">
+            <span class="screen__tag">Pantalla 03</span>
+            <h2>Mecánicas</h2>
+            <p>
+              Navegación con teclado, transición entre paneles, profundidad por capas y una
+              presentación controlada por selección activa.
+            </p>
+          </article>
+
+          <article class="screen" data-screen="world">
+            <span class="screen__tag">Pantalla 04</span>
+            <h2>Mundo</h2>
+            <p>
+              Cada área puede convertirse después en una sección distinta del sitio: servicios,
+              portafolio, bio o lo que termines necesitando.
+            </p>
+          </article>
+
+          <article class="screen" data-screen="contact">
+            <span class="screen__tag">Pantalla 05</span>
+            <h2>Contacto</h2>
+            <p>
+              Incluso el cierre puede sentirse como una pantalla final: limpia, memorable y con
+              una llamada a la acción clara.
+            </p>
+          </article>
+        </section>
       </section>
     </main>
 
