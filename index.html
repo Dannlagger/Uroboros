@@ -3,85 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Uroboros</title>
+    <title>Uroboros Yoga</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="game-shell">
-      <section class="stage">
-        <div class="stage__curtains"></div>
-        <div class="stage__backdrop"></div>
-        <div class="stage__floor"></div>
+    <main class="page">
+      <section class="hero section">
+        <div class="orb orb--one"></div>
+        <div class="orb orb--two"></div>
+        <div class="hero__content reveal">
+          <p class="eyebrow">Movimiento · calma · presencia</p>
+          <h1>Una experiencia digital de yoga pensada como respiración visual</h1>
+          <p class="lead">
+            Un sitio sereno, inmersivo y elegante donde cada bloque aparece con suavidad,
+            profundidad y ritmo.
+          </p>
+        </div>
+        <div class="hero__cards reveal reveal--delay">
+          <article class="glass-card glass-card--large">
+            <span>Flow Sessions</span>
+            <strong>Respira, suelta, vuelve al centro.</strong>
+          </article>
+          <article class="glass-card glass-card--small">
+            <span>Mindful Studio</span>
+          </article>
+        </div>
+      </section>
 
-        <aside class="hud">
-          <div class="hud__logo">UROBOROS</div>
-          <p class="hud__hint">Usa las flechas ↑ ↓ para navegar y Enter para abrir.</p>
-          <div class="hud__arrows">
-            <span>↑</span>
-            <span>↓</span>
-            <span>Enter</span>
-          </div>
-        </aside>
+      <section class="section story">
+        <div class="section__header reveal">
+          <p class="eyebrow">Filosofía</p>
+          <h2>Más que clases: una atmósfera de pausa, cuerpo y atención</h2>
+        </div>
 
-        <section class="menu-panel">
-          <div class="menu-panel__frame">
-            <p class="menu-panel__label">Main Menu</p>
-            <ul class="menu" id="menu">
-              <li class="menu__item is-active" data-screen="home">Inicio</li>
-              <li class="menu__item" data-screen="story">Historia</li>
-              <li class="menu__item" data-screen="features">Mecánicas</li>
-              <li class="menu__item" data-screen="world">Mundo</li>
-              <li class="menu__item" data-screen="contact">Contacto</li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="screen-panel">
-          <article class="screen is-visible" data-screen="home">
-            <span class="screen__tag">Pantalla 01</span>
-            <h1>Un sitio que se siente como entrar a un escenario interactivo</h1>
+        <div class="story-grid">
+          <article class="story-card reveal">
             <p>
-              Uroboros ya no será un scroll común. Será una experiencia guiada, con entradas,
-              selección y cambios de escena que recuerdan a un menú de videojuego.
+              Cada transición está pensada para sentirse ligera, como una respiración larga. El
+              contenido no cae: aparece con intención.
             </p>
           </article>
-
-          <article class="screen" data-screen="story">
-            <span class="screen__tag">Pantalla 02</span>
-            <h2>Historia</h2>
-            <p>
-              La información aparece como si cada apartado fuera una pequeña escena de teatro:
-              ligera, visual y fácil de recorrer.
-            </p>
+          <article class="story-card story-card--visual reveal reveal--delay">
+            <div class="circle-pattern"></div>
           </article>
+        </div>
+      </section>
 
-          <article class="screen" data-screen="features">
-            <span class="screen__tag">Pantalla 03</span>
-            <h2>Mecánicas</h2>
-            <p>
-              Navegación con teclado, transición entre paneles, profundidad por capas y una
-              presentación controlada por selección activa.
-            </p>
-          </article>
+      <section class="section panels">
+        <div class="panel reveal">
+          <p class="eyebrow">Sesiones</p>
+          <h3>Prácticas guiadas para recuperar alineación y energía</h3>
+          <p>
+            Rutinas suaves, sesiones de movilidad, respiración y espacios de práctica con una
+            presencia visual limpia y contemporánea.
+          </p>
+        </div>
 
-          <article class="screen" data-screen="world">
-            <span class="screen__tag">Pantalla 04</span>
-            <h2>Mundo</h2>
-            <p>
-              Cada área puede convertirse después en una sección distinta del sitio: servicios,
-              portafolio, bio o lo que termines necesitando.
-            </p>
-          </article>
+        <div class="panel panel--accent reveal reveal--delay">
+          <p class="eyebrow">Experiencia</p>
+          <h3>Un lenguaje visual que se mueve despacio, pero nunca se siente muerto</h3>
+          <p>
+            Capas de luz, desplazamientos lentos y bloques que reaccionan al scroll sin violencia.
+          </p>
+        </div>
+      </section>
 
-          <article class="screen" data-screen="contact">
-            <span class="screen__tag">Pantalla 05</span>
-            <h2>Contacto</h2>
-            <p>
-              Incluso el cierre puede sentirse como una pantalla final: limpia, memorable y con
-              una llamada a la acción clara.
-            </p>
-          </article>
-        </section>
+      <section class="section closing">
+        <div class="closing__box reveal">
+          <p class="eyebrow">Cierre</p>
+          <h2>Un sitio de yoga debe sentirse como entrar en silencio, no como recibir ruido.</h2>
+          <p>
+            Esta versión ya busca esa dirección: calma, elegancia y una forma más contemplativa de
+            mostrar información.
+          </p>
+        </div>
       </section>
     </main>
 
