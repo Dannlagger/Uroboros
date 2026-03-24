@@ -33,11 +33,11 @@ function updateScene() {
   cards.forEach((card, index) => {
     const offset = index - 1;
     const driftY = progress * 220 - index * 26;
-    const driftX = progress * offset * 150;
-    const scale = 1 - Math.abs(offset) * 0.08 + progress * 0.09;
-    const rotate = offset * 14 - progress * offset * 28;
+    const driftX = progress * offset * 160;
+    const scale = 1 - Math.abs(offset) * 0.08 + progress * 0.1;
+    const rotate = offset * 14 - progress * offset * 30;
     const opacity = 1 - Math.abs(progress - index * 0.28) * 0.42;
-    const blur = Math.abs(offset) * (1 - progress) * 1.4;
+    const blur = Math.abs(offset) * (1 - progress) * 1.2;
 
     card.style.transform = `translate3d(${driftX}px, ${driftY}px, 0) rotate(${rotate}deg) scale(${scale})`;
     card.style.opacity = String(clamp(opacity, 0.28, 1));
