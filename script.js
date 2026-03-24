@@ -9,18 +9,13 @@ const observer = new IntersectionObserver(
     });
   },
   {
-    threshold: 0.18,
+    threshold: 0.16,
     rootMargin: '0px 0px -8% 0px'
   }
 );
 
-reveals.forEach((element) => observer.observe(element));
-
-const orbs = document.querySelectorAll('.orb');
-window.addEventListener('scroll', () => {
-  const offset = window.scrollY;
-  orbs.forEach((orb, index) => {
-    const factor = index === 0 ? 0.08 : -0.06;
-    orb.style.transform = `translateY(${offset * factor}px)`;
-  });
-}, { passive: true });
+reveals.forEach((element) => {
+  if (!element.classList.contains('is-visible')) {
+    observer.observe(element);
+  }
+});
