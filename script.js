@@ -39,7 +39,9 @@ function updateScene() {
     const opacity = 1 - Math.abs(progress - index * 0.28) * 0.42;
     const blur = Math.abs(offset) * (1 - progress) * 1.2;
 
-    card.style.transform = `translate3d(${driftX}px, ${driftY}px, 0) rotate(${rotate}deg) scale(${scale})`;
+    card.style.translate = `${driftX}px ${driftY}px`;
+    card.style.rotate = `${rotate}deg`;
+    card.style.scale = `${scale}`;
     card.style.opacity = String(clamp(opacity, 0.28, 1));
     card.style.filter = `blur(${blur}px)`;
   });
