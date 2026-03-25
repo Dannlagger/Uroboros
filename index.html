@@ -8,52 +8,55 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="site-shell">
-      <section class="hero-scene" id="hero-scene">
-        <div class="hero-scene__bg hero-parallax" data-speed="0.08"></div>
-        <div class="hero-scene__grid hero-parallax" data-speed="0.14"></div>
-        <div class="hero-scene__glow hero-parallax" data-speed="0.2"></div>
+    <main class="system-site">
+      <section class="act act--void" id="act-void">
+        <div class="light-core" id="light-core"></div>
+        <div class="logo-shell" id="logo-shell">LATTICCE</div>
+        <div class="intro-copy">
+          <p>No somos una agencia.</p>
+          <p>Somos una red en movimiento.</p>
+        </div>
+      </section>
 
-        <div class="container hero-scene__content">
-          <div class="row align-items-center min-vh-100 gy-5">
-            <div class="col-lg-7">
-              <p class="eyebrow">LATTICCE / sistema creativo multidisciplinario</p>
-              <h1 class="hero-title">Un sistema vivo de imágenes, sonidos y narrativas.</h1>
-              <p class="hero-copy">
-                No operamos como una suma de servicios aislados. Operamos como una estructura
-                conectada que transforma información en experiencias con intención, sensibilidad y
-                permanencia.
+      <section class="act act--reel" id="act-reel">
+        <div class="container-fluid px-lg-5">
+          <div class="row min-vh-100 align-items-center gy-5">
+            <div class="col-lg-5">
+              <p class="eyebrow">Acto 1 / Percepción</p>
+              <h1 class="display-title">El sistema despierta cuando la luz se convierte en estructura.</h1>
+              <p class="section-copy">
+                Todo comienza en el vacío. Después, el sitio deja de comportarse como una página y
+                empieza a reaccionar como un sistema que se construye mientras avanzas.
               </p>
             </div>
-            <div class="col-lg-5">
-              <div class="hero-stack">
-                <article class="hero-card hero-card--a floating-loop">Cine / Fotografía / Diseño</article>
-                <article class="hero-card hero-card--b floating-loop">Desarrollo / Estrategia / Sonido</article>
-                <article class="hero-card hero-card--c floating-loop">Transducción / Narrativa / Sistema</article>
+            <div class="col-lg-7">
+              <div class="reel-frame">
+                <div class="reel-frame__screen">REEL / SISTEMA / PRESENCIA</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="manifesto-flow" id="manifesto-flow">
-        <div class="manifesto-flow__sticky">
+      <section class="act act--process" id="act-process">
+        <div class="process-sticky">
           <div class="container-fluid px-lg-5">
             <div class="row min-vh-100 align-items-center gy-5">
               <div class="col-lg-5">
-                <p class="eyebrow">Manifiesto</p>
-                <h2 class="section-title">Lo que se ve, se escucha y se siente forma una misma estructura.</h2>
+                <p class="eyebrow">Acto 2 / Revelación</p>
+                <h2 class="section-title">La idea pasa por estados. Pensamiento, búsqueda, producción, post y expansión.</h2>
                 <p class="section-copy">
-                  Cada bloque cambia de estado mientras avanzas. La idea es sentir el sistema como
-                  una red que se reorganiza, no como una página quieta con texto apilado.
+                  No mostramos áreas aisladas. Mostramos un ciclo vivo. Cada fase transforma la
+                  anterior y prepara la siguiente.
                 </p>
               </div>
               <div class="col-lg-7">
-                <div class="system-stage" id="system-stage">
-                  <article class="system-card system-card--one">SISTEMA</article>
-                  <article class="system-card system-card--two">NODOS</article>
-                  <article class="system-card system-card--three">TRANSDUCCIÓN</article>
-                  <article class="system-card system-card--four">PERCEPCIÓN</article>
+                <div class="process-stage" id="process-stage">
+                  <article class="phase-card phase-card--1">PREPRODUCCIÓN</article>
+                  <article class="phase-card phase-card--2">BÚSQUEDA</article>
+                  <article class="phase-card phase-card--3">PRODUCCIÓN</article>
+                  <article class="phase-card phase-card--4">POST</article>
+                  <article class="phase-card phase-card--5">DISTRIBUCIÓN</article>
                 </div>
               </div>
             </div>
@@ -61,52 +64,83 @@
         </div>
       </section>
 
-      <section class="text-ribbon">
-        <div class="text-ribbon__track">
-          <span>LATTICCE</span>
-          <span>IMAGEN</span>
-          <span>SONIDO</span>
-          <span>NARRATIVA</span>
-          <span>LATTICCE</span>
-          <span>IMAGEN</span>
-          <span>SONIDO</span>
-          <span>NARRATIVA</span>
+      <section class="act act--network" id="act-network">
+        <div class="container py-5">
+          <div class="row align-items-center gy-5 min-vh-100">
+            <div class="col-lg-5">
+              <p class="eyebrow">Acto 3 / Materialización</p>
+              <h2 class="section-title">Diseño, cine, foto, sonido y estrategia no son servicios. Son lenguaje conectado.</h2>
+              <p class="section-copy">
+                La red conceptual sustituye a la sección aburrida de servicios. Cada nodo revela una
+                manifestación distinta del sistema LATTICCE.
+              </p>
+            </div>
+            <div class="col-lg-7">
+              <div class="node-cloud" id="node-cloud">
+                <button class="node node--1">Cine</button>
+                <button class="node node--2">Diseño</button>
+                <button class="node node--3">Fotografía</button>
+                <button class="node node--4">Sonido</button>
+                <button class="node node--5">Estrategia</button>
+                <button class="node node--6">Narrativa</button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="structure-grid py-5">
-        <div class="container py-5">
+      <section class="act act--routes" id="act-routes">
+        <div class="routes-marquee">
+          <div class="routes-marquee__track">
+            <span>FOTOGRAFÍA</span>
+            <span>SOUND</span>
+            <span>DESIGN</span>
+            <span>TIME</span>
+            <span>FOTOGRAFÍA</span>
+            <span>SOUND</span>
+            <span>DESIGN</span>
+            <span>TIME</span>
+          </div>
+        </div>
+        <div class="container-fluid px-lg-5 py-5">
           <div class="row g-4">
-            <div class="col-lg-4">
-              <article class="info-panel reveal-panel">
-                <p class="eyebrow">Misión</p>
-                <h3>Del servicio al contenido. Del contenido a la relación. De la relación a la cinematografía.</h3>
-                <p>
-                  Construir un cuerpo de trabajo audiovisual sólido que derive, de manera natural, en
-                  producción cinematográfica y universos narrativos propios.
-                </p>
+            <div class="col-lg-3 col-md-6">
+              <article class="route-card route-card--photo reveal-block">
+                <p class="eyebrow">Ruta / Fotografía</p>
+                <h3>Imagen construida con intención y precisión.</h3>
               </article>
             </div>
-            <div class="col-lg-4">
-              <article class="info-panel reveal-panel reveal-panel--delay">
-                <p class="eyebrow">Visión</p>
-                <h3>Ser una red creativa referencial en LATAM con visión multidisciplinar y estilo autoral.</h3>
-                <p>
-                  Abarcando desde productos visuales hasta experiencias inmersivas bajo un modelo
-                  sustentable, colaborativo y evolutivo.
-                </p>
+            <div class="col-lg-3 col-md-6">
+              <article class="route-card route-card--sound reveal-block reveal-block--delay">
+                <p class="eyebrow">Ruta / Sound</p>
+                <h3>El sonido no se muestra. Se percibe.</h3>
               </article>
             </div>
-            <div class="col-lg-4">
-              <article class="info-panel reveal-panel reveal-panel--delay-2">
-                <p class="eyebrow">Propuesta</p>
-                <h3>Transformar ideas en imágenes con identidad, profundidad y emoción.</h3>
-                <p>
-                  Cada proyecto se construye con intención, sensibilidad y narrativa, como una
-                  experiencia creativa personalizada y coherente en el tiempo.
-                </p>
+            <div class="col-lg-3 col-md-6">
+              <article class="route-card route-card--design reveal-block reveal-block--delay-2">
+                <p class="eyebrow">Ruta / Design</p>
+                <h3>Las formas revelan el pensamiento detrás del sistema.</h3>
               </article>
             </div>
+            <div class="col-lg-3 col-md-6">
+              <article class="route-card route-card--time reveal-block reveal-block--delay-3">
+                <p class="eyebrow">Ruta / Time</p>
+                <h3>Lo humano cambia la atmósfera, pero no rompe la unidad.</h3>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="act act--close" id="act-close">
+        <div class="container">
+          <div class="close-box">
+            <p class="eyebrow">Acto 4 / Invitación</p>
+            <h2 class="section-title">Si entiendes esto, podemos trabajar juntos.</h2>
+            <p class="section-copy">
+              No hacemos contenido por volumen. Construimos sistemas visuales y narrativos para
+              marcas, proyectos y personas que entienden el valor de una identidad viva.
+            </p>
           </div>
         </div>
       </section>
