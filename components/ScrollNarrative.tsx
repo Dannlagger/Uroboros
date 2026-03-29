@@ -2,128 +2,153 @@
 
 import { motion } from 'framer-motion'
 
-const sections = [
+const processSteps = [
   {
-    id: 'black-screen',
-    kicker: 'Acto 1',
-    title: 'Percepción',
-    text: 'Abres la página. No hay nada más que un fondo negro. Silencio visual. Espacio.'
+    label: '01',
+    title: 'Preproducción',
+    text: 'Ideas en gestación. Personas reunidas, observando algo que todavía no existe.'
   },
   {
-    id: 'light-emergence',
-    kicker: 'Acto 1',
-    title: 'Emergencia de luz',
-    text: 'Una luz tenue aparece en el centro y se intensifica poco a poco, como si algo estuviera naciendo.'
+    label: '02',
+    title: 'Búsqueda',
+    text: 'Movimiento, exploración, locaciones y decisiones. El proyecto empieza a tomar forma.'
   },
   {
-    id: 'logo-formation',
-    kicker: 'Acto 1',
-    title: 'Formación',
-    text: 'Mientras haces scroll, la luz revela un logotipo que se construye lentamente frente a ti.'
+    label: '03',
+    title: 'Producción',
+    text: 'Equipo, estructuras, actividad y acción. El momento donde todo sucede.'
   },
   {
-    id: 'logo-disintegration',
-    kicker: 'Acto 1',
-    title: 'Disolución',
-    text: 'El logotipo se deshace y se convierte en miles de partículas. Ahora ellas son el mundo del sitio.'
+    label: '04',
+    title: 'Postproducción',
+    text: 'Pantallas, revisión, ajuste y precisión. La materia se afina.'
   },
   {
-    id: 'reel-integration',
-    kicker: 'Acto 2',
-    title: 'Reel / Sistema / Presencia',
-    text: 'Un reel breve se integra al entorno como una muestra natural del universo visual.'
-  },
-  {
-    id: 'silhouettes',
-    kicker: 'Acto 2',
-    title: 'Ciclo vivo',
-    text: 'Las partículas forman siluetas: preproducción, búsqueda, producción, postproducción y distribución.'
-  },
-  {
-    id: 'service-network',
-    kicker: 'Acto 3',
-    title: 'Red conceptual',
-    text: 'Cine, fotografía, diseño, sonido, ideas, campañas e historias aparecen conectadas como un sistema.'
-  },
-  {
-    id: 'subworlds',
-    kicker: 'Acto 4',
-    title: 'Submundos',
-    text: 'Fotografía, Sound, Design y Time abren identidades propias dentro del mismo universo LATTICCE.'
+    label: '05',
+    title: 'Distribución',
+    text: 'Las ideas salen al mundo y encuentran nuevas pantallas, manos y miradas.'
   }
 ]
 
-const subworlds = [
+const networkWords = [
+  'cine',
+  'fotografía',
+  'diseño',
+  'sound',
+  'estrategia',
+  'ideas',
+  'campañas',
+  'historias'
+]
+
+const worlds = [
   {
-    name: 'Photography',
-    copy: 'Imágenes grandes, limpias, precisas. No es catálogo: es construcción visual.'
+    title: 'Photography',
+    text: 'Imágenes limpias, retratos, sesiones y precisión lumínica.'
   },
   {
-    name: 'Sound',
-    copy: 'No solo se muestra. Se percibe con capas, vibraciones y atmósferas.'
+    title: 'Sound',
+    text: 'Capas, vibraciones, atmósferas y presencia sensorial.'
   },
   {
-    name: 'Design',
-    copy: 'Tipografías, sistemas gráficos y estructuras en movimiento.'
+    title: 'Design',
+    text: 'Sistemas gráficos, tipografías y formas en reorganización constante.'
   },
   {
-    name: 'Time',
-    copy: 'El fondo cambia a blanco. Todo se vuelve humano, cercano y emocional.'
+    title: 'Time',
+    text: 'Un cambio de atmósfera: lo humano, lo cercano y lo irrepetible.'
   }
 ]
 
 export default function ScrollNarrative() {
   return (
-    <div className="narrative-shell">
-      {sections.map((section) => (
-        <section key={section.id} className={`scroll-state ${section.id}`} data-scroll-state={section.id}>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.35 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="state-content"
-          >
-            <span className="state-kicker">{section.kicker}</span>
-            <h2>{section.title}</h2>
-            <p>{section.text}</p>
+    <div className="narrative-shell home-reference-shell">
+      <section className="hero-reference scroll-state">
+        <div className="hero-reference__bgGlow" />
+        <motion.div
+          className="hero-reference__inner"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, ease: 'easeOut' }}
+        >
+          <div className="hero-reference__eyebrow">LATTICCE / SISTEMA VISUAL</div>
+          <h1>LATTICCE</h1>
+          <p>
+            El sistema despierta cuando la luz se convierte en estructura.
+            Una narrativa continua donde las ideas nacen, toman forma y salen al mundo.
+          </p>
+        </motion.div>
+      </section>
 
-            {section.id === 'silhouettes' && (
-              <div className="pipeline-grid">
-                <div>Preproducción</div>
-                <div>Búsqueda</div>
-                <div>Producción</div>
-                <div>Postproducción</div>
-                <div>Distribución</div>
+      <section className="process-section scroll-state">
+        <div className="section-header">
+          <span>Acto 1 / Proceso</span>
+          <h2>Una secuencia vertical, precisa y cinematográfica</h2>
+        </div>
+        <div className="process-timeline">
+          {processSteps.map((step) => (
+            <motion.article
+              key={step.label}
+              className="process-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+              <div className="process-card__index">{step.label}</div>
+              <div className="process-card__body">
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
               </div>
-            )}
+            </motion.article>
+          ))}
+        </div>
+      </section>
 
-            {section.id === 'service-network' && (
-              <div className="network-grid">
-                <span>Cine</span>
-                <span>Fotografía</span>
-                <span>Diseño</span>
-                <span>Sound</span>
-                <span>Estrategia</span>
-                <span>Ideas</span>
-                <span>Campañas</span>
-                <span>Historias</span>
-              </div>
-            )}
+      <section className="network-section scroll-state">
+        <div className="section-header section-header--center">
+          <span>Acto 2 / Conexión</span>
+          <h2>Las disciplinas no aparecen aisladas. Se conectan.</h2>
+        </div>
+        <div className="network-orbit">
+          {networkWords.map((word, index) => (
+            <motion.div
+              key={word}
+              className={`network-node network-node--${index + 1}`}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.05 }}
+            >
+              {word}
+            </motion.div>
+          ))}
+          <div className="network-core">LATTICCE</div>
+        </div>
+      </section>
 
-            {section.id === 'subworlds' && (
-              <div className="subworld-grid">
-                {subworlds.map((item) => (
-                  <article key={item.name} className="subworld-card">
-                    <h3>{item.name}</h3>
-                    <p>{item.copy}</p>
-                  </article>
-                ))}
-              </div>
-            )}
-          </motion.div>
-        </section>
-      ))}
+      <section className="worlds-section scroll-state">
+        <div className="section-header">
+          <span>Acto 3 / Submundos</span>
+          <h2>Cada ruta mantiene el sistema, pero tiene atmósfera propia.</h2>
+        </div>
+        <div className="worlds-grid">
+          {worlds.map((world) => (
+            <motion.article
+              key={world.title}
+              className="world-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.25 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+            >
+              <div className="world-card__visual" />
+              <h3>{world.title}</h3>
+              <p>{world.text}</p>
+            </motion.article>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }
