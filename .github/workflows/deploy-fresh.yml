@@ -40,18 +40,18 @@ jobs:
           echo "SHA: $SHA"
 
           # clone or create gh-pages branch
-          if git ls-remote --heads $REPO gh-pages >/dev/null; then
-            git clone --depth 1 --branch gh-pages $REPO gh-pages
-            cd gh-pages
-            git rm -rf . || true
-          else
+          # try to clone gh-pages; if it fails, create an orphan branch
+          git clone --depth 1 --branch gh-pages $REPO gh-pages || (
+            echo "gh-pages not found; creating orphan branch"
+            rm -rf gh-pages || true
             mkdir gh-pages
             cd gh-pages
             git init
             git remote add origin $REPO
             git checkout --orphan gh-pages
             git rm -rf . || true
-          fi
+          )
+          cd gh-pages || true
 
           # copy build output
           cp -r ../dist/* .
