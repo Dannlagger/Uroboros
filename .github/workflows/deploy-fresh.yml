@@ -1,9 +1,9 @@
-name: Deploy fresh home to GitHub Pages
+name: Deploy main to GitHub Pages
 
 on:
   push:
     branches:
-      - fresh/home
+      - main
 
 jobs:
   build-and-deploy:
@@ -36,11 +36,7 @@ jobs:
           set -e
           REPO="https://github.com/${{ github.repository }}.git"
           SHA="${{ github.sha }}"
-          echo "Repo: $REPO"
-          echo "SHA: $SHA"
 
-          # clone or create gh-pages branch
-          # try to clone gh-pages; if it fails, create an orphan branch
           git clone --depth 1 --branch gh-pages $REPO gh-pages || (
             echo "gh-pages not found; creating orphan branch"
             rm -rf gh-pages || true
@@ -49,14 +45,12 @@ jobs:
             git init
             git remote add origin $REPO
             git checkout --orphan gh-pages
-            git rm -rf . || true
           )
           cd gh-pages || true
 
-          # copy build output
+          rm -rf ./* ./.??* || true
           cp -r ../dist/* . || true
 
-          # configure git identity for the runner
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
 
@@ -64,6 +58,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to deploy"
           else
-            git commit -m "chore(deploy): deploy fresh/home $SHA"
+            git commit -m "chore(deploy): deploy main $SHA"
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:gh-pages --force
           fi
