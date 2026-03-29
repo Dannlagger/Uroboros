@@ -1,0 +1,85 @@
+:root {
+  --bg: #050505;
+  --text: #eaf6ff;
+  --accent: #4ec8ff;
+  --accent-2: #9b7cff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.page-shell {
+  position: relative;
+}
+
+.scene-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.narrative-shell {
+  position: relative;
+  z-index: 2;
+}
+
+.scroll-state {
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  padding: 12vh 8vw;
+}
+
+.state-content {
+  max-width: 720px;
+}
+
+.state-kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(40px, 8vw, 120px);
+  text-transform: uppercase;
+}
+
+.black-screen,
+.light-emergence,
+.logo-formation,
+.logo-disintegration {
+  justify-items: center;
+  text-align: center;
+}
+
+.subworlds {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .subworlds {
+    grid-template-columns: 1fr;
+  }
+}
