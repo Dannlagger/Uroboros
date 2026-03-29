@@ -25,13 +25,40 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v3
+      - name: Prepare deploy (manual gh-pages push)
+        run: |
+          echo 'Preparing manual gh-pages deploy'
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./dist
+      - name: Deploy to gh-pages (manual)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          REPO="https://github.com/${{ github.repository }}.git"
+          SHA="${{ github.sha }}"
+          echo "Repo: $REPO"
+          echo "SHA: $SHA"
 
-      - name: Deploy to Pages
-        uses: actions/deploy-pages@v1
+          # clone or create gh-pages branch
+          if git ls-remote --heads $REPO gh-pages; then
+            git clone --depth 1 --branch gh-pages $REPO gh-pages
+            cd gh-pages
+            git rm -rf . || true
+          else
+            git clone --depth 1 $REPO gh-pages || true
+            mkdir gh-pages
+            cd gh-pages
+            git init
+            git remote add origin $REPO
+            git checkout -b gh-pages
+          fi
+
+          # copy build output
+          cp -r ../dist/* .
+          git add --all
+          if git diff --staged --quiet; then
+            echo "No changes to deploy"
+          else
+            git commit -m "chore(deploy): deploy fresh/home $SHA"
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:gh-pages --force
+          fi
