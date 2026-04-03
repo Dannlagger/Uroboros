@@ -5,44 +5,53 @@ document.querySelector('#app').innerHTML = `
     <header class="topbar">
       <div class="brand">LATTICCE</div>
       <nav class="topnav">
-        <a href="#universo">Universo</a>
+        <a href="#manifesto">Manifiesto</a>
         <a href="#proceso">Proceso</a>
         <a href="#nodos">Nodos</a>
       </nav>
     </header>
 
-    <section class="hero" id="hero">
-      <div class="hero-bg"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-glow"></div>
+    <section class="hero-composed" id="hero">
+      <div class="hero-stage">
+        <div class="light-source"></div>
+        <div class="architectural-grid"></div>
+        <div class="floating-line line-a"></div>
+        <div class="floating-line line-b"></div>
+        <div class="floating-line line-c"></div>
 
-      <div class="hero-content">
-        <p class="eyebrow">SISTEMA CREATIVO AUDIOVISUAL</p>
-        <h1>LATTICCE</h1>
-        <p class="hero-copy">
-          Un lugar donde las ideas nacen en silencio, toman forma entre personas
-          y terminan encontrando a quienes las necesitaban.
-        </p>
-        <a class="hero-cta" href="#universo">Entrar al sistema</a>
+        <div class="hero-centerpiece reveal visible">
+          <div class="orbital-ring ring-outer"></div>
+          <div class="orbital-ring ring-mid"></div>
+          <div class="orbital-ring ring-inner"></div>
+          <div class="core-mark">L</div>
+        </div>
+
+        <div class="hero-copy-block">
+          <p class="eyebrow">SISTEMA CREATIVO INTERDISCIPLINARIO</p>
+          <h1>LATTICCE</h1>
+          <p>
+            Un universo visual donde la imagen, el sonido, la estrategia y la
+            narrativa se conectan en una misma estructura viva.
+          </p>
+          <a href="#manifesto" class="hero-cta">Explorar</a>
+        </div>
       </div>
-
-      <div class="scroll-indicator">Scroll</div>
     </section>
 
     <main>
-      <section class="intro section" id="universo">
-        <div class="section-head">
-          <span class="kicker">Experiencia</span>
-          <h2>Un recorrido que se construye mientras avanzas</h2>
+      <section class="manifesto section" id="manifesto">
+        <div class="section-head narrow">
+          <span class="kicker">Manifiesto</span>
+          <h2>Silencio visual, precisión y profundidad</h2>
         </div>
-        <div class="intro-grid">
+        <div class="manifesto-grid">
           <p>
-            La experiencia comienza en negro. Después emerge una luz tenue,
-            luego una forma, luego un sistema. Nada aparece de golpe.
+            LATTICCE no se presenta desde el exceso. Se revela por claridad,
+            contención y composición. Cada elemento existe porque es necesario.
           </p>
           <p>
-            El sitio no presenta servicios como fichas aisladas: revela un
-            ecosistema visual, sonoro y narrativo conectado.
+            La interfaz toma como base un lenguaje sobrio, geométrico y lumínico:
+            espacios oscuros, estructuras finas, luz controlada y jerarquía nítida.
           </p>
         </div>
       </section>
@@ -50,33 +59,28 @@ document.querySelector('#app').innerHTML = `
       <section class="timeline section" id="proceso">
         <div class="section-head">
           <span class="kicker">Proceso</span>
-          <h2>Del nacimiento de la idea a su encuentro con el mundo</h2>
+          <h2>Una estructura que evoluciona por capas</h2>
         </div>
-        <div class="timeline-list">
+        <div class="timeline-list cinematic">
           <article class="timeline-item reveal">
             <span>01</span>
-            <h3>Gestación</h3>
-            <p>Ideas reuniéndose en silencio. Observación, pensamiento y dirección.</p>
+            <h3>Origen</h3>
+            <p>La idea emerge desde la oscuridad como una fuente de luz contenida.</p>
           </article>
           <article class="timeline-item reveal">
             <span>02</span>
-            <h3>Exploración</h3>
-            <p>Búsqueda, movimiento, territorio y forma inicial del proyecto.</p>
+            <h3>Construcción</h3>
+            <p>La forma se organiza, aparecen relaciones, tensión y dirección.</p>
           </article>
           <article class="timeline-item reveal">
             <span>03</span>
-            <h3>Acción</h3>
-            <p>Producción, estructura, equipo y energía materializándose.</p>
+            <h3>Expansión</h3>
+            <p>El sistema se multiplica en nodos, disciplinas y trayectorias.</p>
           </article>
           <article class="timeline-item reveal">
             <span>04</span>
-            <h3>Refinamiento</h3>
-            <p>Revisión, ajuste, precisión visual y narrativa.</p>
-          </article>
-          <article class="timeline-item reveal">
-            <span>05</span>
             <h3>Proyección</h3>
-            <p>La obra sale al mundo y encuentra pantallas, personas y memoria.</p>
+            <p>La experiencia alcanza a la audiencia y se convierte en memoria.</p>
           </article>
         </div>
       </section>
@@ -84,44 +88,25 @@ document.querySelector('#app').innerHTML = `
       <section class="nodes section" id="nodos">
         <div class="section-head">
           <span class="kicker">Nodos</span>
-          <h2>Áreas autónomas, un mismo sistema</h2>
+          <h2>Especialidades dentro de un mismo campo visual</h2>
         </div>
-        <div class="node-grid">
+        <div class="node-grid refined">
           <article class="node-card reveal">
             <h3>Foto / Video</h3>
-            <p>Imagen construida con intención, atmósfera y calidad cinematográfica.</p>
+            <p>Imagen construida con intención y atmósfera cinematográfica.</p>
           </article>
           <article class="node-card reveal">
-            <h3>Sound</h3>
-            <p>Capas, vibración, inmersión y diseño sonoro como experiencia.</p>
+            <h3>Sonido</h3>
+            <p>Capas sensoriales, vibración y diseño inmersivo.</p>
           </article>
           <article class="node-card reveal">
-            <h3>Design</h3>
-            <p>Sistemas visuales, composición, orden y pensamiento detrás de la forma.</p>
+            <h3>Diseño</h3>
+            <p>Sistemas visuales, composición y orden gráfico.</p>
           </article>
-          <article class="node-card reveal light-card">
+          <article class="node-card reveal">
             <h3>Time</h3>
-            <p>La parte humana del sistema: recuerdos, bodas, eventos y momentos reales.</p>
+            <p>Instantes humanos, memoria emocional y cercanía.</p>
           </article>
-        </div>
-      </section>
-
-      <section class="keywords section">
-        <div class="section-head narrow">
-          <span class="kicker">Conexiones</span>
-          <h2>Cine, diseño, fotografía, estrategia, sonido, historias</h2>
-        </div>
-        <div class="keyword-cloud">
-          <span>cine</span>
-          <span>diseño</span>
-          <span>fotografía</span>
-          <span>estrategia</span>
-          <span>sonido</span>
-          <span>ideas</span>
-          <span>campañas</span>
-          <span>historias</span>
-          <span>experiencia</span>
-          <span>narrativa</span>
         </div>
       </section>
     </main>
@@ -133,17 +118,10 @@ const revealItems = document.querySelectorAll('.reveal')
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible')
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible')
     })
   },
   { threshold: 0.2 }
 )
 
 revealItems.forEach((item) => observer.observe(item))
-
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY
-  document.documentElement.style.setProperty('--scroll', `${scrolled}`)
-})
