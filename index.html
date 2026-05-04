@@ -53,9 +53,9 @@
       margin: 0;
       cursor: crosshair;
       user-select: none;
-      display: inline-flex;
-      align-items: baseline;
-      justify-content: center;
+      display: grid;
+      place-items: center;
+      width: min(92vw, 980px);
       color: #fff;
       font-family: "Arial Black", Arial, Helvetica, sans-serif;
       font-size: clamp(4rem, 16vw, 13rem);
@@ -65,7 +65,15 @@
       text-align: center;
       text-transform: uppercase;
       text-shadow: 0 0 20px rgba(255,255,255,0.40), 0 0 58px rgba(255,255,255,0.22);
+      filter: drop-shadow(0 0 22px rgba(255,255,255,0.40)) drop-shadow(0 0 64px rgba(255,255,255,0.24));
       transition: opacity 220ms ease, filter 220ms ease, transform 220ms ease;
+    }
+
+    h1 img {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
     }
 
     h1 .letter,
@@ -649,7 +657,7 @@
 
   <section class="hero" aria-label="LATTICCE hero">
     <main class="stage">
-      <h1 id="title" tabindex="0" aria-label="LATTICCE"><span class="letter">L</span><span class="letter">A</span><span class="join-group join-tt">TT</span><span class="letter">I</span><span class="join-group join-cc">CC</span><span class="letter">E</span></h1>
+      <h1 id="title" tabindex="0" aria-label="LATTICCE" data-text="LATTICCE"><img src="assets/logo.svg" alt="LATTICCE" /></h1>
     </main>
 
     <div class="hint">hover sobre el título</div>
@@ -793,7 +801,7 @@
       octx.textAlign = 'center';
       octx.textBaseline = 'middle';
       octx.font = `900 ${styles.fontSize} ${styles.fontFamily}`;
-      octx.fillText(title.textContent, width / 2, height / 2);
+      octx.fillText(title.dataset.text || title.getAttribute('aria-label') || 'LATTICCE', width / 2, height / 2);
 
       const data = octx.getImageData(0, 0, width, height).data;
       const gap = Math.max(4, Math.floor(window.innerWidth / 230));
