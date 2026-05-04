@@ -1,31 +1,245 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Prueba exitosa</title>
+  <title>LATTICCE</title>
   <style>
+    :root {
+      color-scheme: dark;
+      --bg: #000;
+      --fg: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
-      height: 100vh;
+      width: 100%;
+      min-height: 100%;
       margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
-      color: #fff;
-      font-family: system-ui, Arial, sans-serif;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+
+    .stage {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: min(92vw, 1100px);
+      height: 42vh;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      font-weight: 700;
+      cursor: crosshair;
+      user-select: none;
+      color: #fff;
+      font-size: clamp(4rem, 16vw, 13rem);
+      font-weight: 900;
+      line-height: 0.86;
+      letter-spacing: clamp(0.08em, 1vw, 0.18em);
       text-align: center;
-      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(255,255,255,0.18), 0 0 48px rgba(255,255,255,0.10);
+      transition: opacity 220ms ease, filter 220ms ease, transform 220ms ease;
+    }
+
+    h1.is-hidden {
+      opacity: 0;
+      filter: blur(14px);
+      transform: scale(0.98);
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hint {
+      position: fixed;
+      left: 50%;
+      bottom: 2rem;
+      z-index: 3;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.45);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: opacity 220ms ease;
+    }
+
+    body.exploded .hint {
+      opacity: 0;
     }
   </style>
 </head>
 <body>
-  <h1>prueba exitosa</h1>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <h1 id="title">LATTICCE</h1>
+  </main>
+
+  <div class="hint">hover sobre el título</div>
+
+  <script>
+    const canvas = document.querySelector('#particles');
+    const ctx = canvas.getContext('2d');
+    const title = document.querySelector('#title');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    let particles = [];
+    let animationFrame = null;
+    let exploded = false;
+
+    function resize() {
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function makeTextParticles() {
+      const rect = title.getBoundingClientRect();
+      const offscreen = document.createElement('canvas');
+      const octx = offscreen.getContext('2d', { willReadFrequently: true });
+      const width = Math.ceil(rect.width + 80);
+      const height = Math.ceil(rect.height + 80);
+      const styles = getComputedStyle(title);
+
+      offscreen.width = width;
+      offscreen.height = height;
+      octx.fillStyle = '#fff';
+      octx.textAlign = 'center';
+      octx.textBaseline = 'middle';
+      octx.font = `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
+      octx.fillText(title.textContent, width / 2, height / 2);
+
+      const data = octx.getImageData(0, 0, width, height).data;
+      const gap = Math.max(4, Math.floor(window.innerWidth / 230));
+      const startX = rect.left - 40;
+      const startY = rect.top - 40;
+      const next = [];
+
+      for (let y = 0; y < height; y += gap) {
+        for (let x = 0; x < width; x += gap) {
+          const alpha = data[(y * width + x) * 4 + 3];
+          if (alpha > 90) {
+            const originX = startX + x;
+            const originY = startY + y;
+            const angle = Math.atan2(originY - window.innerHeight / 2, originX - window.innerWidth / 2);
+            const chaos = (Math.random() - 0.5) * Math.PI * 1.4;
+            const force = 9 + Math.random() * 26;
+            const targetDistance = Math.max(window.innerWidth, window.innerHeight) * (0.55 + Math.random() * 0.75);
+
+            next.push({
+              x: originX,
+              y: originY,
+              ox: originX,
+              oy: originY,
+              tx: window.innerWidth / 2 + Math.cos(angle + chaos) * targetDistance,
+              ty: window.innerHeight / 2 + Math.sin(angle + chaos) * targetDistance,
+              vx: Math.cos(angle + chaos) * force,
+              vy: Math.sin(angle + chaos) * force,
+              size: Math.random() * 2.4 + 0.8,
+              alpha: 0.95,
+              spin: Math.random() * Math.PI,
+              life: 0,
+              maxLife: 190 + Math.random() * 90
+            });
+          }
+        }
+      }
+
+      particles = next;
+    }
+
+    function explode() {
+      if (exploded) return;
+      exploded = true;
+      document.body.classList.add('exploded');
+      title.classList.add('is-hidden');
+      makeTextParticles();
+      animate();
+    }
+
+    function restore() {
+      exploded = false;
+      document.body.classList.remove('exploded');
+      title.classList.remove('is-hidden');
+    }
+
+    function animate() {
+      cancelAnimationFrame(animationFrame);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      particles = particles.filter((p) => {
+        p.life += 1;
+
+        if (exploded) {
+          p.vx += (p.tx - p.x) * 0.003;
+          p.vy += (p.ty - p.y) * 0.003;
+          p.vx *= 0.935;
+          p.vy *= 0.935;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha = Math.max(0.18, 1 - p.life / p.maxLife);
+        } else {
+          p.x += (p.ox - p.x) * 0.16;
+          p.y += (p.oy - p.y) * 0.16;
+          p.alpha *= 0.94;
+        }
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.spin + p.life * 0.08);
+        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+        ctx.shadowColor = 'rgba(255,255,255,0.65)';
+        ctx.shadowBlur = 10;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+
+        return exploded || p.alpha > 0.02;
+      });
+
+      if (particles.length) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      }
+    }
+
+    title.addEventListener('mouseenter', explode);
+    title.addEventListener('focus', explode);
+    title.addEventListener('mouseleave', restore);
+    title.addEventListener('blur', restore);
+    title.addEventListener('touchstart', (event) => {
+      event.preventDefault();
+      explode();
+      window.setTimeout(restore, 1800);
+    }, { passive: false });
+
+    window.addEventListener('resize', () => {
+      resize();
+      if (exploded) makeTextParticles();
+    });
+
+    resize();
+  </script>
 </body>
 </html>
