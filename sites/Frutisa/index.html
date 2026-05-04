@@ -3,131 +3,195 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Frutisa — Ice Cream</title>
+  <title>Frutisa — Sabor que se derrite</title>
   <style>
     :root {
       color-scheme: light;
-      --bg: #ffe8bf;
-      --cream: #fff3dc;
-      --brown: #552b16;
-      --muted: #8d5d3d;
-      --pink: #ff4b8d;
-      --purple: #8346d7;
-      --orange: #ff8b1f;
-      --yellow: #ffd64c;
-      --green: #87d840;
-      --blue: #15b9ed;
-      --shadow: 0 18px 42px rgba(104,54,24,.16);
+      --cream: #fff2df;
+      --cream-2: #ffe7c7;
+      --card: rgba(255, 250, 241, .92);
+      --brown: #4d2a16;
+      --muted: #8a6047;
+      --line: rgba(91, 49, 24, .14);
+      --pink: #ff4d8f;
+      --purple: #8151d9;
+      --orange: #ff8b22;
+      --yellow: #ffd74d;
+      --green: #83d53d;
+      --blue: #17b9ee;
+      --shadow: 0 18px 50px rgba(105, 55, 24, .13);
+      --radius: 26px;
+      --max: 1180px;
     }
 
     * { box-sizing: border-box; }
-    body { margin: 0; background: #242424; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--brown); }
-    a { color: inherit; text-decoration: none; }
-
-    .canvas {
-      position: relative;
-      width: min(100%, 572px);
-      margin: 0 auto;
-      overflow: hidden;
-      min-height: 100vh;
-      background: var(--bg);
-      box-shadow: 0 28px 90px rgba(0,0,0,.45);
+    html { scroll-behavior: smooth; background: var(--cream); }
+    body {
+      margin: 0;
+      color: var(--brown);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 6% 10%, rgba(131,213,61,.24), transparent 18rem),
+        radial-gradient(circle at 92% 16%, rgba(255,77,143,.18), transparent 18rem),
+        radial-gradient(circle at 12% 78%, rgba(23,185,238,.16), transparent 16rem),
+        linear-gradient(180deg, var(--cream), var(--cream-2));
+      overflow-x: hidden;
     }
 
-    .shell { width: calc(100% - 54px); margin: 0 auto; position: relative; z-index: 2; }
+    a { color: inherit; text-decoration: none; }
+    h1,h2,h3,p { margin-top: 0; }
+    .shell { width: min(var(--max), calc(100% - 2rem)); margin: 0 auto; }
 
-    .blob { position: absolute; z-index: 0; pointer-events: none; }
-    .blob.green { width: 132px; height: 160px; top: 8px; left: -58px; background: var(--green); border-radius: 48% 52% 57% 43%; }
-    .blob.pink { width: 760px; height: 178px; top: 310px; left: -95px; background: var(--pink); border-radius: 48% 52% 49% 51%; }
-    .blob.blue { width: 172px; height: 272px; top: 750px; left: -120px; background: var(--blue); border-radius: 44% 56% 50% 50%; }
-    .blob.orange { width: 186px; height: 306px; top: 1230px; right: -130px; background: var(--orange); border-radius: 54% 46% 48% 52%; }
-    .blob.purple { width: 780px; height: 210px; bottom: -72px; left: -65px; background: var(--purple); border-radius: 46% 54% 42% 58%; }
+    .blob { position: fixed; z-index: -1; pointer-events: none; filter: blur(.2px); }
+    .blob.green { width: 190px; height: 230px; left: -90px; top: 70px; background: var(--green); border-radius: 48% 52% 57% 43%; }
+    .blob.pink { width: 70vw; height: 160px; left: -12vw; top: 470px; background: var(--pink); border-radius: 48% 52% 55% 45%; opacity: .82; }
+    .blob.blue { width: 210px; height: 330px; left: -150px; top: 980px; background: var(--blue); border-radius: 44% 56% 50% 50%; opacity: .85; }
+    .blob.orange { width: 240px; height: 350px; right: -170px; top: 1460px; background: var(--orange); border-radius: 54% 46% 48% 52%; opacity: .9; }
+    .blob.purple { width: 75vw; height: 170px; right: -14vw; bottom: 80px; background: var(--purple); border-radius: 46% 54% 42% 58%; opacity: .85; }
 
-    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 0 8px; font-size: 8px; font-weight: 900; }
-    .logo { display: flex; align-items: center; gap: 7px; font-size: 20px; font-weight: 1000; letter-spacing: -1.7px; }
-    .logo-dot { width: 28px; height: 28px; border-radius: 50%; background: radial-gradient(circle at 35% 25%, #f7ffb0, var(--green)); box-shadow: inset -6px -7px 12px rgba(0,0,0,.12); }
-    .g{color:var(--green)} .pu{color:var(--purple)} .pi{color:var(--pink)} .o{color:var(--orange)} .y{color:var(--yellow)}
-    nav { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
-    nav a:last-child { padding: 8px 12px; border-radius: 999px; background: var(--purple); color: #fff; }
+    .topbar {
+      position: sticky;
+      top: 1rem;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding: .65rem .75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 247, 234, .84);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
 
-    .hero { display: grid; grid-template-columns: .92fr 1.08fr; align-items: center; min-height: 355px; padding: 20px 0 44px; }
-    .kicker { margin: 0 0 6px; color: var(--pink); font-size: 15px; font-weight: 1000; }
-    h1 { margin: 0; font-size: 57px; line-height: .74; letter-spacing: -5px; font-weight: 1000; }
-    .ice { margin: 8px 0 0; font-size: 25px; line-height: .9; letter-spacing: -1.6px; font-weight: 1000; }
-    .lead { max-width: 210px; margin: 12px 0 0; color: var(--muted); font-size: 10px; line-height: 1.45; font-weight: 700; }
-    .btn-row { display: flex; gap: 8px; margin-top: 14px; }
-    .btn { display: inline-flex; justify-content: center; align-items: center; border-radius: 999px; padding: 9px 12px; color: #fff; font-size: 9px; font-weight: 1000; box-shadow: 0 10px 20px rgba(91,44,23,.14); }
+    .brand { display: flex; align-items: center; gap: .65rem; font-size: 1.45rem; font-weight: 1000; letter-spacing: -.08em; }
+    .brand-mark { width: 2rem; height: 2rem; border-radius: 50%; background: radial-gradient(circle at 34% 24%, #f8ffb2, var(--green)); box-shadow: inset -7px -8px 12px rgba(0,0,0,.12); }
+    .c1{color:var(--green)} .c2{color:var(--purple)} .c3{color:var(--pink)} .c4{color:var(--orange)} .c5{color:var(--yellow)}
+    .nav { display: flex; align-items: center; gap: .25rem; font-size: .82rem; font-weight: 850; }
+    .nav a { padding: .55rem .72rem; border-radius: 999px; color: var(--muted); }
+    .nav a:hover { background: #fff; color: var(--brown); }
+    .nav .cta { background: var(--purple); color: #fff; box-shadow: 0 12px 26px rgba(129,81,217,.24); }
+
+    section { position: relative; padding: clamp(4rem, 8vw, 7rem) 0; }
+    .hero { min-height: calc(100vh - 5rem); display: grid; align-items: center; padding-top: 4.5rem; }
+    .hero-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+    .eyebrow { margin: 0 0 .75rem; color: var(--pink); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 950; }
+    h1 { margin: 0; font-size: clamp(4.8rem, 13vw, 10rem); line-height: .75; letter-spacing: -.1em; text-transform: uppercase; font-weight: 1000; }
+    .hero-sub { margin: .8rem 0 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: .9; letter-spacing: -.06em; font-weight: 1000; }
+    .lead { max-width: 460px; margin: 1.1rem 0 0; color: var(--muted); line-height: 1.65; font-weight: 650; }
+    .actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.4rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: .9rem 1.15rem; color: #fff; font-weight: 950; box-shadow: 0 12px 28px rgba(91,44,23,.14); cursor: pointer; }
     .btn.purple { background: var(--purple); } .btn.pink { background: var(--pink); } .btn.orange { background: var(--orange); }
 
-    .hero-art { position: relative; height: 310px; }
-    .cup { position: absolute; right: 18px; bottom: 28px; width: 178px; height: 100px; border-radius: 26px 26px 42px 42px; background: linear-gradient(135deg, #c36a1f, #f2a241); box-shadow: inset -12px -16px 28px rgba(90,38,8,.22), 0 18px 36px rgba(91,44,23,.2); }
-    .cup::before { content:""; position:absolute; inset:13px; border-radius:18px; background-image:linear-gradient(35deg, rgba(91,44,23,.18) 1px, transparent 1px),linear-gradient(-35deg, rgba(91,44,23,.18) 1px, transparent 1px); background-size:20px 20px; }
-    .ball { position:absolute; border-radius:50%; box-shadow:inset -14px -16px 28px rgba(91,44,23,.18),0 14px 28px rgba(91,44,23,.14); }
-    .ball.a { width:110px; height:110px; right:116px; bottom:118px; background:radial-gradient(circle at 35% 28%,#ffd9ff,#8746d7 58%,#5b25a0); }
-    .ball.b { width:118px; height:118px; right:14px; bottom:105px; background:radial-gradient(circle at 35% 28%,#fff1a0,#ff8b1f 58%,#df6816); }
-    .ball.c { width:86px; height:86px; right:84px; bottom:190px; background:radial-gradient(circle at 35% 28%,#ffd9ea,#ff4b8d 58%,#d82c68); }
-    .spr { position:absolute; width:8px; height:21px; border-radius:999px; background:var(--pink); transform:rotate(-25deg); }
-    .spr.s1{right:35px;top:50px}.spr.s2{right:224px;top:100px;background:var(--purple)}.spr.s3{right:142px;top:20px;background:var(--orange)}.spr.s4{right:10px;top:143px;background:var(--green)}
-    .box { position:absolute; right:12px; top:32px; width:78px; height:72px; border-radius:8px; background:#fff6e8; border:3px solid #f5c268; transform:rotate(8deg); box-shadow:0 12px 22px rgba(91,44,23,.13); }
-    .box::before { content:"FRUTISA"; position:absolute; left:8px; top:9px; font-size:12px; font-weight:1000; color:var(--pink); letter-spacing:-1px; }
+    .hero-art { position: relative; min-height: 500px; }
+    .pack { position: absolute; right: 8%; top: 4%; width: 118px; height: 108px; border: 4px solid #f5c268; border-radius: 14px; background: #fff6e8; transform: rotate(8deg); box-shadow: var(--shadow); }
+    .pack::before { content: "FRUTISA"; position: absolute; left: 12px; top: 13px; color: var(--pink); font-size: 1.1rem; font-weight: 1000; letter-spacing: -.08em; }
+    .sprinkle { position: absolute; width: 10px; height: 28px; border-radius: 999px; background: var(--pink); transform: rotate(-24deg); }
+    .s1{right:5%;top:28%}.s2{right:70%;top:26%;background:var(--purple)}.s3{right:42%;top:2%;background:var(--orange)}.s4{right:2%;top:46%;background:var(--green)}
+    .cup { position: absolute; right: 12%; bottom: 9%; width: 290px; height: 160px; border-radius: 40px 40px 62px 62px; background: linear-gradient(135deg, #c46b20, #f2a241); box-shadow: inset -20px -24px 36px rgba(89,38,8,.2), var(--shadow); }
+    .cup::before { content: ""; position: absolute; inset: 20px; border-radius: 24px; background-image: linear-gradient(35deg, rgba(91,44,23,.18) 1px, transparent 1px), linear-gradient(-35deg, rgba(91,44,23,.18) 1px, transparent 1px); background-size: 34px 34px; }
+    .ball { position: absolute; border-radius: 50%; box-shadow: inset -22px -24px 40px rgba(91,44,23,.18), var(--shadow); }
+    .ball.a { width: 174px; height: 174px; right: 33%; bottom: 34%; background: radial-gradient(circle at 35% 28%, #ffd9ff, #8746d7 58%, #5b25a0); }
+    .ball.b { width: 188px; height: 188px; right: 7%; bottom: 31%; background: radial-gradient(circle at 35% 28%, #fff1a0, #ff8b1f 58%, #df6816); }
+    .ball.c { width: 136px; height: 136px; right: 24%; bottom: 52%; background: radial-gradient(circle at 35% 28%, #ffd9ea, #ff4b8d 58%, #d82c68); }
 
-    section { position: relative; z-index: 2; padding: 36px 0; }
-    .title { margin:0 0 7px; text-align:center; font-size:24px; line-height:.96; letter-spacing:-1.5px; font-weight:1000; }
-    .copy { max-width:330px; margin:0 auto 22px; text-align:center; color:var(--muted); font-size:10px; line-height:1.45; font-weight:700; }
+    .section-head { display: grid; gap: .75rem; justify-items: center; text-align: center; margin-bottom: 2rem; }
+    h2 { margin: 0; font-size: clamp(2.3rem, 6vw, 5rem); line-height: .9; letter-spacing: -.075em; font-weight: 1000; }
+    .section-copy { max-width: 680px; margin: 0; color: var(--muted); line-height: 1.65; font-weight: 650; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 
-    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-    .card { min-height:188px; padding:20px 13px 16px; border-radius:22px; background:rgba(255,249,237,.94); border:1px solid rgba(255,255,255,.75); box-shadow:var(--shadow); text-align:center; }
-    .icon { width:66px; height:66px; margin:0 auto 12px; display:grid; place-items:center; border-radius:50%; color:#fff; font-size:27px; box-shadow:inset -8px -9px 18px rgba(91,44,23,.16); }
-    .card h3 { margin:0 0 6px; font-size:13px; line-height:1.05; }
-    .card p { margin:0 0 13px; color:var(--muted); font-size:8px; line-height:1.35; font-weight:700; }
+    .card { position: relative; overflow: hidden; min-height: 260px; padding: 1.5rem; border: 1px solid rgba(255,255,255,.8); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 .6rem; font-size: 1.25rem; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.55; font-weight: 650; }
+    .num { width: 2rem; height: 2rem; display: grid; place-items: center; margin-bottom: 1rem; border-radius: 50%; color: #fff; background: var(--pink); font-size: .85rem; font-weight: 1000; }
+    .icon { width: 5rem; height: 5rem; display: grid; place-items: center; margin: 0 auto 1rem; border-radius: 50%; color: #fff; font-size: 2rem; box-shadow: inset -10px -12px 20px rgba(91,44,23,.15); }
+    .center { text-align: center; }
 
-    .feature { display:grid; grid-template-columns:.9fr 1.05fr; gap:24px; align-items:center; }
-    .mascot { position:relative; min-height:250px; }
-    .cone { position:absolute; left:50%; top:55%; transform:translate(-50%,-50%); width:126px; height:160px; border-radius:42% 42% 48% 48%; background:linear-gradient(135deg,#f4a33b,#d88020); box-shadow:inset -11px -14px 24px rgba(91,44,23,.18),0 20px 34px rgba(91,44,23,.12); }
-    .cone::before { content:""; position:absolute; left:24px; top:52px; width:16px; height:16px; border-radius:50%; background:#3d2112; box-shadow:62px 0 0 #3d2112; }
-    .cone::after { content:""; position:absolute; left:43px; top:86px; width:45px; height:24px; border-radius:0 0 999px 999px; border-bottom:8px solid #3d2112; }
-    .donut { position:absolute; left:50%; top:16%; transform:translateX(-50%); width:148px; height:88px; border-radius:50%; background:radial-gradient(circle at center,transparent 0 28%,#ff77aa 29% 60%,#df6f25 61%); box-shadow:inset -12px -13px 22px rgba(91,44,23,.12); }
-    .feature .title { text-align:left; }
-    .feature p { color:var(--muted); font-size:10px; line-height:1.55; font-weight:700; }
-    .perks { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin-top:14px; }
-    .perk { padding:11px 6px; border-radius:17px; background:rgba(255,249,237,.94); text-align:center; box-shadow:var(--shadow); font-size:8px; font-weight:900; }
-    .perk strong { display:block; color:var(--pink); font-size:17px; }
+    .flavor-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1rem; text-align: center; }
+    .flavor-dot { width: 64px; height: 64px; margin: 0 auto .55rem; border-radius: 50%; box-shadow: inset -8px -10px 16px rgba(91,44,23,.15), 0 10px 20px rgba(91,44,23,.1); }
+    .flavor span { font-size: .82rem; font-weight: 950; }
 
-    .flavors { display:grid; grid-template-columns:repeat(7,1fr); gap:13px; text-align:center; }
-    .dot { width:48px; height:48px; margin:0 auto 7px; border-radius:50%; box-shadow:inset -7px -8px 14px rgba(91,44,23,.15),0 9px 17px rgba(91,44,23,.10); }
-    .flavor span { display:block; font-size:8px; line-height:1.05; font-weight:900; }
+    .experience { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2rem; align-items: center; }
+    .mascot { position: relative; min-height: 360px; }
+    .donut { position: absolute; left: 50%; top: 10%; transform: translateX(-50%); width: 230px; height: 138px; border-radius: 50%; background: radial-gradient(circle at center, transparent 0 28%, #ff77aa 29% 60%, #df6f25 61%); box-shadow: inset -16px -18px 28px rgba(91,44,23,.12); }
+    .cone { position: absolute; left: 50%; top: 55%; transform: translate(-50%, -50%); width: 190px; height: 245px; border-radius: 42% 42% 48% 48%; background: linear-gradient(135deg, #f4a33b, #d88020); box-shadow: inset -15px -20px 30px rgba(91,44,23,.18), var(--shadow); }
+    .cone::before { content: ""; position: absolute; left: 36px; top: 78px; width: 24px; height: 24px; border-radius: 50%; background: #3d2112; box-shadow: 92px 0 0 #3d2112; }
+    .cone::after { content: ""; position: absolute; left: 63px; top: 132px; width: 68px; height: 32px; border-radius: 0 0 999px 999px; border-bottom: 10px solid #3d2112; }
+    .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: 1.25rem; }
+    .perk { padding: 1rem; border-radius: 20px; background: var(--card); box-shadow: var(--shadow); text-align: center; font-weight: 850; }
+    .perk strong { display: block; color: var(--pink); font-size: 1.7rem; }
 
-    .reviews { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-    .review { padding:16px; border-radius:18px; background:rgba(255,249,237,.95); box-shadow:var(--shadow); }
-    .stars { color:var(--orange); font-size:12px; letter-spacing:.08em; margin-bottom:8px; }
-    .review p { color:var(--muted); font-size:8px; line-height:1.45; font-weight:700; }
-    .person { display:flex; align-items:center; gap:8px; margin-top:10px; font-size:8px; font-weight:1000; }
-    .avatar { width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,var(--pink),var(--orange)); }
+    .area-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+    .stack { display: grid; gap: 1rem; }
+    .mini { min-height: 190px; display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; }
+    .maintain { display: grid; grid-template-columns: 1fr; gap: .8rem; }
+    .maintain-item { display: grid; grid-template-columns: auto 1fr 84px; gap: .9rem; align-items: center; padding: .95rem; border-radius: 20px; background: var(--card); box-shadow: var(--shadow); }
+    .maintain-item p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.4; }
+    .thumb { height: 74px; border-radius: 16px; background: radial-gradient(circle at 35% 30%, #fff, var(--orange)); }
 
-    .contact { padding-bottom:58px; }
-    .panel { display:grid; grid-template-columns:.88fr 1.12fr; gap:18px; padding:22px; border-radius:24px; background:var(--purple); color:#fff; box-shadow:0 22px 54px rgba(91,44,23,.18); }
-    .panel .title { text-align:left; color:#fff; }
-    .panel p { color:rgba(255,255,255,.78); font-size:9px; line-height:1.5; font-weight:700; }
-    form { display:grid; gap:9px; }
-    input, textarea { width:100%; border:0; border-radius:12px; background:#fff7ea; color:var(--brown); padding:11px 12px; font-size:9px; outline:none; }
-    textarea { min-height:82px; resize:vertical; }
-    footer { position:relative; z-index:2; padding:10px 0 34px; color:var(--muted); text-align:center; font-size:9px; font-weight:800; }
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .stars { color: var(--orange); letter-spacing: .08em; margin-bottom: .6rem; }
+    .person { display: flex; align-items: center; gap: .7rem; margin-top: 1rem; font-weight: 950; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--pink), var(--orange)); }
 
-    @media(max-width:620px){body{padding:0}.canvas{width:100%}.shell{width:calc(100% - 36px)}nav{display:none}.hero,.feature,.panel{grid-template-columns:1fr}.hero-art{height:300px}.cards,.reviews{grid-template-columns:1fr}.flavors{grid-template-columns:repeat(3,1fr)}}
+    .contact-panel { display: grid; grid-template-columns: .9fr 1.1fr; gap: 1rem; padding: 2rem; border-radius: 30px; background: var(--purple); color: #fff; box-shadow: var(--shadow); }
+    .contact-panel p { color: rgba(255,255,255,.8); line-height: 1.55; }
+    form { display: grid; gap: .85rem; }
+    input, textarea, select { width: 100%; border: 0; border-radius: 16px; background: #fff7ea; color: var(--brown); padding: .95rem 1rem; font: inherit; outline: none; }
+    textarea { min-height: 120px; resize: vertical; }
+
+    .flow { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; padding: 1rem; border-radius: 24px; background: rgba(255,250,241,.75); box-shadow: var(--shadow); }
+    .pill { padding: .65rem .9rem; border-radius: 999px; background: #fff; color: var(--muted); font-size: .85rem; font-weight: 850; }
+    footer { padding: 3rem 0; color: var(--muted); text-align: center; font-weight: 800; }
+
+    @media (max-width: 900px) {
+      .nav { display: none; }
+      .hero-grid, .experience, .area-layout, .grid-2, .contact-panel { grid-template-columns: 1fr; }
+      .grid-3, .reviews { grid-template-columns: 1fr; }
+      .flavor-row { grid-template-columns: repeat(3, 1fr); }
+      .maintain-item { grid-template-columns: 1fr; }
+      .hero-art { min-height: 390px; }
+    }
   </style>
 </head>
 <body>
-  <div class="canvas">
-    <div class="blob green"></div><div class="blob pink"></div><div class="blob blue"></div><div class="blob orange"></div><div class="blob purple"></div>
-    <header class="shell"><a class="logo" href="#"><span class="logo-dot"></span><span class="g">F</span><span class="pu">R</span><span class="pi">U</span><span class="o">T</span><span class="y">I</span><span class="g">S</span><span class="pi">A</span></a><nav><a>Inicio</a><a>Sabores</a><a>Galería</a><a>Reseñas</a><a>Contacto</a><a>Pide ahora</a></nav></header>
-    <main>
-      <section class="hero shell"><div><p class="kicker">ice cream</p><h1><span class="g">F</span><span class="pu">R</span><span class="pi">U</span><span class="o">T</span><span class="y">I</span><span class="g">S</span><span class="pi">A</span></h1><p class="ice">ice cream</p><p class="lead"><strong>Sabor que se derrite, momentos que se quedan.</strong><br>Helados artesanales de fruta real, cremosos, coloridos y hechos para disfrutarse sin prisa.</p><div class="btn-row"><a class="btn purple">Ver sabores</a><a class="btn pink">Haz pedido</a></div></div><div class="hero-art"><div class="box"></div><div class="spr s1"></div><div class="spr s2"></div><div class="spr s3"></div><div class="spr s4"></div><div class="ball a"></div><div class="ball c"></div><div class="ball b"></div><div class="cup"></div></div></section>
-      <section><div class="shell"><h2 class="title">¿Cómo quieres disfrutar <span class="g">F</span><span class="pu">R</span><span class="pi">U</span><span class="o">T</span><span class="y">I</span><span class="g">S</span><span class="pi">A</span>?</h2><p class="copy">Elige tu formato favorito y descubre una experiencia dulce, fresca y llena de color.</p><div class="cards"><article class="card"><div class="icon" style="background:var(--pink)">🍧</div><h3>Paletas preparadas</h3><p>Fruta, chamoy, toppings y combinaciones listas para antojos intensos.</p><a class="btn purple">Pruébalas</a></article><article class="card"><div class="icon" style="background:var(--purple)">🍦</div><h3>Helado premium</h3><p>Cremoso, artesanal y servido con sabores únicos de temporada.</p><a class="btn purple">Ver sabores</a></article><article class="card"><div class="icon" style="background:var(--orange)">🎁</div><h3>Servicio a eventos</h3><p>Experiencias frutales para fiestas, marcas y celebraciones especiales.</p><a class="btn orange">Cotizar</a></article></div></div></section>
-      <section><div class="shell feature"><div class="mascot"><div class="donut"></div><div class="cone"></div></div><div><h2 class="title">Más que helados, creamos experiencias.</h2><p>Frutisa combina sabores de infancia, presentación divertida y una estética pensada para compartir. Cada producto está diseñado para antojarse en persona y en redes.</p><div class="perks"><div class="perk"><strong>100%</strong>fruta</div><div class="perk"><strong>+20</strong>sabores</div><div class="perk"><strong>★</strong>eventos</div></div></div></div></section>
-      <section><div class="shell"><h2 class="title">Sabores que te van a conquistar</h2><p class="copy">Una paleta visual de sabores frutales y cremosos para todos los gustos.</p><div class="flavors"><div class="flavor"><div class="dot" style="background:#8b42d8"></div><span>Uva morada</span></div><div class="flavor"><div class="dot" style="background:#8fd63e"></div><span>Limón verde</span></div><div class="flavor"><div class="dot" style="background:#ff8b1f"></div><span>Naranja</span></div><div class="flavor"><div class="dot" style="background:#ff4f8b"></div><span>Fresa</span></div><div class="flavor"><div class="dot" style="background:#5b2f18"></div><span>Chocolate</span></div><div class="flavor"><div class="dot" style="background:#17b8ef"></div><span>Blue ice</span></div><div class="flavor"><div class="dot" style="background:#ffd34e"></div><span>Vainilla</span></div></div><div style="text-align:center;margin-top:22px"><a class="btn purple">Ver todos los sabores</a></div></div></section>
-      <section><div class="shell"><h2 class="title">Lo que dicen de <span class="g">F</span><span class="pu">R</span><span class="pi">U</span><span class="o">T</span><span class="y">I</span><span class="g">S</span><span class="pi">A</span></h2><div class="reviews"><article class="review"><div class="stars">★★★★★</div><p>“Los sabores son increíbles y se ven perfectos para fotos. Mi favorito fue mango con chamoy.”</p><div class="person"><span class="avatar"></span>María G.</div></article><article class="review"><div class="stars">★★★★★</div><p>“Pedimos Frutisa para un evento y todos quedaron encantados con la presentación.”</p><div class="person"><span class="avatar"></span>Carlos R.</div></article><article class="review"><div class="stars">★★★★★</div><p>“Cremosos, frescos y nada aburridos. La marca se siente alegre desde el primer vistazo.”</p><div class="person"><span class="avatar"></span>Ana M.</div></article></div></div></section>
-      <section class="contact"><div class="shell panel"><div><h2 class="title">¿Listo para llevar Frutisa a tu próximo momento?</h2><p>Haz tu pedido, cotiza un evento o pregunta por sabores de temporada. Este formulario es visual para pruebas.</p><p><strong>Horario:</strong> Lun–Dom · 11:00–20:00</p><p><strong>Contacto:</strong> hola@frutisa.mx</p></div><form><input placeholder="Nombre"><input placeholder="Correo electrónico"><input placeholder="¿Qué quieres pedir?"><textarea placeholder="Cuéntanos para cuántas personas o qué sabor buscas"></textarea><button class="btn pink" type="button">Enviar mensaje</button></form></div></section>
-    </main><footer class="shell">Frutisa Ice Cream · Diseño web de prueba</footer>
-  </div>
+  <div class="blob green"></div><div class="blob pink"></div><div class="blob blue"></div><div class="blob orange"></div><div class="blob purple"></div>
+
+  <header class="topbar shell">
+    <a class="brand" href="#home"><span class="brand-mark"></span><span class="c1">F</span><span class="c2">R</span><span class="c3">U</span><span class="c4">T</span><span class="c5">I</span><span class="c1">S</span><span class="c3">A</span></a>
+    <nav class="nav"><a href="#home">Home</a><a href="#nosotros">Nosotros</a><a href="#sabores">Sabores</a><a href="#servicios">Servicios</a><a href="#contacto" class="cta">Contacto</a></nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="shell hero-grid">
+        <div><p class="eyebrow">Sabor que se derrite, momentos que se quedan</p><h1><span class="c1">F</span><span class="c2">R</span><span class="c3">U</span><span class="c4">T</span><span class="c5">I</span><span class="c1">S</span><span class="c3">A</span></h1><p class="hero-sub">Ice Cream</p><p class="lead"><strong>Hero / Intro.</strong> Impacto visual con nuestro mundo Frutisa. Frase clave, CTA y acceso directo a sabores, servicios y contacto.</p><div class="actions"><a class="btn purple" href="#sabores">Ver sabores</a><a class="btn pink" href="#contacto">Pide ahora</a></div></div>
+        <div class="hero-art"><div class="pack"></div><div class="sprinkle s1"></div><div class="sprinkle s2"></div><div class="sprinkle s3"></div><div class="sprinkle s4"></div><div class="ball a"></div><div class="ball c"></div><div class="ball b"></div><div class="cup"></div></div>
+      </div>
+    </section>
+
+    <section id="nosotros"><div class="shell grid-2"><article class="card"><div class="num">1</div><h2>¿Qué es Frutisa?</h2><p>Presentamos nuestra esencia, propuesta de valor y lo que nos hace únicos: helados artesanales con fruta real, ingredientes naturales y mucho amor.</p><div class="actions"><span class="pill">Ingredientes naturales</span><span class="pill">Fruta real en cada sabor</span><span class="pill">Hecho con amor</span></div></article><article class="card center"><div class="icon" style="background:var(--pink)">🍦</div><h3>Fruta + helado + experiencia</h3><p>Una marca dulce, llamativa y memorable para niños, familias, eventos y amantes del postre.</p></article></div></section>
+
+    <section id="sabores"><div class="shell"><div class="section-head"><p class="eyebrow">Sabores</p><h2>Sabores que te van a conquistar</h2><p class="section-copy">Exploración de nuestros sabores estrella, desde clásicos cremosos hasta combinaciones frutales.</p></div><div class="flavor-row"><div class="flavor"><div class="flavor-dot" style="background:#8b42d8"></div><span>Uva Silvestre</span></div><div class="flavor"><div class="flavor-dot" style="background:#8fd63e"></div><span>Limón Fresco</span></div><div class="flavor"><div class="flavor-dot" style="background:#ff8b1f"></div><span>Mango</span></div><div class="flavor"><div class="flavor-dot" style="background:#ff4f8b"></div><span>Fresa</span></div><div class="flavor"><div class="flavor-dot" style="background:#5b2f18"></div><span>Chocolate</span></div><div class="flavor"><div class="flavor-dot" style="background:#17b8ef"></div><span>Coco Tropical</span></div><div class="flavor"><div class="flavor-dot" style="background:#ffd34e"></div><span>Vainilla Madagascar</span></div></div><div style="text-align:center;margin-top:2rem"><a class="btn pink">Ver todos los sabores</a></div></div></section>
+
+    <section id="servicios"><div class="shell"><div class="section-head"><p class="eyebrow">Nuestros servicios</p><h2>3 formas de disfrutar Frutisa</h2></div><div class="grid-3"><article class="card center"><div class="icon" style="background:var(--pink)">🍨</div><h3>Pedidos pequeños</h3><p>Para antojos, reuniones o ese gusto que no puede esperar.</p><a class="btn pink">Pide ahora</a></article><article class="card center"><div class="icon" style="background:var(--purple)">🎉</div><h3>Eventos privados</h3><p>Llevamos el sabor y la diversión a tus momentos especiales.</p><a class="btn purple">Cotiza tu evento</a></article><article class="card center"><div class="icon" style="background:var(--orange)">📦</div><h3>Ventas al mayoreo</h3><p>Para negocios que buscan calidad, sabor y buen trato.</p><a class="btn orange">Quiero ser distribuidor</a></article></div></div></section>
+
+    <section id="experiencia"><div class="shell experience"><div class="mascot"><div class="donut"></div><div class="cone"></div></div><div><p class="eyebrow">Experiencia Frutisa</p><h2>Más que helados, creamos experiencias inolvidables.</h2><p>Nuestro universo visual convierte cada visita, pedido o evento en una experiencia alegre, colorida y compartible.</p><div class="perks"><div class="perk"><strong>🍃</strong>Fruta real e ingredientes naturales</div><div class="perk"><strong>💗</strong>Recetas únicas con mucho amor</div><div class="perk"><strong>🍦</strong>Texturas cremosas y sabores inolvidables</div></div></div></div></section>
+
+    <section id="areas"><div class="shell"><div class="section-head"><p class="eyebrow">Áreas</p><h2>5 áreas principales</h2><p class="section-copy">La navegación del sitio se organiza en secciones claras para que el usuario encuentre rápido la información importante.</p></div><div class="area-layout"><div class="stack"><article class="card mini"><div class="num">1</div><div><h3>Nosotros</h3><p>Nuestra historia, misión, visión y lo que nos mueve.</p></div></article><article class="card mini"><div class="num">2</div><div><h3>Sabores</h3><p>Catálogo completo con descripciones, ingredientes e imágenes.</p></div></article><article class="card mini"><div class="num">3</div><div><h3>Servicios</h3><p>Pedidos, eventos, beneficios, procesos y preguntas frecuentes.</p></div></article></div><div class="stack"><article class="card mini"><div class="num">4</div><div><h3>Galería</h3><p>Fotos y videos de nuestros productos, eventos y momentos Frutisa.</p></div></article><article class="card mini"><div class="num">5</div><div><h3>Contacto</h3><p>Formularios, datos de contacto, mapa y redes sociales.</p></div></article></div></div></div></section>
+
+    <section id="contenido"><div class="shell"><div class="section-head"><p class="eyebrow">Contenido para mantener al usuario</p><h2>Más razones para quedarse</h2></div><div class="maintain"><article class="maintain-item"><div class="num">B</div><div><h3>Blog / Consejos</h3><p>Artículos sobre helados, fruta real, recetas, tips y más.</p></div><div class="thumb"></div></article><article class="maintain-item"><div class="num">C</div><div><h3>Casos de éxito</h3><p>Historias reales de eventos y negocios que confían en Frutisa.</p></div><div class="thumb" style="background:radial-gradient(circle at 35% 30%,#fff,var(--green))"></div></article><article class="maintain-item"><div class="num">R</div><div><h3>Reels / Highlights</h3><p>Videos cortos, detrás de cámaras y momentos deliciosos.</p></div><div class="thumb" style="background:radial-gradient(circle at 35% 30%,#fff,var(--pink))"></div></article><article class="maintain-item"><div class="num">N</div><div><h3>Noticias / Prensa</h3><p>Novedades, lanzamientos y apariciones en medios.</p></div><div class="thumb" style="background:radial-gradient(circle at 35% 30%,#fff,var(--orange))"></div></article><article class="maintain-item"><div class="num">♡</div><div><h3>Valores</h3><p>Lo que creemos y cómo lo vivimos en cada helado.</p></div><div class="thumb" style="background:radial-gradient(circle at 35% 30%,#fff,var(--purple))"></div></article></div></div></section>
+
+    <section id="testimonios"><div class="shell"><div class="section-head"><p class="eyebrow">Testimonios</p><h2>Lo que dicen de Frutisa</h2></div><div class="reviews"><article class="card"><div class="stars">★★★★★</div><p>“Nos encantaron. Frutisa lleva alegría a nuestros eventos.”</p><div class="person"><span class="avatar"></span>Ana L.</div></article><article class="card"><div class="stars">★★★★★</div><p>“Helados con fruta real, presentación bonita y servicio excelente.”</p><div class="person"><span class="avatar"></span>Cliente frecuente</div></article><article class="card"><div class="stars">★★★★★</div><p>“Una marca perfecta para vender en nuestro negocio.”</p><div class="person"><span class="avatar"></span>Distribuidor</div></article></div></div></section>
+
+    <section id="contacto"><div class="shell contact-panel"><div><p class="eyebrow" style="color:#ffd9ea">Contacto</p><h2>¿Listo para llevar Frutisa a tu próximo momento?</h2><p>Cuéntanos qué necesitas y te ayudamos a hacerlo delicioso.</p><p><strong>Instagram:</strong> @frutisa_cream<br><strong>Mail:</strong> hola@frutisa.com</p></div><form><input placeholder="Nombre completo"><input placeholder="Teléfono"><select><option>¿Qué necesitas?</option><option>Pedido pequeño</option><option>Evento privado</option><option>Venta al mayoreo</option></select><textarea placeholder="Cuéntanos más sobre tu pedido"></textarea><button class="btn pink" type="button">Enviar mensaje</button></form></div></section>
+
+    <section id="flujo"><div class="shell"><div class="section-head"><p class="eyebrow">Resumen del flujo</p><h2>Navegación</h2></div><div class="flow"><span class="pill">Home</span><span class="pill">Nosotros</span><span class="pill">Sabores</span><span class="pill">Servicios</span><span class="pill">Contacto</span><span class="pill">Menú / Contenido</span></div></div></section>
+  </main>
+
+  <footer>Frutisa · Sabor que se derrite, momentos que se quedan.</footer>
 </body>
 </html>
