@@ -78,6 +78,9 @@
     @keyframes shimmerSweep { 0% { transform: translateX(-130%) rotate(18deg); opacity:0; } 18% { opacity:.55; } 46%,100% { transform: translateX(140%) rotate(18deg); opacity:0; } }
     @keyframes sectionBreath { 0%,100% { opacity:.52; transform: translateX(-50%) scale(.96); } 50% { opacity:.9; transform: translateX(-50%) scale(1.04); } }
     @keyframes blackHolePulse { 0%,100% { filter: brightness(.92) contrast(1.05); transform: scale(1); } 45% { filter: brightness(1.28) contrast(1.28); transform: scale(1.018); } }
+    @keyframes logoMeltMask { 0%,100% { opacity:.24; transform: translate3d(0,-8px,0) scaleY(.72); filter: blur(8px); } 42% { opacity:.62; transform: translate3d(0,4px,0) scaleY(1.12); filter: blur(4px); } 70% { opacity:.36; transform: translate3d(0,12px,0) scaleY(.86); filter: blur(7px); } }
+    @keyframes logoDripFall { 0% { opacity:0; transform: translate3d(0,-18px,0) scaleY(.18); } 12% { opacity:.9; } 58% { opacity:.82; transform: translate3d(0,20px,0) scaleY(1); } 100% { opacity:0; transform: translate3d(0,62px,0) scaleY(.42); } }
+    @keyframes logoLiquidShine { 0%,100% { opacity:.18; transform: translateX(-6%) skewX(-10deg); } 48% { opacity:.52; transform: translateX(6%) skewX(-10deg); } }
 
     a { color: inherit; text-decoration: none; }
 
@@ -262,8 +265,64 @@
     .hero { min-height: calc(100vh - 4rem); display: grid; place-items: center; padding-top: 5rem; }
     .hero-grid { display: grid; gap: 2rem; justify-items: center; text-align: center; }
     .eyebrow { margin: 0; color: var(--muted); font-size: .78rem; letter-spacing: .24em; text-transform: uppercase; }
-    .logo-title { width: min(920px, 94vw); filter: drop-shadow(0 0 24px rgba(255,255,255,.40)); animation: pulseGlow 4.8s ease-in-out infinite; }
-    .logo-title img { display: block; width: 100%; height: auto; }
+    .logo-title {
+      position: relative;
+      width: min(920px, 94vw);
+      margin: 0;
+      isolation: isolate;
+      filter: drop-shadow(0 0 24px rgba(255,255,255,.40));
+      animation: pulseGlow 4.8s ease-in-out infinite;
+    }
+
+    .logo-title img {
+      position: relative;
+      z-index: 2;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .logo-title::before,
+    .logo-title::after {
+      content: "";
+      position: absolute;
+      left: 7%;
+      right: 7%;
+      top: 70%;
+      bottom: -34%;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 13% 0%, rgba(255,255,255,.72) 0 3%, transparent 10%),
+        radial-gradient(ellipse at 31% 4%, rgba(144,255,244,.34) 0 2.5%, transparent 9%),
+        radial-gradient(ellipse at 48% 0%, rgba(255,255,255,.58) 0 3%, transparent 11%),
+        radial-gradient(ellipse at 68% 2%, rgba(255,255,255,.72) 0 2.8%, transparent 10%),
+        radial-gradient(ellipse at 84% 0%, rgba(215,168,75,.34) 0 2.3%, transparent 9%),
+        linear-gradient(180deg, rgba(255,255,255,.32), rgba(255,255,255,.11) 38%, transparent 76%);
+      clip-path: polygon(0 0, 9% 0, 11% 38%, 14% 0, 25% 0, 27% 68%, 31% 0, 43% 0, 45% 48%, 49% 0, 61% 0, 63% 86%, 67% 0, 77% 0, 80% 54%, 84% 0, 100% 0, 100% 18%, 0 18%);
+      opacity: .42;
+      mix-blend-mode: screen;
+      filter: blur(5px) drop-shadow(0 0 18px rgba(255,255,255,.32));
+      animation: logoMeltMask 5.8s ease-in-out infinite;
+    }
+
+    .logo-title::after {
+      left: 12%;
+      right: 12%;
+      top: 77%;
+      bottom: -46%;
+      z-index: 1;
+      background:
+        radial-gradient(circle at 18% 84%, rgba(255,255,255,.92) 0 7px, transparent 8px),
+        radial-gradient(circle at 42% 76%, rgba(144,255,244,.74) 0 5px, transparent 6px),
+        radial-gradient(circle at 64% 88%, rgba(255,255,255,.84) 0 6px, transparent 7px),
+        radial-gradient(circle at 83% 72%, rgba(215,168,75,.66) 0 4px, transparent 5px),
+        linear-gradient(90deg, transparent, rgba(255,255,255,.36), transparent);
+      clip-path: none;
+      opacity: .55;
+      filter: blur(.4px) drop-shadow(0 0 14px rgba(255,255,255,.42));
+      animation: logoDripFall 4.6s cubic-bezier(.33,0,.35,1) infinite, logoLiquidShine 3.2s ease-in-out infinite;
+    }
     .hero-copy { max-width: 720px; margin: 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.7; }
 
     .particle-frame {
