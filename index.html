@@ -127,38 +127,52 @@
       isolation: isolate;
     }
 
-    @keyframes heartPulse {
+    @keyframes collisionCore {
       0%, 100% {
-        transform: scale(1);
-        opacity: 0.56;
-        filter: contrast(1.08) brightness(0.92) blur(0px);
+        transform: translateX(var(--start-x)) translateY(4%) scale(0.58) rotate(0deg);
+        opacity: 0.28;
+        filter: contrast(1.08) brightness(0.9) blur(0.6px);
       }
-      12% {
-        transform: scale(1.045);
-        opacity: 0.9;
-        filter: contrast(1.35) brightness(1.5) blur(0px);
+      28% {
+        transform: translateX(calc(var(--start-x) * 0.34)) translateY(-8%) scale(0.72) rotate(130deg);
+        opacity: 0.54;
+        filter: contrast(1.22) brightness(1.18) blur(0.2px);
       }
-      22% {
-        transform: scale(0.99);
-        opacity: 0.66;
-        filter: contrast(1.14) brightness(1.05) blur(0.2px);
-      }
-      34% {
-        transform: scale(1.028);
-        opacity: 0.82;
-        filter: contrast(1.28) brightness(1.34) blur(0px);
+      46% {
+        transform: translateX(0) translateY(0) scale(0.96) rotate(250deg);
+        opacity: 0.96;
+        filter: contrast(1.58) brightness(1.9) blur(0px);
       }
       58% {
-        transform: scale(1.005);
-        opacity: 0.62;
-        filter: contrast(1.12) brightness(1) blur(0.3px);
+        transform: translateX(0) translateY(0) scale(1.08) rotate(330deg);
+        opacity: 0.72;
+        filter: contrast(1.36) brightness(1.42) blur(0.4px);
+      }
+      74% {
+        transform: translateX(calc(var(--start-x) * -0.12)) translateY(6%) scale(0.82) rotate(430deg);
+        opacity: 0.42;
+        filter: contrast(1.18) brightness(1.02) blur(0.9px);
       }
     }
 
-    @keyframes lightBreath {
-      0%, 100% { opacity: 0.84; }
-      14%, 34% { opacity: 0.62; }
-      58% { opacity: 0.9; }
+    @keyframes mergerShockwave {
+      0%, 38%, 100% {
+        transform: translate(-50%, -50%) scale(0.28) rotate(0deg);
+        opacity: 0;
+      }
+      47% {
+        opacity: 0.72;
+      }
+      72% {
+        transform: translate(-50%, -50%) scale(1.55) rotate(28deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes lensingBreath {
+      0%, 100% { opacity: 0.88; transform: scale(1); }
+      46% { opacity: 0.54; transform: scale(1.03); }
+      60% { opacity: 0.8; transform: scale(0.995); }
     }
 
     .contact-card {
@@ -177,13 +191,14 @@
     .contact-card::before {
       content: "";
       position: absolute;
-      inset: -24%;
-      z-index: -2;
-      background: url("assets/contact-orb.svg") center / min(120%, 760px) no-repeat;
-      opacity: 0.62;
-      filter: contrast(1.18) brightness(1.15);
-      transform-origin: center;
-      animation: heartPulse 2.35s cubic-bezier(.2,.75,.25,1) infinite;
+      inset: -20%;
+      z-index: -4;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12), transparent 18%),
+        conic-gradient(from 90deg at 50% 50%, transparent 0deg, rgba(255,255,255,0.18) 62deg, transparent 118deg, rgba(255,255,255,0.12) 220deg, transparent 300deg);
+      opacity: 0.54;
+      filter: blur(14px) contrast(1.25);
+      animation: lensingBreath 5.8s ease-in-out infinite;
     }
 
     .contact-card::after {
@@ -192,10 +207,61 @@
       inset: 0;
       z-index: -1;
       background:
-        radial-gradient(circle at 50% 44%, rgba(255,255,255,0.02), transparent 34%),
-        linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.72) 44%, rgba(0,0,0,0.9));
+        radial-gradient(circle at 50% 45%, rgba(0,0,0,0.18), rgba(0,0,0,0.62) 42%, rgba(0,0,0,0.92)),
+        linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.76) 55%, rgba(0,0,0,0.94));
       pointer-events: none;
-      animation: lightBreath 2.35s ease-in-out infinite;
+    }
+
+    .collision-field,
+    .collision-field::before,
+    .collision-field::after {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .collision-field {
+      inset: -18%;
+      z-index: -3;
+      overflow: hidden;
+      mix-blend-mode: screen;
+    }
+
+    .collision-field::before,
+    .collision-field::after {
+      content: "";
+      left: 50%;
+      top: 50%;
+      width: min(76vw, 560px);
+      aspect-ratio: 1;
+      margin: calc(min(76vw, 560px) / -2) 0 0 calc(min(76vw, 560px) / -2);
+      background: url("assets/contact-orb.svg") center / contain no-repeat;
+      opacity: 0.5;
+      transform-origin: center;
+      animation: collisionCore 5.8s cubic-bezier(.4,0,.1,1) infinite;
+    }
+
+    .collision-field::before {
+      --start-x: -34%;
+    }
+
+    .collision-field::after {
+      --start-x: 34%;
+      animation-delay: -0.16s;
+      animation-direction: reverse;
+    }
+
+    .collision-shockwave {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: -2;
+      width: min(72vw, 520px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,0.62);
+      border-radius: 50%;
+      box-shadow: 0 0 42px rgba(255,255,255,0.24), inset 0 0 48px rgba(255,255,255,0.16);
+      pointer-events: none;
+      animation: mergerShockwave 5.8s ease-out infinite;
     }
 
     .contact-eyebrow {
@@ -295,6 +361,8 @@
 
   <section class="contact" id="contacto" aria-labelledby="contact-title">
     <div class="contact-card">
+      <div class="collision-field" aria-hidden="true"></div>
+      <div class="collision-shockwave" aria-hidden="true"></div>
       <p class="contact-eyebrow">Contacto</p>
       <h2 id="contact-title">Hablemos de tu siguiente sitio.</h2>
       <p class="contact-copy">Cuéntanos qué quieres construir. Este formulario está listo como interfaz visual y puede conectarse después a email, WhatsApp, CRM o backend.</p>
