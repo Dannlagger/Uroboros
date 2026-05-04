@@ -3,929 +3,383 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LATTICCE</title>
+  <title>LATTICCE — Experiencia + Navegación</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #000;
-      --fg: #fff;
-      --muted: rgba(255,255,255,0.54);
-      --line: rgba(255,255,255,0.16);
+      --bg: #020202;
+      --panel: rgba(255,255,255,0.035);
+      --panel-strong: rgba(255,255,255,0.07);
+      --fg: #f7f7f7;
+      --muted: rgba(255,255,255,0.62);
+      --soft: rgba(255,255,255,0.38);
+      --line: rgba(255,255,255,0.18);
+      --gold: #d7a84b;
+      --cyan: #90fff4;
+      --radius: 24px;
+      --max: 1180px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-      background: var(--bg);
-    }
+    html { scroll-behavior: smooth; background: var(--bg); }
 
     body {
-      width: 100%;
-      min-height: 100%;
       margin: 0;
-      overflow-x: hidden;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,0.08), transparent 24rem),
+        radial-gradient(circle at 12% 38%, rgba(144,255,244,0.045), transparent 22rem),
+        radial-gradient(circle at 82% 58%, rgba(215,168,75,0.05), transparent 22rem),
+        #000;
       color: var(--fg);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
     }
 
-    .hero {
-      position: relative;
-      min-height: 100vh;
+    a { color: inherit; text-decoration: none; }
+
+    .shell { width: min(var(--max), calc(100% - 2rem)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky;
+      top: 1rem;
+      z-index: 20;
+      width: min(680px, calc(100% - 2rem));
+      margin: 1rem auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .55rem .65rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(0,0,0,0.68);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 80px rgba(0,0,0,.45);
+    }
+
+    .mark { display: flex; align-items: center; gap: .65rem; font-size: .78rem; letter-spacing: .16em; }
+    .mark-dot { width: 1.65rem; height: 1.65rem; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--soft); }
+    .nav { display: flex; align-items: center; gap: .25rem; }
+    .nav a { padding: .55rem .75rem; border-radius: 999px; color: var(--muted); font-size: .78rem; }
+    .nav a:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .nav .cta { background: #fff; color: #000; font-weight: 800; }
+
+    section { position: relative; padding: clamp(4.5rem, 9vw, 8rem) 0; }
+
+    .hero { min-height: calc(100vh - 4rem); display: grid; place-items: center; padding-top: 5rem; }
+    .hero-grid { display: grid; gap: 2rem; justify-items: center; text-align: center; }
+    .eyebrow { margin: 0; color: var(--muted); font-size: .78rem; letter-spacing: .24em; text-transform: uppercase; }
+    .logo-title { width: min(920px, 94vw); filter: drop-shadow(0 0 24px rgba(255,255,255,.40)); }
+    .logo-title img { display: block; width: 100%; height: auto; }
+    .hero-copy { max-width: 720px; margin: 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.7; }
+
+    .particle-frame {
+      width: min(860px, 100%);
+      min-height: 230px;
       display: grid;
       place-items: center;
-      isolation: isolate;
-    }
-
-    .stage {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      place-items: center;
-      width: min(92vw, 1100px);
-      height: 42vh;
-    }
-
-    h1 {
-      margin: 0;
-      cursor: crosshair;
-      user-select: none;
-      display: grid;
-      place-items: center;
-      width: min(92vw, 980px);
-      color: #fff;
-      font-family: "Arial Black", Arial, Helvetica, sans-serif;
-      font-size: clamp(4rem, 16vw, 13rem);
-      font-weight: 900;
-      line-height: 0.86;
-      letter-spacing: clamp(0.055em, 0.72vw, 0.13em);
-      text-align: center;
-      text-transform: uppercase;
-      text-shadow: 0 0 20px rgba(255,255,255,0.40), 0 0 58px rgba(255,255,255,0.22);
-      filter: drop-shadow(0 0 22px rgba(255,255,255,0.40)) drop-shadow(0 0 64px rgba(255,255,255,0.24));
-      transition: opacity 220ms ease, filter 220ms ease, transform 220ms ease;
-    }
-
-    h1 img {
-      display: block;
-      width: 100%;
-      height: auto;
-      pointer-events: none;
-    }
-
-    h1 .letter,
-    h1 .join-group {
-      position: relative;
-      display: inline-block;
-    }
-
-    h1 .join-group {
-      letter-spacing: -0.025em;
-    }
-
-    h1 .join-tt {
-      margin-inline: -0.015em 0.02em;
-    }
-
-    h1 .join-cc {
-      margin-inline: 0.01em 0.015em;
-    }
-
-    h1 .join-tt::before {
-      content: "";
-      position: absolute;
-      left: 0.09em;
-      right: 0.13em;
-      top: 0.03em;
-      height: 0.115em;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.96);
-      box-shadow: 0 0 18px rgba(255,255,255,0.40), 0 0 36px rgba(255,255,255,0.22);
-      pointer-events: none;
-    }
-
-    h1 .join-tt::after {
-      content: "";
-      position: absolute;
-      left: 48%;
-      top: 0.05em;
-      width: 0.09em;
-      height: 0.16em;
-      border-radius: 999px;
-      background: #000;
-      opacity: 0.72;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-
-    h1 .join-cc::before {
-      content: "";
-      position: absolute;
-      left: 0.13em;
-      right: 0.15em;
-      bottom: -0.015em;
-      height: 0.105em;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.94);
-      box-shadow: 0 0 18px rgba(255,255,255,0.40), 0 0 36px rgba(255,255,255,0.22);
-      pointer-events: none;
-    }
-
-    h1 .join-cc::after {
-      content: "";
-      position: absolute;
-      left: 49%;
-      bottom: -0.005em;
-      width: 0.085em;
-      height: 0.14em;
-      border-radius: 999px;
-      background: #000;
-      opacity: 0.7;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-
-    h1.is-hidden {
-      opacity: 0;
-      filter: blur(14px);
-      transform: scale(0.98);
-    }
-
-    canvas {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .hint,
-    .scroll-callout {
-      position: fixed;
-      z-index: 3;
-      color: rgba(255,255,255,0.45);
-      font-size: 0.78rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      pointer-events: none;
-    }
-
-    .hint {
-      left: 50%;
-      bottom: 2rem;
-      transform: translateX(-50%);
-      transition: opacity 220ms ease;
-    }
-
-    body.exploded .hint {
-      opacity: 0;
-    }
-
-    .scroll-callout {
-      left: 50%;
-      top: 72%;
-      opacity: 0;
-      color: rgba(255,255,255,0.34);
-      text-shadow: 0 0 18px rgba(255,255,255,0.18);
-      transform: translate(-50%, -50%);
-      transition: opacity 500ms ease, left 500ms ease, top 500ms ease;
-      white-space: nowrap;
-    }
-
-    .scroll-callout.is-visible {
-      opacity: 1;
-    }
-
-    .quotes {
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: clamp(5rem, 10vw, 9rem) 1.25rem;
-      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       background:
-        radial-gradient(circle at 50% 22%, rgba(255,255,255,0.11), transparent 20%),
-        radial-gradient(circle at 14% 74%, rgba(255,255,255,0.055), transparent 24%),
-        #000;
-      border-top: 1px solid var(--line);
-      isolation: isolate;
+        radial-gradient(circle at 40% 40%, rgba(255,255,255,.22), transparent 2px),
+        radial-gradient(circle at 55% 45%, rgba(255,255,255,.16), transparent 2px),
+        radial-gradient(circle at 63% 52%, rgba(255,255,255,.20), transparent 2px),
+        radial-gradient(circle at center, rgba(255,255,255,.12), transparent 24%),
+        linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent),
+        rgba(255,255,255,.025);
+      box-shadow: inset 0 0 70px rgba(255,255,255,.04);
     }
 
-    .quotes::before {
-      content: "Cotizaciones";
+    .section-head { display: grid; gap: .8rem; margin-bottom: 2rem; }
+    .section-title { margin: 0; font-size: clamp(2.4rem, 8vw, 6.8rem); line-height: .9; letter-spacing: -.07em; text-transform: uppercase; }
+    .section-copy { max-width: 740px; margin: 0; color: var(--muted); line-height: 1.7; }
+
+    .grid-5, .grid-3, .grid-2 { display: grid; gap: 1rem; }
+    .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 24px 80px rgba(0,0,0,.35);
+      padding: 1.25rem;
+      min-height: 220px;
+    }
+
+    .card::before {
+      content: "";
       position: absolute;
-      top: clamp(2rem, 7vw, 4.5rem);
-      left: 50%;
-      z-index: -1;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.075);
-      font-size: clamp(4.7rem, 18vw, 15rem);
-      font-weight: 950;
-      line-height: 0.8;
-      letter-spacing: -0.09em;
-      white-space: nowrap;
-      text-transform: uppercase;
-      filter: blur(0.2px);
+      inset: 0;
+      background: radial-gradient(circle at 75% 25%, rgba(255,255,255,.13), transparent 32%);
+      pointer-events: none;
     }
 
-    .quotes-wrap {
-      width: min(100%, 1180px);
+    .num {
+      width: 2rem; height: 2rem; display: grid; place-items: center;
+      border: 1px solid rgba(255,255,255,.28); border-radius: 50%; color: #fff;
+      font-size: .9rem; margin-bottom: 1rem; background: rgba(255,255,255,.05);
     }
 
-    .quotes-header {
+    .card h3 { position: relative; margin: 0 0 .65rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: .04em; }
+    .card p { position: relative; margin: 0; color: var(--muted); line-height: 1.65; font-size: .95rem; }
+    .card.gold { border-color: rgba(215,168,75,.48); box-shadow: inset 0 1px 0 rgba(215,168,75,.24), 0 24px 90px rgba(215,168,75,.05); }
+    .card.cyan { border-color: rgba(144,255,244,.38); }
+
+    .visual {
+      position: relative;
+      min-height: 120px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.24), transparent 3px),
+        radial-gradient(circle at 35% 45%, rgba(255,255,255,.13), transparent 2px),
+        radial-gradient(circle at 70% 58%, rgba(255,255,255,.16), transparent 2px),
+        linear-gradient(135deg, rgba(255,255,255,.08), transparent 60%);
+    }
+
+    .pipeline { display: grid; grid-template-columns: repeat(6, 1fr); gap: .55rem; }
+    .step { border: 1px solid rgba(255,255,255,.14); border-radius: 14px; padding: .9rem .7rem; background: rgba(255,255,255,.035); min-height: 120px; display: grid; align-content: end; }
+    .step small { color: var(--soft); display: block; margin-bottom: .35rem; }
+    .step strong { font-size: .72rem; text-transform: uppercase; }
+
+    .area-card { min-height: 260px; }
+    .area-card .visual { min-height: 135px; }
+
+    .structure .card { min-height: 210px; display: grid; grid-template-columns: auto 1fr 180px; gap: 1rem; align-items: center; }
+    .structure .num { margin: 0; }
+    .mini-screen { height: 120px; border: 1px solid rgba(255,255,255,.16); border-radius: 14px; background: linear-gradient(135deg, rgba(255,255,255,.13), transparent), rgba(255,255,255,.03); }
+
+    .content-list { display: grid; gap: 1rem; }
+    .content-item { display: grid; grid-template-columns: 2.2rem 1fr 170px; gap: 1rem; align-items: center; padding: 1rem; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.035); }
+    .icon { width: 2.2rem; height: 2.2rem; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: #fff; }
+    .thumb { height: 96px; border-radius: 14px; border: 1px solid rgba(255,255,255,.14); background: radial-gradient(circle at center, rgba(255,255,255,.22), transparent 35%), rgba(255,255,255,.04); }
+
+    .hub {
       display: grid;
-      gap: 0.85rem;
-      justify-items: center;
-      margin-bottom: clamp(2rem, 5vw, 4rem);
-      text-align: center;
-    }
-
-    .quotes-eyebrow {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.78rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .quotes-title {
-      margin: 0;
-      font-size: clamp(2.3rem, 7vw, 6rem);
-      line-height: 0.9;
-      letter-spacing: -0.07em;
-    }
-
-    .quotes-copy {
-      max-width: 44rem;
-      margin: 0;
-      color: rgba(255,255,255,0.62);
-      font-size: clamp(1rem, 2vw, 1.12rem);
-      line-height: 1.65;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.85rem;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 1rem;
       align-items: stretch;
     }
-
-    .price-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 430px;
-      display: flex;
-      flex-direction: column;
-      padding: clamp(1.35rem, 3vw, 2rem);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 24px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.025) 34%, rgba(255,255,255,0.035)),
-        rgba(10,10,10,0.72);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 26px 90px rgba(0,0,0,0.52);
-      backdrop-filter: blur(20px);
-      transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
-    }
-
-    .price-card::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.35), transparent 25%);
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    .price-card::after {
-      content: "";
-      position: absolute;
-      top: -6%;
-      left: 50%;
-      width: 58%;
-      height: 30%;
-      transform: translateX(-50%);
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.72), transparent);
-      filter: blur(24px);
-      opacity: 0.26;
-      pointer-events: none;
-    }
-
-    .price-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(255,255,255,0.38);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.26), 0 34px 110px rgba(255,255,255,0.09);
-    }
-
-    .price-card.featured {
-      transform: translateY(-18px);
-      border-color: rgba(255,255,255,0.34);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04) 38%, rgba(255,255,255,0.055)),
-        rgba(14,14,14,0.82);
-    }
-
-    .price-card.featured:hover {
-      transform: translateY(-26px);
-    }
-
-    .plan-name {
-      position: relative;
-      margin: 0 0 1rem;
-      color: rgba(255,255,255,0.76);
-      font-size: 0.84rem;
-    }
-
-    .plan-price {
-      position: relative;
-      display: flex;
-      align-items: baseline;
-      gap: 0.25rem;
-      margin: 0 0 1.6rem;
-      font-size: clamp(2.3rem, 5vw, 3.35rem);
-      font-weight: 900;
-      letter-spacing: -0.06em;
-    }
-
-    .plan-price span {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.52em;
-      letter-spacing: -0.03em;
-    }
-
-    .plan-line {
-      height: 1px;
-      margin: 0 -2rem 1.3rem;
-      background: rgba(255,255,255,0.11);
-    }
-
-    .feature-list {
-      position: relative;
-      display: grid;
-      gap: 1rem;
-      margin: 0 0 2rem;
-      padding: 0;
-      list-style: none;
-      color: rgba(255,255,255,0.58);
-      font-size: 0.88rem;
-      line-height: 1.35;
-    }
-
-    .feature-list li {
-      display: grid;
-      grid-template-columns: 1.2rem 1fr;
-      gap: 0.72rem;
-      align-items: start;
-    }
-
-    .feature-list li::before {
-      content: "✓";
-      display: grid;
-      place-items: center;
-      width: 1.18rem;
-      height: 1.18rem;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      font-size: 0.68rem;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14);
-    }
-
-    .quote-button {
-      position: relative;
-      width: 100%;
-      margin-top: auto;
-      justify-self: stretch;
-    }
-
-    .quote-button.secondary {
-      background: #050505;
-      color: #fff;
-      border-color: rgba(255,255,255,0.16);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
-    }
-
-    @media (max-width: 880px) {
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .price-card,
-      .price-card.featured,
-      .price-card.featured:hover {
-        transform: none;
-      }
-    }
-
-    .contact {
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: clamp(4rem, 10vw, 8rem) 1.25rem;
-      overflow: hidden;
-      background: #000;
-      border-top: 1px solid var(--line);
-      isolation: isolate;
-    }
-
-    @keyframes collisionCore {
-      0%, 100% {
-        transform: translateX(var(--start-x)) translateY(4%) scale(0.58) rotate(0deg);
-        opacity: 0.28;
-        filter: contrast(1.08) brightness(0.9) blur(0.6px);
-      }
-      28% {
-        transform: translateX(calc(var(--start-x) * 0.34)) translateY(-8%) scale(0.72) rotate(130deg);
-        opacity: 0.54;
-        filter: contrast(1.22) brightness(1.18) blur(0.2px);
-      }
-      46% {
-        transform: translateX(0) translateY(0) scale(0.96) rotate(250deg);
-        opacity: 1;
-        filter: contrast(1.9) brightness(2.45) blur(0px);
-      }
-      58% {
-        transform: translateX(0) translateY(0) scale(1.08) rotate(330deg);
-        opacity: 0.88;
-        filter: contrast(1.62) brightness(1.75) blur(0.2px);
-      }
-      74% {
-        transform: translateX(calc(var(--start-x) * -0.12)) translateY(6%) scale(0.82) rotate(430deg);
-        opacity: 0.42;
-        filter: contrast(1.18) brightness(1.02) blur(0.9px);
-      }
-    }
-
-    @keyframes mergerShockwave {
-      0%, 38%, 100% {
-        transform: translate(-50%, -50%) scale(0.28) rotate(0deg);
-        opacity: 0;
-      }
-      47% {
-        opacity: 0.94;
-      }
-      72% {
-        transform: translate(-50%, -50%) scale(1.55) rotate(28deg);
-        opacity: 0;
-      }
-    }
-
-    @keyframes lensingBreath {
-      0%, 100% { opacity: 0.88; transform: scale(1); }
-      46% { opacity: 0.54; transform: scale(1.03); }
-      60% { opacity: 0.8; transform: scale(0.995); }
-    }
-
-    .contact-card {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      width: min(100%, 720px);
-      padding: clamp(1.5rem, 5vw, 3rem);
+    .black-hole {
+      min-height: 280px;
       border: 1px solid var(--line);
-      border-radius: 28px;
-      background: rgba(0,0,0,0.46);
-      box-shadow: 0 30px 120px rgba(255,255,255,0.14);
-      backdrop-filter: blur(18px);
-    }
-
-    .contact-card::before {
-      content: "";
-      position: absolute;
-      inset: -20%;
-      z-index: -4;
+      border-radius: var(--radius);
       background:
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12), transparent 18%),
-        conic-gradient(from 90deg at 50% 50%, transparent 0deg, rgba(255,255,255,0.18) 62deg, transparent 118deg, rgba(255,255,255,0.12) 220deg, transparent 300deg);
-      opacity: 0.86;
-      filter: blur(10px) contrast(1.45) brightness(1.35);
-      animation: lensingBreath 5.8s ease-in-out infinite;
+        radial-gradient(circle at center, #000 0 7%, rgba(255,255,255,.42) 8%, rgba(255,255,255,.1) 12%, transparent 26%),
+        linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent),
+        rgba(255,255,255,.025);
+      box-shadow: inset 0 0 90px rgba(255,255,255,.05);
     }
 
-    .contact-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        radial-gradient(circle at 50% 45%, rgba(0,0,0,0.04), rgba(0,0,0,0.38) 42%, rgba(0,0,0,0.78)),
-        linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.52) 55%, rgba(0,0,0,0.82));
-      pointer-events: none;
-    }
-
-    .collision-field,
-    .collision-field::before,
-    .collision-field::after {
-      position: absolute;
-      pointer-events: none;
-    }
-
-    .collision-field {
-      inset: -18%;
-      z-index: -3;
-      overflow: hidden;
-      mix-blend-mode: screen;
-    }
-
-    .collision-field::before,
-    .collision-field::after {
-      content: "";
-      left: 50%;
-      top: 50%;
-      width: min(76vw, 560px);
-      aspect-ratio: 1;
-      margin: calc(min(76vw, 560px) / -2) 0 0 calc(min(76vw, 560px) / -2);
-      background: url("assets/contact-orb.svg") center / contain no-repeat;
-      opacity: 0.86;
-      transform-origin: center;
-      animation: collisionCore 5.8s cubic-bezier(.4,0,.1,1) infinite;
-    }
-
-    .collision-field::before {
-      --start-x: -34%;
-    }
-
-    .collision-field::after {
-      --start-x: 34%;
-      animation-delay: -0.16s;
-      animation-direction: reverse;
-    }
-
-    .collision-shockwave {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      z-index: -2;
-      width: min(72vw, 520px);
-      aspect-ratio: 1;
-      border: 1.5px solid rgba(255,255,255,0.86);
-      border-radius: 50%;
-      box-shadow: 0 0 62px rgba(255,255,255,0.42), inset 0 0 68px rgba(255,255,255,0.24);
-      pointer-events: none;
-      animation: mergerShockwave 5.8s ease-out infinite;
-    }
-
-    .contact-eyebrow {
-      margin: 0 0 0.85rem;
-      color: var(--muted);
-      font-size: 0.78rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    h2 {
-      margin: 0 0 1rem;
-      font-size: clamp(2rem, 7vw, 4.75rem);
-      line-height: 0.95;
-      letter-spacing: -0.05em;
-    }
-
-    .contact-copy {
-      max-width: 46rem;
-      margin: 0 0 2rem;
-      color: rgba(255,255,255,0.68);
-      font-size: clamp(1rem, 2vw, 1.12rem);
-      line-height: 1.65;
-    }
-
-    form {
-      display: grid;
-      gap: 1rem;
-    }
-
-    label {
-      display: grid;
-      gap: 0.45rem;
-      color: rgba(255,255,255,0.76);
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    input,
-    textarea {
-      width: 100%;
+    .quote-panel, .contact-card {
       border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(0,0,0,0.68);
-      color: #fff;
-      padding: 1rem 1.05rem;
-      font: inherit;
-      outline: none;
-      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      padding: clamp(1.3rem, 3vw, 2rem);
     }
 
-    textarea {
-      min-height: 150px;
-      resize: vertical;
+    form { display: grid; gap: 1rem; }
+    label { display: grid; gap: .45rem; color: rgba(255,255,255,.76); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; }
+    input, select, textarea {
+      width: 100%; border: 1px solid var(--line); border-radius: 16px; background: rgba(0,0,0,.55);
+      color: #fff; padding: 1rem; font: inherit; outline: none;
     }
+    textarea { min-height: 140px; resize: vertical; }
+    button { border: 1px solid rgba(255,255,255,.75); border-radius: 999px; background: #fff; color: #000; padding: .95rem 1.25rem; font: inherit; font-weight: 850; text-transform: uppercase; letter-spacing: .08em; cursor: pointer; }
 
-    input:focus,
-    textarea:focus {
-      border-color: rgba(255,255,255,0.58);
-      background: rgba(0,0,0,0.78);
-      box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
-    }
+    .flow { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; padding: 1rem; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.035); }
+    .flow span { color: var(--muted); }
+    .pill { display: inline-flex; align-items: center; gap: .5rem; padding: .65rem .85rem; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.04); font-size: .82rem; }
 
-    button {
-      justify-self: start;
-      border: 1px solid rgba(255,255,255,0.72);
-      border-radius: 999px;
-      background: #fff;
-      color: #000;
-      padding: 0.95rem 1.4rem;
-      font: inherit;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease;
-    }
+    footer { padding: 3rem 0; color: var(--muted); }
+    .footer-logo { width: 220px; filter: drop-shadow(0 0 14px rgba(255,255,255,.25)); }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 60px rgba(255,255,255,0.18);
+    @media (max-width: 980px) {
+      .grid-5, .grid-3, .grid-2, .hub { grid-template-columns: 1fr; }
+      .structure .card, .content-item { grid-template-columns: 1fr; }
+      .pipeline { grid-template-columns: repeat(2, 1fr); }
+      .nav { display: none; }
+      .topbar { justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <canvas id="particles" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <a class="mark" href="#home"><span class="mark-dot">×</span><span>LATTICCE</span></a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#home">Home</a>
+      <a href="#areas">Áreas</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#cotizador">Cotizador</a>
+      <a href="#contacto" class="cta">Contacto</a>
+    </nav>
+  </header>
 
-  <section class="hero" aria-label="LATTICCE hero">
-    <main class="stage">
-      <h1 id="title" tabindex="0" aria-label="LATTICCE" data-text="LATTICCE"><img src="assets/logo.svg" alt="LATTICCE" /></h1>
-    </main>
-
-    <div class="hint">hover sobre el título</div>
-    <div class="scroll-callout" id="scrollCallout">Desliza hacia abajo</div>
-  </section>
-
-  <section class="quotes" id="cotizaciones" aria-labelledby="quotes-title">
-    <div class="quotes-wrap">
-      <header class="quotes-header">
-        <p class="quotes-eyebrow">Cotizaciones</p>
-        <h2 class="quotes-title" id="quotes-title">Elige el alcance de tu sitio.</h2>
-        <p class="quotes-copy">Tres puntos de partida para construir una presencia digital dinámica, visual y lista para crecer.</p>
-      </header>
-
-      <div class="pricing-grid">
-        <article class="price-card">
-          <p class="plan-name">Landing esencial</p>
-          <p class="plan-price">$4,999<span>/mxn</span></p>
-          <div class="plan-line"></div>
-          <ul class="feature-list">
-            <li>Diseño visual de una página principal</li>
-            <li>Animaciones sutiles e interacción básica</li>
-            <li>Sección de contacto integrada</li>
-            <li>Publicación en GitHub Pages</li>
-            <li>Optimización responsive</li>
-          </ul>
-          <button class="quote-button secondary" type="button">Cotizar</button>
-        </article>
-
-        <article class="price-card featured">
-          <p class="plan-name">Sitio dinámico</p>
-          <p class="plan-price">$9,999<span>/mxn</span></p>
-          <div class="plan-line"></div>
-          <ul class="feature-list">
-            <li>Hasta 5 secciones personalizadas</li>
-            <li>Microinteracciones y efectos canvas</li>
-            <li>Formulario preparado para integración</li>
-            <li>Dirección visual premium</li>
-            <li>Deploy, ajustes y revisión final</li>
-          </ul>
-          <button class="quote-button" type="button">Cotizar</button>
-        </article>
-
-        <article class="price-card">
-          <p class="plan-name">Experiencia avanzada</p>
-          <p class="plan-price">$19,999<span>/mxn</span></p>
-          <div class="plan-line"></div>
-          <ul class="feature-list">
-            <li>Experiencia web con narrativa interactiva</li>
-            <li>Animaciones avanzadas y dirección de arte</li>
-            <li>Integraciones externas o backend ligero</li>
-            <li>Performance, SEO técnico y analítica</li>
-            <li>Acompañamiento de lanzamiento</li>
-          </ul>
-          <button class="quote-button secondary" type="button">Cotizar</button>
-        </article>
+  <main>
+    <section class="hero" id="home">
+      <div class="shell hero-grid">
+        <p class="eyebrow">Experiencia + Navegación</p>
+        <h1 class="logo-title"><img src="assets/logo.svg" alt="LATTICCE" /></h1>
+        <p class="hero-copy">Un universo visual donde las partículas guían al usuario por cinco áreas creativas, una narrativa de producción y rutas claras hacia proyectos, cotización y contacto.</p>
+        <div class="particle-frame" aria-hidden="true"></div>
       </div>
+    </section>
+
+    <section id="gateways">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Gateways</p>
+          <h2 class="section-title">5 áreas principales</h2>
+          <p class="section-copy">Las partículas se forman en cinco entradas: Studio, Design, Sound, Agency y Films. Cada gateway abre un recorrido propio.</p>
+        </div>
+        <div class="grid-5">
+          <article class="card cyan"><div class="num">1</div><h3>Studio</h3><p>Foto y video comercial. Producción visual de alto impacto.</p></article>
+          <article class="card cyan"><div class="num">2</div><h3>Design</h3><p>Diseño estratégico, branding, UI/UX y contenido visual.</p></article>
+          <article class="card cyan"><div class="num">3</div><h3>Sound</h3><p>Diseño sonoro, música original y postproducción de audio.</p></article>
+          <article class="card gold"><div class="num">4</div><h3>Agency</h3><p>Estrategia, campañas, gestión y crecimiento de marcas.</p></article>
+          <article class="card"><div class="num">5</div><h3>Films</h3><p>Narrativas cinematográficas, cortometrajes, series y largometrajes.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="storytelling">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Storytelling pipeline</p>
+          <h2 class="section-title">Del proceso al consumo</h2>
+          <p class="section-copy">Un scroll narrativo muestra el flujo completo de producción para convertir una idea en una experiencia publicada.</p>
+        </div>
+        <div class="pipeline">
+          <div class="step"><small>01</small><strong>Preproducción</strong></div>
+          <div class="step"><small>02</small><strong>Scouting / Casting</strong></div>
+          <div class="step"><small>03</small><strong>Producción</strong></div>
+          <div class="step"><small>04</small><strong>Acción</strong></div>
+          <div class="step"><small>05</small><strong>Postproducción</strong></div>
+          <div class="step"><small>06</small><strong>Consumo</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="areas">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Áreas</p>
+          <h2 class="section-title">Explorar el sistema</h2>
+        </div>
+        <div class="grid-2">
+          <article class="card area-card"><div class="num">1</div><h3>Studio</h3><p>Foto y video comercial con dirección visual de alto impacto.</p><div class="visual"></div></article>
+          <article class="card area-card"><div class="num">2</div><h3>Design</h3><p>Identidad, interfaces, campañas visuales y sistemas gráficos.</p><div class="visual"></div></article>
+          <article class="card area-card"><div class="num">3</div><h3>Sound</h3><p>Audio, música, diseño sonoro y atmósferas narrativas.</p><div class="visual"></div></article>
+          <article class="card area-card gold"><div class="num">4</div><h3>Agency</h3><p>Estrategia, crecimiento, campañas y gestión integral.</p><div class="visual"></div></article>
+          <article class="card area-card"><div class="num">5</div><h3>Films</h3><p>Narrativas audiovisuales de formato corto y largo.</p><div class="visual"></div></article>
+          <article class="card area-card"><div class="num">↺</div><h3>Núcleo latente</h3><p>Un hub dinámico conecta las áreas y devuelve al usuario al recorrido principal.</p><div class="visual"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="structure" id="proyectos">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Estructura de cada área</p>
+          <h2 class="section-title">De inmersión a conversión</h2>
+        </div>
+        <div class="content-list">
+          <article class="card"><div class="num">1</div><div><h3>Hero inmersivo</h3><p>Animación 3D o sistema visual con elementos representativos del área.</p></div><div class="mini-screen"></div></article>
+          <article class="card"><div class="num">2</div><div><h3>Showcase</h3><p>Proyectos destacados con interacción y lectura rápida.</p></div><div class="mini-screen"></div></article>
+          <article class="card"><div class="num">3</div><div><h3>Proyecto</h3><p>Página individual con breakdown, media, proceso y resultados.</p></div><div class="mini-screen"></div></article>
+          <article class="card"><div class="num">4</div><div><h3>Cotizador</h3><p>Herramienta interactiva para generar cotizaciones personalizadas.</p></div><div class="mini-screen"></div></article>
+          <article class="card"><div class="num">5</div><div><h3>Continuar</h3><p>Opciones para volver al home, ir a otra área o contactar.</p></div><div class="mini-screen"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="mantener">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Mantener al usuario</p>
+          <h2 class="section-title">Contenido vivo</h2>
+        </div>
+        <div class="content-list">
+          <article class="content-item"><div class="icon">✦</div><div><h3>Blog / Insights</h3><p>Artículos, tendencias, consejos y storytelling.</p></div><div class="thumb"></div></article>
+          <article class="content-item"><div class="icon">▣</div><div><h3>Casos de éxito</h3><p>Historias reales de marcas y resultados medibles.</p></div><div class="thumb"></div></article>
+          <article class="content-item"><div class="icon">▶</div><div><h3>Reels / Highlights</h3><p>Behind the scenes, reels y contenido audiovisual breve.</p></div><div class="thumb"></div></article>
+          <article class="content-item"><div class="icon">◎</div><div><h3>Noticias / Prensa</h3><p>Cobertura, menciones, notas y apariciones.</p></div><div class="thumb"></div></article>
+          <article class="content-item"><div class="icon">△</div><div><h3>Valores / Cultura</h3><p>Filosofía, equipo, propósito y forma de trabajo.</p></div><div class="thumb"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="nucleo">
+      <div class="shell hub">
+        <div class="black-hole" aria-hidden="true"></div>
+        <div class="card">
+          <div class="num">↺</div>
+          <h3>Núcleo latente</h3>
+          <p>Siempre puedes regresar al núcleo. Desde ahí el usuario se conecta con Home, áreas, proyectos, cotizador o contacto.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cotizador">
+      <div class="shell grid-2">
+        <div class="quote-panel">
+          <p class="eyebrow">Cotizador</p>
+          <h2 class="section-title">Arma tu proyecto</h2>
+          <p class="section-copy">Base visual para convertir el interés del usuario en una solicitud clara.</p>
+        </div>
+        <form class="quote-panel">
+          <label>Área
+            <select><option>Studio</option><option>Design</option><option>Sound</option><option>Agency</option><option>Films</option></select>
+          </label>
+          <label>Objetivo
+            <input placeholder="Ej. campaña, landing, video, branding" />
+          </label>
+          <label>Alcance
+            <textarea placeholder="Cuéntanos qué necesitas construir"></textarea>
+          </label>
+          <button type="button">Generar cotización</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="shell contact-card">
+        <p class="eyebrow">Contacto</p>
+        <h2 class="section-title">Conecta con LATTICCE</h2>
+        <form>
+          <label>Nombre<input placeholder="Tu nombre" /></label>
+          <label>Email<input type="email" placeholder="tu@email.com" /></label>
+          <label>Mensaje<textarea placeholder="Cuéntanos sobre tu proyecto"></textarea></label>
+          <button type="button">Enviar mensaje</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="flujo">
+      <div class="shell">
+        <div class="section-head"><p class="eyebrow">Resumen del flujo</p><h2 class="section-title">Navegación</h2></div>
+        <div class="flow">
+          <div class="pill">Home <span>experiencia</span></div><span>→</span>
+          <div class="pill">Áreas <span>explorar</span></div><span>→</span>
+          <div class="pill">Proyectos / Cotizador <span>convertir</span></div><span>→</span>
+          <div class="pill">Contenido <span>mantener</span></div><span>→</span>
+          <div class="pill">Regreso al Home <span>conectar</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <img class="footer-logo" src="assets/logo.svg" alt="LATTICCE" />
+      <p>We create. You feel.</p>
     </div>
-  </section>
-
-  <section class="contact" id="contacto" aria-labelledby="contact-title">
-    <div class="contact-card">
-      <div class="collision-field" aria-hidden="true"></div>
-      <div class="collision-shockwave" aria-hidden="true"></div>
-      <p class="contact-eyebrow">Contacto</p>
-      <h2 id="contact-title">Hablemos de tu siguiente sitio.</h2>
-      <p class="contact-copy">Cuéntanos qué quieres construir. Este formulario está listo como interfaz visual y puede conectarse después a email, WhatsApp, CRM o backend.</p>
-
-      <form>
-        <label>
-          Nombre
-          <input type="text" name="name" autocomplete="name" placeholder="Tu nombre" />
-        </label>
-
-        <label>
-          Email
-          <input type="email" name="email" autocomplete="email" placeholder="tu@email.com" />
-        </label>
-
-        <label>
-          Mensaje
-          <textarea name="message" placeholder="Cuéntanos sobre el proyecto"></textarea>
-        </label>
-
-        <button type="submit">Enviar mensaje</button>
-      </form>
-    </div>
-  </section>
-
-  <script>
-    const canvas = document.querySelector('#particles');
-    const ctx = canvas.getContext('2d');
-    const title = document.querySelector('#title');
-    const scrollCallout = document.querySelector('#scrollCallout');
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    let particles = [];
-    let animationFrame = null;
-    let calloutTimer = null;
-    let exploded = false;
-
-    function resize() {
-      canvas.width = Math.floor(window.innerWidth * dpr);
-      canvas.height = Math.floor(window.innerHeight * dpr);
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function moveCallout() {
-      const x = 14 + Math.random() * 72;
-      const y = 18 + Math.random() * 64;
-      scrollCallout.style.left = `${x}%`;
-      scrollCallout.style.top = `${y}%`;
-      scrollCallout.classList.add('is-visible');
-    }
-
-    function startCallout() {
-      moveCallout();
-      clearInterval(calloutTimer);
-      calloutTimer = setInterval(moveCallout, 3000);
-    }
-
-    function stopCallout() {
-      clearInterval(calloutTimer);
-      calloutTimer = null;
-      scrollCallout.classList.remove('is-visible');
-    }
-
-    function makeTextParticles() {
-      const rect = title.getBoundingClientRect();
-      const offscreen = document.createElement('canvas');
-      const octx = offscreen.getContext('2d', { willReadFrequently: true });
-      const width = Math.ceil(rect.width + 80);
-      const height = Math.ceil(rect.height + 80);
-      const styles = getComputedStyle(title);
-
-      offscreen.width = width;
-      offscreen.height = height;
-      octx.fillStyle = '#fff';
-      octx.textAlign = 'center';
-      octx.textBaseline = 'middle';
-      octx.font = `900 ${styles.fontSize} ${styles.fontFamily}`;
-      octx.fillText(title.dataset.text || title.getAttribute('aria-label') || 'LATTICCE', width / 2, height / 2);
-
-      const data = octx.getImageData(0, 0, width, height).data;
-      const gap = Math.max(4, Math.floor(window.innerWidth / 230));
-      const startX = rect.left - 40;
-      const startY = rect.top - 40;
-      const next = [];
-
-      for (let y = 0; y < height; y += gap) {
-        for (let x = 0; x < width; x += gap) {
-          const alpha = data[(y * width + x) * 4 + 3];
-          if (alpha > 90) {
-            const originX = startX + x;
-            const originY = startY + y;
-            const angle = Math.random() * Math.PI * 2;
-            const targetPadding = 42;
-            const floatSpeed = 0.012 + Math.random() * 0.028;
-
-            next.push({
-              x: originX,
-              y: originY,
-              ox: originX,
-              oy: originY,
-              tx: targetPadding + Math.random() * (window.innerWidth - targetPadding * 2),
-              ty: targetPadding + Math.random() * (window.innerHeight - targetPadding * 2),
-              vx: Math.cos(angle) * (2.5 + Math.random() * 8),
-              vy: Math.sin(angle) * (2.5 + Math.random() * 8),
-              size: Math.random() * 2.8 + 1.1,
-              alpha: 1,
-              spin: Math.random() * Math.PI,
-              life: 0,
-              orbit: Math.random() * Math.PI * 2,
-              floatSpeed,
-              drift: 10 + Math.random() * 34
-            });
-          }
-        }
-      }
-
-      particles = next;
-    }
-
-    function explode() {
-      if (exploded) return;
-      exploded = true;
-      document.body.classList.add('exploded');
-      title.classList.add('is-hidden');
-      makeTextParticles();
-      startCallout();
-      animate();
-    }
-
-    function restore() {
-      exploded = false;
-      document.body.classList.remove('exploded');
-      title.classList.remove('is-hidden');
-      stopCallout();
-    }
-
-    function animate() {
-      cancelAnimationFrame(animationFrame);
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-      particles = particles.filter((p) => {
-        p.life += 1;
-
-        if (exploded) {
-          p.orbit += p.floatSpeed;
-          const floatX = Math.cos(p.orbit * 2.1) * p.drift;
-          const floatY = Math.sin(p.orbit * 1.6) * p.drift;
-          const destinationX = p.tx + floatX;
-          const destinationY = p.ty + floatY;
-
-          p.vx += (destinationX - p.x) * 0.0045;
-          p.vy += (destinationY - p.y) * 0.0045;
-          p.vx *= 0.91;
-          p.vy *= 0.91;
-          p.x += p.vx;
-          p.y += p.vy;
-          p.alpha = 0.72 + Math.sin(p.orbit * 3) * 0.22;
-        } else {
-          p.x += (p.ox - p.x) * 0.16;
-          p.y += (p.oy - p.y) * 0.16;
-          p.alpha *= 0.94;
-        }
-
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.spin + p.life * 0.08);
-        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-        ctx.shadowColor = 'rgba(255,255,255,0.85)';
-        ctx.shadowBlur = 14;
-        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-        ctx.restore();
-
-        return exploded || p.alpha > 0.02;
-      });
-
-      if (particles.length) {
-        animationFrame = requestAnimationFrame(animate);
-      } else {
-        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      }
-    }
-
-    title.addEventListener('mouseenter', explode);
-    title.addEventListener('focus', explode);
-    title.addEventListener('mouseleave', restore);
-    title.addEventListener('blur', restore);
-    title.addEventListener('touchstart', (event) => {
-      event.preventDefault();
-      explode();
-      window.setTimeout(restore, 3000);
-    }, { passive: false });
-
-    window.addEventListener('resize', () => {
-      resize();
-      if (exploded) makeTextParticles();
-    });
-
-    document.querySelector('form').addEventListener('submit', (event) => {
-      event.preventDefault();
-    });
-
-    resize();
-  </script>
+  </footer>
 </body>
 </html>
