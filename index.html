@@ -142,25 +142,26 @@
           if (alpha > 90) {
             const originX = startX + x;
             const originY = startY + y;
-            const angle = Math.atan2(originY - window.innerHeight / 2, originX - window.innerWidth / 2);
-            const chaos = (Math.random() - 0.5) * Math.PI * 1.4;
-            const force = 9 + Math.random() * 26;
-            const targetDistance = Math.max(window.innerWidth, window.innerHeight) * (0.55 + Math.random() * 0.75);
+            const angle = Math.random() * Math.PI * 2;
+            const targetPadding = 42;
+            const floatSpeed = 0.012 + Math.random() * 0.028;
 
             next.push({
               x: originX,
               y: originY,
               ox: originX,
               oy: originY,
-              tx: window.innerWidth / 2 + Math.cos(angle + chaos) * targetDistance,
-              ty: window.innerHeight / 2 + Math.sin(angle + chaos) * targetDistance,
-              vx: Math.cos(angle + chaos) * force,
-              vy: Math.sin(angle + chaos) * force,
-              size: Math.random() * 2.4 + 0.8,
-              alpha: 0.95,
+              tx: targetPadding + Math.random() * (window.innerWidth - targetPadding * 2),
+              ty: targetPadding + Math.random() * (window.innerHeight - targetPadding * 2),
+              vx: Math.cos(angle) * (2.5 + Math.random() * 8),
+              vy: Math.sin(angle) * (2.5 + Math.random() * 8),
+              size: Math.random() * 2.8 + 1.1,
+              alpha: 1,
               spin: Math.random() * Math.PI,
               life: 0,
-              maxLife: 190 + Math.random() * 90
+              orbit: Math.random() * Math.PI * 2,
+              floatSpeed,
+              drift: 10 + Math.random() * 34
             });
           }
         }
@@ -192,13 +193,19 @@
         p.life += 1;
 
         if (exploded) {
-          p.vx += (p.tx - p.x) * 0.003;
-          p.vy += (p.ty - p.y) * 0.003;
-          p.vx *= 0.935;
-          p.vy *= 0.935;
+          p.orbit += p.floatSpeed;
+          const floatX = Math.cos(p.orbit * 2.1) * p.drift;
+          const floatY = Math.sin(p.orbit * 1.6) * p.drift;
+          const destinationX = p.tx + floatX;
+          const destinationY = p.ty + floatY;
+
+          p.vx += (destinationX - p.x) * 0.0045;
+          p.vy += (destinationY - p.y) * 0.0045;
+          p.vx *= 0.91;
+          p.vy *= 0.91;
           p.x += p.vx;
           p.y += p.vy;
-          p.alpha = Math.max(0.18, 1 - p.life / p.maxLife);
+          p.alpha = 0.72 + Math.sin(p.orbit * 3) * 0.22;
         } else {
           p.x += (p.ox - p.x) * 0.16;
           p.y += (p.oy - p.y) * 0.16;
@@ -209,8 +216,8 @@
         ctx.translate(p.x, p.y);
         ctx.rotate(p.spin + p.life * 0.08);
         ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-        ctx.shadowColor = 'rgba(255,255,255,0.65)';
-        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(255,255,255,0.85)';
+        ctx.shadowBlur = 14;
         ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
         ctx.restore();
 
