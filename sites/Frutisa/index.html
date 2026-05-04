@@ -85,17 +85,9 @@
     .btn { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: .9rem 1.15rem; color: #fff; font-weight: 950; box-shadow: 0 12px 28px rgba(91,44,23,.14); cursor: pointer; }
     .btn.purple { background: var(--purple); } .btn.pink { background: var(--pink); } .btn.orange { background: var(--orange); }
 
+    .hero-logo { width: min(100%, 620px); margin-bottom: 1rem; filter: drop-shadow(0 12px 18px rgba(91,44,23,.18)); }
     .hero-art { position: relative; min-height: 500px; }
-    .pack { position: absolute; right: 8%; top: 4%; width: 118px; height: 108px; border: 4px solid #f5c268; border-radius: 14px; background: #fff6e8; transform: rotate(8deg); box-shadow: var(--shadow); }
-    .pack::before { content: "FRUTISA"; position: absolute; left: 12px; top: 13px; color: var(--pink); font-size: 1.1rem; font-weight: 1000; letter-spacing: -.08em; }
-    .sprinkle { position: absolute; width: 10px; height: 28px; border-radius: 999px; background: var(--pink); transform: rotate(-24deg); }
-    .s1{right:5%;top:28%}.s2{right:70%;top:26%;background:var(--purple)}.s3{right:42%;top:2%;background:var(--orange)}.s4{right:2%;top:46%;background:var(--green)}
-    .cup { position: absolute; right: 12%; bottom: 9%; width: 290px; height: 160px; border-radius: 40px 40px 62px 62px; background: linear-gradient(135deg, #c46b20, #f2a241); box-shadow: inset -20px -24px 36px rgba(89,38,8,.2), var(--shadow); }
-    .cup::before { content: ""; position: absolute; inset: 20px; border-radius: 24px; background-image: linear-gradient(35deg, rgba(91,44,23,.18) 1px, transparent 1px), linear-gradient(-35deg, rgba(91,44,23,.18) 1px, transparent 1px); background-size: 34px 34px; }
-    .ball { position: absolute; border-radius: 50%; box-shadow: inset -22px -24px 40px rgba(91,44,23,.18), var(--shadow); }
-    .ball.a { width: 174px; height: 174px; right: 33%; bottom: 34%; background: radial-gradient(circle at 35% 28%, #ffd9ff, #8746d7 58%, #5b25a0); }
-    .ball.b { width: 188px; height: 188px; right: 7%; bottom: 31%; background: radial-gradient(circle at 35% 28%, #fff1a0, #ff8b1f 58%, #df6816); }
-    .ball.c { width: 136px; height: 136px; right: 24%; bottom: 52%; background: radial-gradient(circle at 35% 28%, #ffd9ea, #ff4b8d 58%, #d82c68); }
+    .hero-character { position: absolute; right: -5%; bottom: -1%; width: min(112%, 590px); filter: drop-shadow(0 24px 34px rgba(91,44,23,.18)); }
 
     .section-head { display: grid; gap: .75rem; justify-items: center; text-align: center; margin-bottom: 2rem; }
     h2 { margin: 0; font-size: clamp(2.3rem, 6vw, 5rem); line-height: .9; letter-spacing: -.075em; font-weight: 1000; }
@@ -168,8 +160,8 @@
   <main>
     <section class="hero" id="home">
       <div class="shell hero-grid">
-        <div><p class="eyebrow">Sabor que se derrite, momentos que se quedan</p><h1><span class="c1">F</span><span class="c2">R</span><span class="c3">U</span><span class="c4">T</span><span class="c5">I</span><span class="c1">S</span><span class="c3">A</span></h1><p class="hero-sub">Ice Cream</p><p class="lead"><strong>Hero / Intro.</strong> Impacto visual con nuestro mundo Frutisa. Frase clave, CTA y acceso directo a sabores, servicios y contacto.</p><div class="actions"><a class="btn purple" href="#sabores">Ver sabores</a><a class="btn pink" href="#contacto">Pide ahora</a></div></div>
-        <div class="hero-art"><div class="pack"></div><div class="sprinkle s1"></div><div class="sprinkle s2"></div><div class="sprinkle s3"></div><div class="sprinkle s4"></div><div class="ball a"></div><div class="ball c"></div><div class="ball b"></div><div class="cup"></div></div>
+        <div><p class="eyebrow">Sabor que se derrite, momentos que se quedan</p><img class="hero-logo" src="assets/frutisa-logo.svg" alt="Frutisa" /><p class="hero-sub">Ice Cream</p><p class="lead"><strong>Hero / Intro.</strong> Impacto visual con nuestro mundo Frutisa. Frase clave, CTA y acceso directo a sabores, servicios y contacto.</p><div class="actions"><a class="btn purple" href="#sabores">Ver sabores</a><a class="btn pink" href="#contacto">Pide ahora</a></div></div>
+        <div class="hero-art"><img class="hero-character" src="assets/frutisa-character.svg" alt="Personaje Frutisa en patineta" /></div>
       </div>
     </section>
 
