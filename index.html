@@ -127,30 +127,6 @@
       isolation: isolate;
     }
 
-    .contact::before {
-      content: "";
-      position: absolute;
-      inset: -12%;
-      z-index: -2;
-      background: url("assets/contact-orb.svg") center / min(118vw, 1040px) no-repeat;
-      opacity: 0.72;
-      filter: contrast(1.18) brightness(1.1);
-      transform-origin: center;
-      animation: heartPulse 2.35s cubic-bezier(.2,.75,.25,1) infinite;
-    }
-
-    .contact::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08), transparent 22%),
-        linear-gradient(180deg, rgba(0,0,0,0.34), rgba(0,0,0,0.74) 46%, rgba(0,0,0,0.94));
-      pointer-events: none;
-      animation: lightBreath 2.35s ease-in-out infinite;
-    }
-
     @keyframes heartPulse {
       0%, 100% {
         transform: scale(1);
@@ -186,13 +162,40 @@
     }
 
     .contact-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
       width: min(100%, 720px);
       padding: clamp(1.5rem, 5vw, 3rem);
       border: 1px solid var(--line);
       border-radius: 28px;
-      background: rgba(0,0,0,0.42);
+      background: rgba(0,0,0,0.62);
       box-shadow: 0 30px 100px rgba(255,255,255,0.08);
       backdrop-filter: blur(18px);
+    }
+
+    .contact-card::before {
+      content: "";
+      position: absolute;
+      inset: -24%;
+      z-index: -2;
+      background: url("assets/contact-orb.svg") center / min(120%, 760px) no-repeat;
+      opacity: 0.62;
+      filter: contrast(1.18) brightness(1.15);
+      transform-origin: center;
+      animation: heartPulse 2.35s cubic-bezier(.2,.75,.25,1) infinite;
+    }
+
+    .contact-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 50% 44%, rgba(255,255,255,0.02), transparent 34%),
+        linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.72) 44%, rgba(0,0,0,0.9));
+      pointer-events: none;
+      animation: lightBreath 2.35s ease-in-out infinite;
     }
 
     .contact-eyebrow {
