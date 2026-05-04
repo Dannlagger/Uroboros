@@ -3,291 +3,306 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Frutisa — Frescura natural</title>
+  <title>Frutisa — Ice Cream</title>
   <style>
     :root {
       color-scheme: light;
-      --cream: #fff8ec;
-      --peach: #ffb36b;
-      --mango: #ffd166;
-      --berry: #ef476f;
-      --leaf: #2fbf71;
-      --deep: #183326;
-      --muted: rgba(24,51,38,.68);
-      --line: rgba(24,51,38,.14);
-      --card: rgba(255,255,255,.72);
+      --cream: #fff1d8;
+      --cream-2: #ffe7bd;
+      --brown: #5b2f18;
+      --muted: #8b6044;
+      --pink: #ff4f8b;
+      --pink-dark: #e93470;
+      --purple: #8b42d8;
+      --orange: #ff8b1f;
+      --yellow: #ffd34e;
+      --green: #8fd63e;
+      --blue: #17b8ef;
+      --card: #fff8ec;
+      --line: rgba(91,47,24,.12);
+      --shadow: 0 22px 60px rgba(128,72,30,.16);
       --radius: 30px;
-      --max: 1160px;
+      --max: 1120px;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; background: var(--cream); }
-
+    html { background: #222; }
     body {
       margin: 0;
-      color: var(--deep);
+      color: var(--brown);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      overflow-x: hidden;
-      background:
-        radial-gradient(circle at 12% 18%, rgba(255,179,107,.45), transparent 22rem),
-        radial-gradient(circle at 86% 12%, rgba(47,191,113,.22), transparent 20rem),
-        radial-gradient(circle at 50% 92%, rgba(239,71,111,.20), transparent 26rem),
-        var(--cream);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        radial-gradient(circle at 20px 20px, rgba(47,191,113,.14) 0 4px, transparent 4.5px),
-        radial-gradient(circle at 80px 70px, rgba(239,71,111,.12) 0 3px, transparent 3.5px);
-      background-size: 130px 130px;
-      opacity: .8;
-      z-index: -1;
+      background: #222;
     }
 
     a { color: inherit; text-decoration: none; }
-    .shell { width: min(var(--max), calc(100% - 2rem)); margin: 0 auto; }
+    img { max-width: 100%; display: block; }
+
+    .page {
+      position: relative;
+      width: min(100%, 1080px);
+      margin: 0 auto;
+      overflow: hidden;
+      background: linear-gradient(180deg, #fff0d7 0%, #ffe8c0 46%, #ffe1b0 100%);
+      border-radius: 42px;
+      box-shadow: 0 28px 90px rgba(0,0,0,.35);
+    }
+
+    .shell { width: min(var(--max), calc(100% - 3rem)); margin: 0 auto; }
+
+    .splash {
+      position: absolute;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 999px;
+      filter: drop-shadow(0 16px 20px rgba(91,47,24,.10));
+    }
+    .splash.green { width: 170px; height: 170px; left: -58px; top: 28px; background: radial-gradient(circle at 70% 24%, #d8ff7a, var(--green) 60%, #65b51f); }
+    .splash.pink { width: 980px; height: 190px; left: -80px; top: 445px; background: var(--pink); border-radius: 48% 52% 58% 42%; }
+    .splash.blue { width: 210px; height: 240px; left: -110px; top: 1060px; background: var(--blue); border-radius: 45% 55% 44% 56%; }
+    .splash.orange { width: 230px; height: 300px; right: -150px; top: 1510px; background: var(--orange); border-radius: 52% 48% 45% 55%; }
+    .splash.purple { width: 1050px; height: 210px; right: -120px; bottom: -80px; background: var(--purple); border-radius: 48% 52% 40% 60%; }
 
     .topbar {
-      position: sticky;
-      top: 1rem;
-      z-index: 20;
-      width: min(760px, calc(100% - 2rem));
-      margin: 1rem auto 0;
+      position: relative;
+      z-index: 2;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: .65rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,248,236,.74);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 18px 70px rgba(24,51,38,.10);
+      padding: 34px 0 18px;
     }
 
-    .brand { display: flex; align-items: center; gap: .7rem; font-weight: 950; letter-spacing: -.04em; }
-    .brand-mark { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(135deg, var(--berry), var(--peach)); color: #fff; box-shadow: 0 12px 36px rgba(239,71,111,.28); }
-    nav { display: flex; gap: .25rem; }
-    nav a { padding: .58rem .8rem; border-radius: 999px; color: var(--muted); font-size: .84rem; }
-    nav a:hover { background: rgba(255,255,255,.72); color: var(--deep); }
-    .cta { background: var(--deep); color: #fff !important; box-shadow: 0 14px 40px rgba(24,51,38,.18); }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-weight: 950;
+      color: var(--pink);
+      letter-spacing: -.06em;
+      font-size: 1.5rem;
+    }
+    .brand span:nth-child(2) { color: var(--yellow); }
+    .brand span:nth-child(3) { color: var(--purple); }
+    .brand span:nth-child(4) { color: var(--orange); }
+    .brand span:nth-child(5) { color: var(--green); }
+    .brand span:nth-child(6) { color: var(--pink); }
+    .brand-mark { width: 36px; height: 36px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, var(--green)); box-shadow: inset -8px -8px 14px rgba(0,0,0,.12); }
 
-    section { padding: clamp(4.5rem, 9vw, 8rem) 0; }
+    nav { display: flex; align-items: center; gap: 1.1rem; font-size: .82rem; font-weight: 800; }
+    nav a { color: #6e442d; }
+    .nav-cta { padding: .8rem 1rem; border-radius: 999px; background: var(--purple); color: #fff; box-shadow: 0 12px 28px rgba(139,66,216,.28); }
 
-    .hero { min-height: calc(100vh - 4rem); display: grid; place-items: center; padding-top: 5rem; }
-    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-    .eyebrow { margin: 0 0 .9rem; color: var(--leaf); font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 850; }
-    h1, h2, h3, p { margin-top: 0; }
-    h1 { margin-bottom: 1.2rem; font-size: clamp(4rem, 10vw, 9.5rem); line-height: .82; letter-spacing: -.09em; }
-    .hero p, .section-copy { color: var(--muted); font-size: clamp(1rem, 2vw, 1.18rem); line-height: 1.7; }
-
-    .actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
-    .button { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; padding: .95rem 1.2rem; font-weight: 850; border: 1px solid var(--line); background: #fff; transition: transform .25s ease, box-shadow .25s ease; }
-    .button.primary { background: var(--deep); color: #fff; }
-    .button:hover { transform: translateY(-3px); box-shadow: 0 18px 60px rgba(24,51,38,.14); }
-
-    .fruit-orbit {
+    .hero {
       position: relative;
-      min-height: 520px;
-      border-radius: 42px;
-      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.34));
-      border: 1px solid var(--line);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 34px 100px rgba(24,51,38,.13);
-      overflow: hidden;
-    }
-
-    .fruit-orbit::before {
-      content: "";
-      position: absolute;
-      inset: 13%;
-      border: 1px dashed rgba(24,51,38,.18);
-      border-radius: 50%;
-    }
-
-    .fruit {
-      position: absolute;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      box-shadow: inset -18px -18px 35px rgba(0,0,0,.10), 0 22px 60px rgba(24,51,38,.16);
-    }
-
-    .fruit.big { width: 230px; height: 230px; left: 50%; top: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle at 34% 30%, #fff8b6, var(--mango) 38%, #f8961e); }
-    .fruit.one { width: 112px; height: 112px; left: 9%; top: 16%; background: radial-gradient(circle at 36% 30%, #ffc2d1, var(--berry)); }
-    .fruit.two { width: 130px; height: 130px; right: 10%; top: 12%; background: radial-gradient(circle at 36% 30%, #dcffb7, var(--leaf)); }
-    .fruit.three { width: 96px; height: 96px; right: 18%; bottom: 14%; background: radial-gradient(circle at 36% 30%, #fff, #ff8fab); }
-    .fruit.four { width: 82px; height: 82px; left: 18%; bottom: 18%; background: radial-gradient(circle at 36% 30%, #fff6a7, var(--peach)); }
-
-    .section-head { display: grid; gap: .75rem; margin-bottom: 2rem; }
-    h2 { font-size: clamp(2.5rem, 7vw, 6rem); line-height: .88; letter-spacing: -.075em; margin-bottom: 0; }
-
-    .grid-3, .grid-2 { display: grid; gap: 1rem; }
-    .grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .grid-2 { grid-template-columns: repeat(2, 1fr); }
-
-    .card {
-      position: relative;
-      overflow: hidden;
-      min-height: 260px;
-      padding: clamp(1.3rem, 3vw, 2rem);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-      backdrop-filter: blur(18px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.88), 0 24px 80px rgba(24,51,38,.10);
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      width: 160px;
-      height: 160px;
-      right: -45px;
-      bottom: -45px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.8), var(--accent, var(--peach)));
-      opacity: .72;
-    }
-
-    .card h3 { position: relative; z-index: 1; font-size: 1.35rem; margin-bottom: .7rem; }
-    .card p { position: relative; z-index: 1; color: var(--muted); line-height: 1.65; }
-
-    .menu-card { min-height: 340px; display: grid; align-content: end; }
-    .price { font-size: 2.4rem; font-weight: 950; letter-spacing: -.06em; }
-
-    .process { counter-reset: step; }
-    .step { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; padding: 1.1rem; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.62); }
-    .step::before { counter-increment: step; content: counter(step); width: 2.2rem; height: 2.2rem; display: grid; place-items: center; border-radius: 50%; background: var(--deep); color: #fff; font-weight: 900; }
-    .step h3 { margin-bottom: .3rem; }
-
-    .contact-panel {
+      z-index: 1;
+      min-height: 560px;
       display: grid;
       grid-template-columns: .9fr 1.1fr;
+      align-items: center;
       gap: 1rem;
-      padding: clamp(1.4rem, 4vw, 2.4rem);
-      border: 1px solid var(--line);
-      border-radius: 34px;
-      background: rgba(255,255,255,.68);
-      backdrop-filter: blur(18px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 34px 100px rgba(24,51,38,.12);
+      padding: 26px 0 90px;
     }
 
-    form { display: grid; gap: 1rem; }
-    label { display: grid; gap: .45rem; color: var(--muted); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 850; }
-    input, textarea { width: 100%; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.74); color: var(--deep); padding: 1rem; font: inherit; outline: none; }
-    textarea { min-height: 150px; resize: vertical; }
+    .eyebrow { margin: 0 0 .5rem; color: var(--pink-dark); font-weight: 950; font-size: 1.02rem; }
+    h1 {
+      margin: 0;
+      font-size: clamp(4.4rem, 13vw, 9.4rem);
+      line-height: .72;
+      letter-spacing: -.09em;
+      text-transform: uppercase;
+    }
+    .rainbow span:nth-child(1) { color: var(--green); }
+    .rainbow span:nth-child(2) { color: var(--purple); }
+    .rainbow span:nth-child(3) { color: var(--pink); }
+    .rainbow span:nth-child(4) { color: var(--orange); }
+    .rainbow span:nth-child(5) { color: var(--pink); }
+    .rainbow span:nth-child(6) { color: var(--orange); }
+    .rainbow span:nth-child(7) { color: var(--yellow); }
+    .subtitle { margin: 14px 0 0; color: var(--brown); font-size: clamp(1.8rem, 4vw, 3.2rem); line-height: .95; font-weight: 950; letter-spacing: -.05em; }
+    .hero-copy { max-width: 430px; margin: 18px 0 0; color: var(--muted); line-height: 1.55; font-weight: 650; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.4rem; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; border: 0; border-radius: 999px; padding: .9rem 1.15rem; color: #fff; font-weight: 950; box-shadow: 0 12px 28px rgba(91,47,24,.14); }
+    .button.purple { background: var(--purple); }
+    .button.pink { background: var(--pink); }
+    .button.orange { background: var(--orange); }
 
-    footer { padding: 3rem 0; color: var(--muted); }
+    .hero-art { position: relative; min-height: 470px; }
+    .waffle { position: absolute; right: 70px; bottom: 42px; width: 320px; height: 170px; border-radius: 34px 34px 60px 60px; background: linear-gradient(135deg, #d8862e, #f1aa4c); box-shadow: inset -18px -22px 36px rgba(94,42,9,.18), 0 28px 60px rgba(91,47,24,.18); }
+    .waffle::before { content: ""; position: absolute; inset: 18px; background-image: linear-gradient(35deg, rgba(91,47,24,.18) 1px, transparent 1px), linear-gradient(-35deg, rgba(91,47,24,.18) 1px, transparent 1px); background-size: 34px 34px; border-radius: 24px; }
+    .scoop { position: absolute; border-radius: 50%; box-shadow: inset -22px -24px 42px rgba(91,47,24,.18), 0 18px 40px rgba(91,47,24,.15); }
+    .scoop.purple { width: 180px; height: 180px; right: 188px; bottom: 164px; background: radial-gradient(circle at 36% 28%, #f7caff, #8b42d8 58%, #632ab0); }
+    .scoop.orange { width: 190px; height: 190px; right: 38px; bottom: 148px; background: radial-gradient(circle at 36% 28%, #fff1a3, #ff9a23 58%, #e46b17); }
+    .scoop.pink { width: 142px; height: 142px; right: 136px; bottom: 260px; background: radial-gradient(circle at 36% 28%, #ffd6e8, #ff4f8b 58%, #db2f68); }
+    .sprinkle { position: absolute; width: 13px; height: 34px; border-radius: 999px; background: var(--pink); transform: rotate(-28deg); }
+    .sprinkle.one { right: 70px; top: 90px; } .sprinkle.two { right: 390px; top: 155px; background: var(--purple); } .sprinkle.three { right: 260px; top: 42px; background: var(--orange); } .sprinkle.four { right: 26px; top: 240px; background: var(--green); }
 
-    @media (max-width: 920px) {
-      .hero-grid, .grid-3, .grid-2, .contact-panel { grid-template-columns: 1fr; }
+    section { position: relative; z-index: 1; padding: 74px 0; }
+    .section-title { text-align: center; margin: 0 0 12px; font-size: clamp(2.2rem, 5vw, 4.2rem); line-height: .92; letter-spacing: -.06em; }
+    .section-copy { max-width: 640px; margin: 0 auto 34px; color: var(--muted); text-align: center; line-height: 1.6; font-weight: 650; }
+
+    .enjoy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .enjoy-card { position: relative; min-height: 260px; padding: 32px 26px; border-radius: 28px; background: rgba(255,250,238,.86); box-shadow: var(--shadow); text-align: center; border: 1px solid rgba(255,255,255,.7); }
+    .icon-bubble { width: 88px; height: 88px; margin: 0 auto 18px; display: grid; place-items: center; border-radius: 50%; color: #fff; font-size: 2rem; box-shadow: inset -12px -14px 24px rgba(91,47,24,.14); }
+    .enjoy-card h3 { margin: 0 0 8px; font-size: 1.25rem; }
+    .enjoy-card p { margin: 0 0 18px; color: var(--muted); line-height: 1.45; font-weight: 650; }
+
+    .experience { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: center; }
+    .mascot { position: relative; min-height: 420px; }
+    .cone { position: absolute; left: 50%; top: 54%; transform: translate(-50%, -50%); width: 210px; height: 270px; border-radius: 42% 42% 48% 48%; background: linear-gradient(135deg, #f4a43c, #d98120); box-shadow: inset -16px -24px 36px rgba(91,47,24,.18), 0 30px 60px rgba(91,47,24,.14); }
+    .cone::before { content: ""; position: absolute; left: 36px; top: 82px; width: 28px; height: 28px; border-radius: 50%; background: #3d2112; box-shadow: 104px 0 0 #3d2112; }
+    .cone::after { content: ""; position: absolute; left: 68px; top: 140px; width: 78px; height: 38px; border-radius: 0 0 999px 999px; border-bottom: 12px solid #3d2112; }
+    .donut { position: absolute; left: 50%; top: 12%; transform: translateX(-50%); width: 240px; height: 140px; border-radius: 50%; background: radial-gradient(circle at center, transparent 0 28%, #ff77aa 29% 60%, #d96023 61%); box-shadow: inset -18px -20px 30px rgba(91,47,24,.12); }
+    .experience h2 { text-align: left; margin: 0 0 16px; }
+    .experience p { color: var(--muted); line-height: 1.65; font-weight: 650; }
+    .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+    .perk { text-align: center; padding: 18px 14px; border-radius: 22px; background: rgba(255,250,238,.82); box-shadow: var(--shadow); font-weight: 850; }
+    .perk strong { display: block; color: var(--pink-dark); font-size: 1.45rem; }
+
+    .flavors { display: grid; grid-template-columns: repeat(7, 1fr); gap: 20px; text-align: center; }
+    .flavor-dot { width: 80px; height: 80px; margin: 0 auto 10px; border-radius: 50%; box-shadow: inset -10px -12px 20px rgba(91,47,24,.15), 0 12px 24px rgba(91,47,24,.10); }
+    .flavor span { display: block; font-weight: 900; font-size: .88rem; }
+
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .review { padding: 26px; border-radius: 26px; background: rgba(255,250,238,.9); box-shadow: var(--shadow); }
+    .stars { color: var(--orange); letter-spacing: .08em; margin-bottom: 12px; }
+    .review p { color: var(--muted); line-height: 1.55; font-weight: 650; }
+    .person { display: flex; align-items: center; gap: 12px; margin-top: 16px; font-weight: 900; }
+    .avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--pink), var(--orange)); }
+
+    .contact { padding-bottom: 120px; }
+    .contact-panel { display: grid; grid-template-columns: .9fr 1.1fr; gap: 30px; padding: 34px; border-radius: 34px; background: var(--purple); color: #fff; box-shadow: 0 26px 80px rgba(91,47,24,.18); }
+    .contact-panel .section-title { text-align: left; color: #fff; }
+    .contact-panel p { color: rgba(255,255,255,.78); line-height: 1.6; font-weight: 650; }
+    form { display: grid; gap: 14px; }
+    input, textarea { width: 100%; border: 0; border-radius: 18px; background: #fff7ea; color: var(--brown); padding: 16px 18px; font: inherit; outline: none; }
+    textarea { min-height: 122px; resize: vertical; }
+    footer { position: relative; z-index: 1; padding: 30px 0 46px; color: var(--muted); text-align: center; font-weight: 800; }
+
+    @media (max-width: 860px) {
+      .page { border-radius: 0; }
+      .topbar { flex-wrap: wrap; }
       nav { display: none; }
-      .fruit-orbit { min-height: 430px; }
-      .fruit.big { width: 190px; height: 190px; }
+      .hero, .experience, .contact-panel { grid-template-columns: 1fr; }
+      .hero-art { min-height: 390px; }
+      .enjoy-grid, .reviews { grid-template-columns: 1fr; }
+      .flavors { grid-template-columns: repeat(3, 1fr); }
+      h1 { font-size: clamp(4rem, 18vw, 7rem); }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#home"><span class="brand-mark">F</span><span>Frutisa</span></a>
-    <nav>
-      <a href="#productos">Productos</a>
-      <a href="#menu">Menú</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#contacto" class="cta">Ordenar</a>
-    </nav>
-  </header>
+  <div class="page">
+    <div class="splash green"></div>
+    <div class="splash pink"></div>
+    <div class="splash blue"></div>
+    <div class="splash orange"></div>
+    <div class="splash purple"></div>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="shell hero-grid">
+    <header class="topbar shell">
+      <a class="brand" href="#home"><span class="brand-mark"></span><span>F</span><span>R</span><span>U</span><span>T</span><span>I</span><span>S</span><span>A</span></a>
+      <nav>
+        <a href="#home">Inicio</a>
+        <a href="#sabores">Sabores</a>
+        <a href="#experiencias">Galería</a>
+        <a href="#reviews">Reseñas</a>
+        <a href="#contacto">Contacto</a>
+        <a class="nav-cta" href="#contacto">Pide ahora</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero shell" id="home">
         <div>
-          <p class="eyebrow">Fruta fresca · Jugos · Bowls</p>
-          <h1>Frescura que se antoja.</h1>
-          <p>Frutisa es una marca vibrante de productos naturales: fruta seleccionada, bebidas frías, bowls energéticos y experiencias saludables listas para disfrutar.</p>
-          <div class="actions">
-            <a class="button primary" href="#menu">Ver menú</a>
-            <a class="button" href="#contacto">Hacer pedido</a>
+          <p class="eyebrow">ice cream</p>
+          <h1 class="rainbow"><span>F</span><span>R</span><span>U</span><span>T</span><span>I</span><span>S</span><span>A</span></h1>
+          <p class="subtitle">ice cream</p>
+          <p class="hero-copy"><strong>Sabor que se derrite, momentos que se quedan.</strong><br>Helados artesanales de fruta real, cremosos, coloridos y hechos para disfrutarse sin prisa.</p>
+          <div class="hero-actions">
+            <a class="button purple" href="#sabores">Ver sabores</a>
+            <a class="button pink" href="#contacto">Haz pedido</a>
           </div>
         </div>
-        <div class="fruit-orbit" aria-hidden="true">
-          <div class="fruit big"></div>
-          <div class="fruit one"></div>
-          <div class="fruit two"></div>
-          <div class="fruit three"></div>
-          <div class="fruit four"></div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sprinkle one"></div><div class="sprinkle two"></div><div class="sprinkle three"></div><div class="sprinkle four"></div>
+          <div class="scoop purple"></div><div class="scoop pink"></div><div class="scoop orange"></div><div class="waffle"></div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="productos">
-      <div class="shell">
-        <div class="section-head">
-          <p class="eyebrow">Productos</p>
-          <h2>Natural, colorido y listo.</h2>
-          <p class="section-copy">Una línea pensada para verse fresca desde el primer vistazo y sentirse saludable desde el primer bocado.</p>
+      <section id="disfruta">
+        <div class="shell">
+          <h2 class="section-title">¿Cómo quieres disfrutar Frutisa?</h2>
+          <p class="section-copy">Elige tu formato favorito y descubre una experiencia dulce, fresca y llena de color.</p>
+          <div class="enjoy-grid">
+            <article class="enjoy-card"><div class="icon-bubble" style="background:var(--pink)">🍧</div><h3>Paletas preparadas</h3><p>Fruta, chamoy, toppings y combinaciones listas para antojos intensos.</p><a class="button purple" href="#contacto">Pruébalas</a></article>
+            <article class="enjoy-card"><div class="icon-bubble" style="background:var(--purple)">🍦</div><h3>Helado premium</h3><p>Cremoso, artesanal y servido con sabores únicos de temporada.</p><a class="button purple" href="#sabores">Ver sabores</a></article>
+            <article class="enjoy-card"><div class="icon-bubble" style="background:var(--orange)">🎁</div><h3>Servicio a eventos</h3><p>Experiencias frutales para fiestas, marcas y celebraciones especiales.</p><a class="button orange" href="#contacto">Cotizar</a></article>
+          </div>
         </div>
-        <div class="grid-3">
-          <article class="card" style="--accent:#ffd166"><h3>Jugos prensados</h3><p>Combinaciones cítricas, tropicales y verdes con ingredientes naturales.</p></article>
-          <article class="card" style="--accent:#ef476f"><h3>Bowls frutales</h3><p>Bases cremosas, toppings crujientes y fruta fresca de temporada.</p></article>
-          <article class="card" style="--accent:#2fbf71"><h3>Snacks saludables</h3><p>Porciones listas para oficina, escuela, gimnasio o eventos.</p></article>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="menu">
-      <div class="shell">
-        <div class="section-head">
-          <p class="eyebrow">Menú destacado</p>
-          <h2>Favoritos de temporada.</h2>
+      <section id="experiencias">
+        <div class="shell experience">
+          <div class="mascot" aria-hidden="true"><div class="donut"></div><div class="cone"></div></div>
+          <div>
+            <h2 class="section-title">Más que helados, creamos experiencias.</h2>
+            <p>Frutisa combina sabores de infancia, presentación divertida y una estética pensada para compartir. Cada producto está diseñado para antojarse en persona y en redes.</p>
+            <div class="perks">
+              <div class="perk"><strong>100%</strong> fruta</div>
+              <div class="perk"><strong>+20</strong> sabores</div>
+              <div class="perk"><strong>★</strong> eventos</div>
+            </div>
+          </div>
         </div>
-        <div class="grid-3">
-          <article class="card menu-card" style="--accent:#ffb36b"><h3>Mango Sunrise</h3><p>Mango, naranja, piña y toque de jengibre.</p><strong class="price">$75</strong></article>
-          <article class="card menu-card" style="--accent:#ef476f"><h3>Berry Bowl</h3><p>Frutos rojos, plátano, granola y miel natural.</p><strong class="price">$115</strong></article>
-          <article class="card menu-card" style="--accent:#2fbf71"><h3>Green Reset</h3><p>Manzana verde, pepino, apio, limón y menta.</p><strong class="price">$80</strong></article>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="proceso">
-      <div class="shell grid-2 process">
-        <div class="section-head">
-          <p class="eyebrow">Proceso</p>
-          <h2>Del mercado a tu mesa.</h2>
-          <p class="section-copy">Un flujo simple, fresco y confiable para mantener calidad en cada entrega.</p>
+      <section id="sabores">
+        <div class="shell">
+          <h2 class="section-title">Sabores que te van a conquistar</h2>
+          <p class="section-copy">Una paleta visual de sabores frutales y cremosos para todos los gustos.</p>
+          <div class="flavors">
+            <div class="flavor"><div class="flavor-dot" style="background:#8b42d8"></div><span>Uva morada</span></div>
+            <div class="flavor"><div class="flavor-dot" style="background:#8fd63e"></div><span>Limón verde</span></div>
+            <div class="flavor"><div class="flavor-dot" style="background:#ff8b1f"></div><span>Mango</span></div>
+            <div class="flavor"><div class="flavor-dot" style="background:#ff4f8b"></div><span>Fresa</span></div>
+            <div class="flavor"><div class="flavor-dot" style="background:#5b2f18"></div><span>Chocolate</span></div>
+            <div class="flavor"><div class="flavor-dot" style="background:#17b8ef"></div><span>Blue ice</span></div>
+            <div class="flavor"><div class="flavor-dot" style="background:#ffd34e"></div><span>Vainilla</span></div>
+          </div>
+          <div style="text-align:center;margin-top:34px"><a class="button purple" href="#contacto">Ver todos los sabores</a></div>
         </div>
-        <div class="grid-2">
-          <article class="step"><div><h3>Selección</h3><p>Elegimos fruta fresca y de temporada.</p></div></article>
-          <article class="step"><div><h3>Preparación</h3><p>Cortes, mezclas y recetas al momento.</p></div></article>
-          <article class="step"><div><h3>Empaque</h3><p>Presentación limpia, práctica y atractiva.</p></div></article>
-          <article class="step"><div><h3>Entrega</h3><p>Pedidos listos para llevar o recibir.</p></div></article>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="contacto">
-      <div class="shell contact-panel">
-        <div>
-          <p class="eyebrow">Pedidos</p>
-          <h2>Ordena algo fresco.</h2>
-          <p class="section-copy">Este formulario es de prueba visual. Después puede conectarse a WhatsApp, email o un sistema de pedidos.</p>
+      <section id="reviews">
+        <div class="shell">
+          <h2 class="section-title">Lo que dicen de Frutisa</h2>
+          <div class="reviews">
+            <article class="review"><div class="stars">★★★★★</div><p>“Los sabores son increíbles y se ven perfectos para fotos. Mi favorito fue mango con chamoy.”</p><div class="person"><span class="avatar"></span>María G.</div></article>
+            <article class="review"><div class="stars">★★★★★</div><p>“Pedimos Frutisa para un evento y todos quedaron encantados con la presentación.”</p><div class="person"><span class="avatar"></span>Carlos R.</div></article>
+            <article class="review"><div class="stars">★★★★★</div><p>“Cremosos, frescos y nada aburridos. La marca se siente alegre desde el primer vistazo.”</p><div class="person"><span class="avatar"></span>Ana M.</div></article>
+          </div>
         </div>
-        <form>
-          <label>Nombre<input placeholder="Tu nombre" /></label>
-          <label>Producto<input placeholder="Ej. Mango Sunrise" /></label>
-          <label>Mensaje<textarea placeholder="Cantidad, horario o detalles del pedido"></textarea></label>
-          <button class="button primary" type="button">Enviar pedido</button>
-        </form>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <footer>
-    <div class="shell">Frutisa · Preview alojado en el repo Uroboros</div>
-  </footer>
+      <section class="contact" id="contacto">
+        <div class="shell contact-panel">
+          <div>
+            <h2 class="section-title">¿Listo para llevar Frutisa a tu próximo momento?</h2>
+            <p>Haz tu pedido, cotiza un evento o pregunta por sabores de temporada. Este formulario es visual para pruebas.</p>
+            <p><strong>Horario:</strong> Lun–Dom · 11:00–20:00</p>
+            <p><strong>Contacto:</strong> hola@frutisa.mx</p>
+          </div>
+          <form>
+            <input placeholder="Nombre" />
+            <input placeholder="Correo electrónico" />
+            <input placeholder="¿Qué quieres pedir?" />
+            <textarea placeholder="Cuéntanos para cuántas personas o qué sabor buscas"></textarea>
+            <button class="button pink" type="button">Enviar mensaje</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell">Frutisa Ice Cream · Diseño web de prueba</footer>
+  </div>
 </body>
 </html>
