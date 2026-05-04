@@ -53,15 +53,91 @@
       margin: 0;
       cursor: crosshair;
       user-select: none;
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
       color: #fff;
+      font-family: "Arial Black", Arial, Helvetica, sans-serif;
       font-size: clamp(4rem, 16vw, 13rem);
       font-weight: 900;
       line-height: 0.86;
-      letter-spacing: clamp(0.08em, 1vw, 0.18em);
+      letter-spacing: clamp(0.055em, 0.72vw, 0.13em);
       text-align: center;
       text-transform: uppercase;
-      text-shadow: 0 0 18px rgba(255,255,255,0.18), 0 0 48px rgba(255,255,255,0.10);
+      text-shadow: 0 0 20px rgba(255,255,255,0.40), 0 0 58px rgba(255,255,255,0.22);
       transition: opacity 220ms ease, filter 220ms ease, transform 220ms ease;
+    }
+
+    h1 .letter,
+    h1 .join-group {
+      position: relative;
+      display: inline-block;
+    }
+
+    h1 .join-group {
+      letter-spacing: -0.025em;
+    }
+
+    h1 .join-tt {
+      margin-inline: -0.015em 0.02em;
+    }
+
+    h1 .join-cc {
+      margin-inline: 0.01em 0.015em;
+    }
+
+    h1 .join-tt::before {
+      content: "";
+      position: absolute;
+      left: 0.09em;
+      right: 0.13em;
+      top: 0.03em;
+      height: 0.115em;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 0 18px rgba(255,255,255,0.40), 0 0 36px rgba(255,255,255,0.22);
+      pointer-events: none;
+    }
+
+    h1 .join-tt::after {
+      content: "";
+      position: absolute;
+      left: 48%;
+      top: 0.05em;
+      width: 0.09em;
+      height: 0.16em;
+      border-radius: 999px;
+      background: #000;
+      opacity: 0.72;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    h1 .join-cc::before {
+      content: "";
+      position: absolute;
+      left: 0.13em;
+      right: 0.15em;
+      bottom: -0.015em;
+      height: 0.105em;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 0 18px rgba(255,255,255,0.40), 0 0 36px rgba(255,255,255,0.22);
+      pointer-events: none;
+    }
+
+    h1 .join-cc::after {
+      content: "";
+      position: absolute;
+      left: 49%;
+      bottom: -0.005em;
+      width: 0.085em;
+      height: 0.14em;
+      border-radius: 999px;
+      background: #000;
+      opacity: 0.7;
+      transform: translateX(-50%);
+      pointer-events: none;
     }
 
     h1.is-hidden {
@@ -573,7 +649,7 @@
 
   <section class="hero" aria-label="LATTICCE hero">
     <main class="stage">
-      <h1 id="title" tabindex="0">LATTICCE</h1>
+      <h1 id="title" tabindex="0" aria-label="LATTICCE"><span class="letter">L</span><span class="letter">A</span><span class="join-group join-tt">TT</span><span class="letter">I</span><span class="join-group join-cc">CC</span><span class="letter">E</span></h1>
     </main>
 
     <div class="hint">hover sobre el título</div>
@@ -716,7 +792,7 @@
       octx.fillStyle = '#fff';
       octx.textAlign = 'center';
       octx.textBaseline = 'middle';
-      octx.font = `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
+      octx.font = `900 ${styles.fontSize} ${styles.fontFamily}`;
       octx.fillText(title.textContent, width / 2, height / 2);
 
       const data = octx.getImageData(0, 0, width, height).data;
