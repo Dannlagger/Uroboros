@@ -140,13 +140,13 @@
       }
       46% {
         transform: translateX(0) translateY(0) scale(0.96) rotate(250deg);
-        opacity: 0.96;
-        filter: contrast(1.58) brightness(1.9) blur(0px);
+        opacity: 1;
+        filter: contrast(1.9) brightness(2.45) blur(0px);
       }
       58% {
         transform: translateX(0) translateY(0) scale(1.08) rotate(330deg);
-        opacity: 0.72;
-        filter: contrast(1.36) brightness(1.42) blur(0.4px);
+        opacity: 0.88;
+        filter: contrast(1.62) brightness(1.75) blur(0.2px);
       }
       74% {
         transform: translateX(calc(var(--start-x) * -0.12)) translateY(6%) scale(0.82) rotate(430deg);
@@ -161,7 +161,7 @@
         opacity: 0;
       }
       47% {
-        opacity: 0.72;
+        opacity: 0.94;
       }
       72% {
         transform: translate(-50%, -50%) scale(1.55) rotate(28deg);
@@ -183,8 +183,8 @@
       padding: clamp(1.5rem, 5vw, 3rem);
       border: 1px solid var(--line);
       border-radius: 28px;
-      background: rgba(0,0,0,0.62);
-      box-shadow: 0 30px 100px rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.46);
+      box-shadow: 0 30px 120px rgba(255,255,255,0.14);
       backdrop-filter: blur(18px);
     }
 
@@ -196,8 +196,8 @@
       background:
         radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12), transparent 18%),
         conic-gradient(from 90deg at 50% 50%, transparent 0deg, rgba(255,255,255,0.18) 62deg, transparent 118deg, rgba(255,255,255,0.12) 220deg, transparent 300deg);
-      opacity: 0.54;
-      filter: blur(14px) contrast(1.25);
+      opacity: 0.86;
+      filter: blur(10px) contrast(1.45) brightness(1.35);
       animation: lensingBreath 5.8s ease-in-out infinite;
     }
 
@@ -207,8 +207,8 @@
       inset: 0;
       z-index: -1;
       background:
-        radial-gradient(circle at 50% 45%, rgba(0,0,0,0.18), rgba(0,0,0,0.62) 42%, rgba(0,0,0,0.92)),
-        linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.76) 55%, rgba(0,0,0,0.94));
+        radial-gradient(circle at 50% 45%, rgba(0,0,0,0.04), rgba(0,0,0,0.38) 42%, rgba(0,0,0,0.78)),
+        linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.52) 55%, rgba(0,0,0,0.82));
       pointer-events: none;
     }
 
@@ -235,7 +235,7 @@
       aspect-ratio: 1;
       margin: calc(min(76vw, 560px) / -2) 0 0 calc(min(76vw, 560px) / -2);
       background: url("assets/contact-orb.svg") center / contain no-repeat;
-      opacity: 0.5;
+      opacity: 0.86;
       transform-origin: center;
       animation: collisionCore 5.8s cubic-bezier(.4,0,.1,1) infinite;
     }
@@ -257,9 +257,9 @@
       z-index: -2;
       width: min(72vw, 520px);
       aspect-ratio: 1;
-      border: 1px solid rgba(255,255,255,0.62);
+      border: 1.5px solid rgba(255,255,255,0.86);
       border-radius: 50%;
-      box-shadow: 0 0 42px rgba(255,255,255,0.24), inset 0 0 48px rgba(255,255,255,0.16);
+      box-shadow: 0 0 62px rgba(255,255,255,0.42), inset 0 0 68px rgba(255,255,255,0.24);
       pointer-events: none;
       animation: mergerShockwave 5.8s ease-out infinite;
     }
@@ -306,7 +306,7 @@
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 16px;
-      background: rgba(0,0,0,0.56);
+      background: rgba(0,0,0,0.68);
       color: #fff;
       padding: 1rem 1.05rem;
       font: inherit;
