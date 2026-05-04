@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Frutisa — Frescura natural</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --cream: #fff8ec;
+      --peach: #ffb36b;
+      --mango: #ffd166;
+      --berry: #ef476f;
+      --leaf: #2fbf71;
+      --deep: #183326;
+      --muted: rgba(24,51,38,.68);
+      --line: rgba(24,51,38,.14);
+      --card: rgba(255,255,255,.72);
+      --radius: 30px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--cream); }
+
+    body {
+      margin: 0;
+      color: var(--deep);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255,179,107,.45), transparent 22rem),
+        radial-gradient(circle at 86% 12%, rgba(47,191,113,.22), transparent 20rem),
+        radial-gradient(circle at 50% 92%, rgba(239,71,111,.20), transparent 26rem),
+        var(--cream);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 20px 20px, rgba(47,191,113,.14) 0 4px, transparent 4.5px),
+        radial-gradient(circle at 80px 70px, rgba(239,71,111,.12) 0 3px, transparent 3.5px);
+      background-size: 130px 130px;
+      opacity: .8;
+      z-index: -1;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(var(--max), calc(100% - 2rem)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky;
+      top: 1rem;
+      z-index: 20;
+      width: min(760px, calc(100% - 2rem));
+      margin: 1rem auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .65rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,248,236,.74);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 70px rgba(24,51,38,.10);
+    }
+
+    .brand { display: flex; align-items: center; gap: .7rem; font-weight: 950; letter-spacing: -.04em; }
+    .brand-mark { width: 2rem; height: 2rem; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(135deg, var(--berry), var(--peach)); color: #fff; box-shadow: 0 12px 36px rgba(239,71,111,.28); }
+    nav { display: flex; gap: .25rem; }
+    nav a { padding: .58rem .8rem; border-radius: 999px; color: var(--muted); font-size: .84rem; }
+    nav a:hover { background: rgba(255,255,255,.72); color: var(--deep); }
+    .cta { background: var(--deep); color: #fff !important; box-shadow: 0 14px 40px rgba(24,51,38,.18); }
+
+    section { padding: clamp(4.5rem, 9vw, 8rem) 0; }
+
+    .hero { min-height: calc(100vh - 4rem); display: grid; place-items: center; padding-top: 5rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+    .eyebrow { margin: 0 0 .9rem; color: var(--leaf); font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 850; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 1.2rem; font-size: clamp(4rem, 10vw, 9.5rem); line-height: .82; letter-spacing: -.09em; }
+    .hero p, .section-copy { color: var(--muted); font-size: clamp(1rem, 2vw, 1.18rem); line-height: 1.7; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
+    .button { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; padding: .95rem 1.2rem; font-weight: 850; border: 1px solid var(--line); background: #fff; transition: transform .25s ease, box-shadow .25s ease; }
+    .button.primary { background: var(--deep); color: #fff; }
+    .button:hover { transform: translateY(-3px); box-shadow: 0 18px 60px rgba(24,51,38,.14); }
+
+    .fruit-orbit {
+      position: relative;
+      min-height: 520px;
+      border-radius: 42px;
+      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.34));
+      border: 1px solid var(--line);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 34px 100px rgba(24,51,38,.13);
+      overflow: hidden;
+    }
+
+    .fruit-orbit::before {
+      content: "";
+      position: absolute;
+      inset: 13%;
+      border: 1px dashed rgba(24,51,38,.18);
+      border-radius: 50%;
+    }
+
+    .fruit {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      box-shadow: inset -18px -18px 35px rgba(0,0,0,.10), 0 22px 60px rgba(24,51,38,.16);
+    }
+
+    .fruit.big { width: 230px; height: 230px; left: 50%; top: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle at 34% 30%, #fff8b6, var(--mango) 38%, #f8961e); }
+    .fruit.one { width: 112px; height: 112px; left: 9%; top: 16%; background: radial-gradient(circle at 36% 30%, #ffc2d1, var(--berry)); }
+    .fruit.two { width: 130px; height: 130px; right: 10%; top: 12%; background: radial-gradient(circle at 36% 30%, #dcffb7, var(--leaf)); }
+    .fruit.three { width: 96px; height: 96px; right: 18%; bottom: 14%; background: radial-gradient(circle at 36% 30%, #fff, #ff8fab); }
+    .fruit.four { width: 82px; height: 82px; left: 18%; bottom: 18%; background: radial-gradient(circle at 36% 30%, #fff6a7, var(--peach)); }
+
+    .section-head { display: grid; gap: .75rem; margin-bottom: 2rem; }
+    h2 { font-size: clamp(2.5rem, 7vw, 6rem); line-height: .88; letter-spacing: -.075em; margin-bottom: 0; }
+
+    .grid-3, .grid-2 { display: grid; gap: 1rem; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+      padding: clamp(1.3rem, 3vw, 2rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.88), 0 24px 80px rgba(24,51,38,.10);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -45px;
+      bottom: -45px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.8), var(--accent, var(--peach)));
+      opacity: .72;
+    }
+
+    .card h3 { position: relative; z-index: 1; font-size: 1.35rem; margin-bottom: .7rem; }
+    .card p { position: relative; z-index: 1; color: var(--muted); line-height: 1.65; }
+
+    .menu-card { min-height: 340px; display: grid; align-content: end; }
+    .price { font-size: 2.4rem; font-weight: 950; letter-spacing: -.06em; }
+
+    .process { counter-reset: step; }
+    .step { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; padding: 1.1rem; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.62); }
+    .step::before { counter-increment: step; content: counter(step); width: 2.2rem; height: 2.2rem; display: grid; place-items: center; border-radius: 50%; background: var(--deep); color: #fff; font-weight: 900; }
+    .step h3 { margin-bottom: .3rem; }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 1rem;
+      padding: clamp(1.4rem, 4vw, 2.4rem);
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: rgba(255,255,255,.68);
+      backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 34px 100px rgba(24,51,38,.12);
+    }
+
+    form { display: grid; gap: 1rem; }
+    label { display: grid; gap: .45rem; color: var(--muted); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 850; }
+    input, textarea { width: 100%; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.74); color: var(--deep); padding: 1rem; font: inherit; outline: none; }
+    textarea { min-height: 150px; resize: vertical; }
+
+    footer { padding: 3rem 0; color: var(--muted); }
+
+    @media (max-width: 920px) {
+      .hero-grid, .grid-3, .grid-2, .contact-panel { grid-template-columns: 1fr; }
+      nav { display: none; }
+      .fruit-orbit { min-height: 430px; }
+      .fruit.big { width: 190px; height: 190px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home"><span class="brand-mark">F</span><span>Frutisa</span></a>
+    <nav>
+      <a href="#productos">Productos</a>
+      <a href="#menu">Menú</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#contacto" class="cta">Ordenar</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Fruta fresca · Jugos · Bowls</p>
+          <h1>Frescura que se antoja.</h1>
+          <p>Frutisa es una marca vibrante de productos naturales: fruta seleccionada, bebidas frías, bowls energéticos y experiencias saludables listas para disfrutar.</p>
+          <div class="actions">
+            <a class="button primary" href="#menu">Ver menú</a>
+            <a class="button" href="#contacto">Hacer pedido</a>
+          </div>
+        </div>
+        <div class="fruit-orbit" aria-hidden="true">
+          <div class="fruit big"></div>
+          <div class="fruit one"></div>
+          <div class="fruit two"></div>
+          <div class="fruit three"></div>
+          <div class="fruit four"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="productos">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Productos</p>
+          <h2>Natural, colorido y listo.</h2>
+          <p class="section-copy">Una línea pensada para verse fresca desde el primer vistazo y sentirse saludable desde el primer bocado.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card" style="--accent:#ffd166"><h3>Jugos prensados</h3><p>Combinaciones cítricas, tropicales y verdes con ingredientes naturales.</p></article>
+          <article class="card" style="--accent:#ef476f"><h3>Bowls frutales</h3><p>Bases cremosas, toppings crujientes y fruta fresca de temporada.</p></article>
+          <article class="card" style="--accent:#2fbf71"><h3>Snacks saludables</h3><p>Porciones listas para oficina, escuela, gimnasio o eventos.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Menú destacado</p>
+          <h2>Favoritos de temporada.</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card menu-card" style="--accent:#ffb36b"><h3>Mango Sunrise</h3><p>Mango, naranja, piña y toque de jengibre.</p><strong class="price">$75</strong></article>
+          <article class="card menu-card" style="--accent:#ef476f"><h3>Berry Bowl</h3><p>Frutos rojos, plátano, granola y miel natural.</p><strong class="price">$115</strong></article>
+          <article class="card menu-card" style="--accent:#2fbf71"><h3>Green Reset</h3><p>Manzana verde, pepino, apio, limón y menta.</p><strong class="price">$80</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="proceso">
+      <div class="shell grid-2 process">
+        <div class="section-head">
+          <p class="eyebrow">Proceso</p>
+          <h2>Del mercado a tu mesa.</h2>
+          <p class="section-copy">Un flujo simple, fresco y confiable para mantener calidad en cada entrega.</p>
+        </div>
+        <div class="grid-2">
+          <article class="step"><div><h3>Selección</h3><p>Elegimos fruta fresca y de temporada.</p></div></article>
+          <article class="step"><div><h3>Preparación</h3><p>Cortes, mezclas y recetas al momento.</p></div></article>
+          <article class="step"><div><h3>Empaque</h3><p>Presentación limpia, práctica y atractiva.</p></div></article>
+          <article class="step"><div><h3>Entrega</h3><p>Pedidos listos para llevar o recibir.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="shell contact-panel">
+        <div>
+          <p class="eyebrow">Pedidos</p>
+          <h2>Ordena algo fresco.</h2>
+          <p class="section-copy">Este formulario es de prueba visual. Después puede conectarse a WhatsApp, email o un sistema de pedidos.</p>
+        </div>
+        <form>
+          <label>Nombre<input placeholder="Tu nombre" /></label>
+          <label>Producto<input placeholder="Ej. Mango Sunrise" /></label>
+          <label>Mensaje<textarea placeholder="Cantidad, horario o detalles del pedido"></textarea></label>
+          <button class="button primary" type="button">Enviar pedido</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">Frutisa · Preview alojado en el repo Uroboros</div>
+  </footer>
+</body>
+</html>
