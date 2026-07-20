@@ -3,18 +3,640 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Latticce | Version 2026-07-20-v1</title>
+  <title>Shakti Yoga Estudio</title>
+  <meta name="description" content="Shakti Yoga Estudio: 11 años transformando vidas a través del movimiento, la comunidad y la superación personal.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Mr+De+Haviland&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #06361f;
+      --forest-2: #0b4a2e;
+      --leaf: #087d3d;
+      --cream: #f4f0e7;
+      --sand: #e9e1d2;
+      --ink: #102319;
+      --muted: #59655d;
+      --white: #fffdf8;
+      --line: rgba(6, 54, 31, .18);
+      --shadow: 0 18px 50px rgba(6, 54, 31, .16);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(244, 240, 231, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      min-height: 86px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .brand {
+      display: inline-grid;
+      grid-template-columns: 48px auto;
+      align-items: center;
+      gap: 10px;
+      color: var(--forest);
+    }
+
+    .lotus {
+      width: 48px;
+      height: 48px;
+    }
+
+    .brand-title {
+      display: block;
+      font-family: "Playfair Display", serif;
+      font-size: 34px;
+      line-height: .9;
+    }
+
+    .brand-sub {
+      display: block;
+      margin-top: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .34em;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: clamp(14px, 2vw, 28px);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 0 20px;
+      border-radius: 8px;
+      background: var(--leaf);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      box-shadow: 0 10px 24px rgba(8, 125, 61, .24);
+      white-space: nowrap;
+    }
+
+    .wa svg, .mini-icon svg, .contact-item svg { width: 18px; height: 18px; stroke-width: 1.8; }
+
+    .hero {
+      min-height: calc(100vh - 86px);
+      display: grid;
+      align-items: end;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(2, 25, 13, .86), rgba(2, 25, 13, .36) 48%, rgba(2, 25, 13, .08)),
+        url("https://images.unsplash.com/photo-1603988363607-e1e4a66962c6?auto=format&fit=crop&w=1800&q=85") center / cover;
+    }
+
+    .hero-copy {
+      width: min(560px, 100%);
+      padding: clamp(72px, 10vw, 128px) 0 84px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 22px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(48px, 7vw, 86px);
+      font-style: italic;
+      font-weight: 500;
+      line-height: .95;
+      letter-spacing: 0;
+    }
+
+    h1 span { display: block; font-size: .62em; }
+
+    .hero-lead {
+      max-width: 410px;
+      margin-bottom: 20px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(21px, 3vw, 34px);
+      line-height: 1.06;
+    }
+
+    .hero-small {
+      max-width: 340px;
+      margin-bottom: 28px;
+      color: rgba(255, 255, 255, .88);
+      font-size: 17px;
+    }
+
+    .stats {
+      background: var(--forest);
+      color: white;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      min-height: 70px;
+      padding: 14px;
+      border-right: 1px solid rgba(255,255,255,.2);
+      font-size: 13px;
+    }
+
+    .stat:last-child { border-right: 0; }
+    .stat strong { display: block; font-size: 14px; }
+    .stat span { color: rgba(255,255,255,.8); }
+
+    section { padding: clamp(62px, 8vw, 104px) 0; }
+
+    .eyebrow {
+      margin-bottom: 18px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(33px, 4vw, 56px);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: clamp(28px, 6vw, 82px);
+      align-items: center;
+    }
+
+    .about p { color: #2c3b32; }
+
+    .script {
+      margin: 28px 0 24px;
+      font-family: "Mr De Haviland", cursive;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: .9;
+      color: var(--forest-2);
+    }
+
+    .photo-card {
+      overflow: hidden;
+      min-height: 392px;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      background: var(--sand);
+    }
+
+    .styles { background: #f8f4eb; }
+    .center { text-align: center; }
+
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .style-card {
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--sand);
+      min-height: 230px;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      box-shadow: 0 12px 28px rgba(6, 54, 31, .08);
+    }
+
+    .style-card figure {
+      margin: 0;
+      min-height: 160px;
+    }
+
+    .style-card strong {
+      display: grid;
+      place-items: center;
+      min-height: 68px;
+      padding: 14px 8px;
+      font-size: 12px;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .experience {
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(2, 28, 14, .9), rgba(2, 28, 14, .66)),
+        url("https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?auto=format&fit=crop&w=1600&q=85") center / cover;
+    }
+
+    .experience-box {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .experience h2 {
+      max-width: 480px;
+      font-size: clamp(34px, 5vw, 66px);
+      font-style: italic;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+      text-align: center;
+      color: rgba(255,255,255,.92);
+      font-size: 13px;
+    }
+
+    .feature svg { width: 34px; height: 34px; stroke-width: 1.4; }
+
+    .testimonials {
+      background: var(--cream);
+    }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: 44px repeat(3, 1fr) 44px;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .arrow {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--forest);
+      background: transparent;
+    }
+
+    .quote {
+      min-height: 174px;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 18px;
+      border-radius: 12px;
+      background: #eee6d8;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 100px;
+      border-radius: 999px 999px 12px 12px;
+      overflow: hidden;
+      background: #ddd2bf;
+    }
+
+    .quote p {
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+
+    .quote small { color: var(--muted); }
+
+    .gallery-strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .gallery-strip figure {
+      margin: 0;
+      overflow: hidden;
+      min-height: 180px;
+      border-radius: 8px;
+      background: var(--sand);
+    }
+
+    .cta {
+      padding: 0;
+      color: white;
+      background: var(--forest);
+    }
+
+    .cta-inner {
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 38px clamp(20px, 5vw, 72px);
+      background:
+        linear-gradient(90deg, rgba(3, 42, 23, .9), rgba(3, 42, 23, .58)),
+        url("https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1400&q=80") center / cover;
+    }
+
+    .cta h2 {
+      margin-bottom: 0;
+      font-style: italic;
+    }
+
+    .contact {
+      padding: 0;
+      color: white;
+      background: var(--forest);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .9fr 1fr 1.1fr;
+      gap: 28px;
+      align-items: center;
+      min-height: 220px;
+      padding: 36px 0;
+    }
+
+    .contact .brand-title,
+    .contact .brand-sub { color: white; }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,.88);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .map {
+      overflow: hidden;
+      min-height: 156px;
+      border-radius: 10px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.75), rgba(255,255,255,.35)),
+        url("https://tile.openstreetmap.org/14/3832/7336.png") center / cover;
+      border: 1px solid rgba(255,255,255,.24);
+    }
+
+    footer {
+      padding: 30px 16px 38px;
+      background: var(--forest);
+      color: white;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    footer .script {
+      margin: 0;
+      color: white;
+      font-size: clamp(36px, 6vw, 66px);
+    }
+
+    @media (max-width: 980px) {
+      .nav {
+        grid-template-columns: 1fr auto;
+      }
+
+      .menu {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 14px;
+      }
+
+      .stats-grid,
+      .features,
+      .style-grid,
+      .quote-grid,
+      .gallery-strip,
+      .contact-grid,
+      .about,
+      .experience-box {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .quote-grid .arrow { display: none; }
+      .quote-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 24px, 1180px); }
+      .topbar { position: static; }
+      .nav { grid-template-columns: 1fr; padding: 14px 0; }
+      .wa { width: 100%; }
+      .hero { min-height: 680px; }
+      .hero-copy { padding: 72px 0 56px; }
+      .stats-grid,
+      .features,
+      .style-grid,
+      .gallery-strip,
+      .contact-grid,
+      .about,
+      .experience-box {
+        grid-template-columns: 1fr;
+      }
+      .stat { justify-content: flex-start; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.15); }
+      .photo-card { min-height: 280px; }
+      .style-card { min-height: 210px; }
+      .cta-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Latticce - estructura de prueba</h1>
-  <ol>
-    <li>Inicio / Home</li>
-    <li>Contenido reciente</li>
-    <li>Sobre nosotros</li>
-    <li>Oferta principal</li>
-    <li>Equipo y recursos</li>
-    <li>Contacto</li>
-    <li>Footer completo</li>
-  </ol>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#inicio" aria-label="Shakti Yoga Estudio">
+        <svg class="lotus" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <path d="M32 51C20 40 20 26 32 13c12 13 12 27 0 38Z" stroke="currentColor"/>
+          <path d="M31 51C17 48 10 38 12 24c13 4 19 13 19 27Z" stroke="currentColor"/>
+          <path d="M33 51c14-3 21-13 19-27-13 4-19 13-19 27Z" stroke="currentColor"/>
+          <path d="M32 51c-9-3-15-10-17-21M32 51c9-3 15-10 17-21M19 48h26" stroke="currentColor"/>
+        </svg>
+        <span><span class="brand-title">Shakti</span><span class="brand-sub">YOGA ESTUDIO</span></span>
+      </a>
+      <nav class="menu" aria-label="Principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#sobre">Sobre Shakti</a>
+        <a href="#estilos">Estilos</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#galeria">Galería</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a class="wa" href="https://wa.me/525512345678">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19.2 6.2 16A8 8 0 1 1 9 18.2L5 19.2Z" stroke="currentColor"/><path d="M9 8.8c.2 3.2 2.1 5.1 5.3 5.6l1-1.3-2.1-1.3-.9.7c-1.1-.5-1.7-1.1-2.1-2.1l.7-.9L9.7 7.6 9 8.8Z" stroke="currentColor"/></svg>
+        Escríbenos
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap">
+        <div class="hero-copy">
+          <h1>11 años <span>transformando vidas</span></h1>
+          <p class="hero-lead">a través del movimiento, la comunidad y la superación personal.</p>
+          <p class="hero-small">Más que yoga, una comunidad donde aprendes a superar tus propios límites.</p>
+          <a class="wa" href="https://wa.me/525512345678">Agenda tu clase</a>
+        </div>
+      </div>
+    </section>
+
+    <aside class="stats">
+      <div class="wrap stats-grid">
+        <div class="stat mini-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 20v-6M12 20v-8M17 20v-6M5 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7-1a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor"/></svg><span><strong>11 años</strong> de experiencia</span></div>
+        <div class="stat mini-icon"><svg viewBox="0 0 24 24" fill="none"><path d="m12 2 2.2 6.2 6.6.2-5.2 4 1.8 6.4L12 15.1l-5.4 3.7 1.8-6.4-5.2-4 6.6-.2L12 2Z" stroke="currentColor"/></svg><span><strong>Comunidad</strong> que te impulsa</span></div>
+        <div class="stat mini-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21V8m0 0C9 4 5.8 3.1 2.5 4.6 3.7 9 6.8 11.1 12 8Zm0 0c3-4 6.2-4.9 9.5-3.4C20.3 9 17.2 11.1 12 8Z" stroke="currentColor"/></svg><span><strong>Clases</strong> para todos los niveles</span></div>
+        <div class="stat mini-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M20.8 5.7c-1.7-2-4.8-1.8-6.4.2L12 8.7 9.6 5.9C8 3.9 4.9 3.7 3.2 5.7c-1.8 2.2-1.4 5.4.7 7.3L12 20l8.1-7c2.1-1.9 2.5-5.1.7-7.3Z" stroke="currentColor"/></svg><span><strong>Transformación</strong> real</span></div>
+      </div>
+    </aside>
+
+    <section id="sobre">
+      <div class="wrap about">
+        <div>
+          <p class="eyebrow">Sobre Shakti</p>
+          <h2>Un lugar seguro, creativo y estable.</h2>
+          <p>Nacimos de un gran sueño y durante 11 años hemos construido una comunidad sólida que transforma cuerpo, mente y vida.</p>
+          <p class="script">Aquí no vienes solo a hacer yoga,<br>vienes a ser tu mejor versión.</p>
+          <a class="wa" href="#experiencia">Conoce más</a>
+        </div>
+        <figure class="photo-card">
+          <img src="https://images.unsplash.com/photo-1591228127791-8e2eaef098d3?auto=format&fit=crop&w=1200&q=85" alt="Entrada natural de un estudio de yoga rodeado de plantas">
+        </figure>
+      </div>
+    </section>
+
+    <section class="styles" id="estilos">
+      <div class="wrap center">
+        <p class="eyebrow">Estilos de yoga</p>
+        <h2>Herramientas para tu evolución</h2>
+        <div class="style-grid">
+          <article class="style-card"><figure><img src="https://images.unsplash.com/photo-1599447332412-6bc6830c815a?auto=format&fit=crop&w=500&q=80" alt="Yoga en telas"></figure><strong>Yoga<br>en telas</strong></article>
+          <article class="style-card"><figure><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=80" alt="Yoga con aro"></figure><strong>Yoga<br>con aro</strong></article>
+          <article class="style-card"><figure><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=80" alt="Yoga con bloques"></figure><strong>Yoga<br>con bloques</strong></article>
+          <article class="style-card"><figure><img src="https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?auto=format&fit=crop&w=500&q=80" alt="Yoga vinyasa"></figure><strong>Yoga<br>vinyasa</strong></article>
+          <article class="style-card"><figure><img src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?auto=format&fit=crop&w=500&q=80" alt="Yoga yin"></figure><strong>Yoga<br>yin</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience" id="experiencia">
+      <div class="wrap experience-box">
+        <h2>No es solo una clase, es una experiencia que transforma.</h2>
+        <div class="features">
+          <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8c.9-4.1 3.2-6 7-6s6.1 1.9 7 6M9 20v-3m6 3v-3" stroke="currentColor"/></svg><strong>Acompañamiento personalizado</strong></div>
+          <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="M3 17c4 0 5-8 9-8s5 8 9 8M5 21h14M16 4l5 5m0-5-5 5" stroke="currentColor"/></svg><strong>Progreso gradual</strong></div>
+          <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="M7 20v-6M12 20v-8M17 20v-6M5 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7-1a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor"/></svg><strong>Comunidad que te impulsa</strong></div>
+          <div class="feature"><svg viewBox="0 0 24 24" fill="none"><path d="m12 2 2.2 6.2 6.6.2-5.2 4 1.8 6.4L12 15.1l-5.4 3.7 1.8-6.4-5.2-4 6.6-.2L12 2Z" stroke="currentColor"/></svg><strong>Ambiente seguro y motivador</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials" id="testimonios">
+      <div class="wrap">
+        <p class="eyebrow center">Testimonios</p>
+        <div class="quote-grid">
+          <button class="arrow" aria-label="Anterior">←</button>
+          <article class="quote"><div class="avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80" alt="Andrea"></div><div><p>Shakti cambió mi vida. Encontré fuerza física y mental que no sabía que tenía.</p><small>Andrea G.</small></div></article>
+          <article class="quote"><div class="avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" alt="Mariana"></div><div><p>Una comunidad que te sostiene, te reta y te impulsa a ser mejor cada día.</p><small>Mariana R.</small></div></article>
+          <article class="quote"><div class="avatar"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?auto=format&fit=crop&w=300&q=80" alt="Lucía"></div><div><p>Más que yoga, aquí encontré mi lugar.</p><small>Lucía M.</small></div></article>
+          <button class="arrow" aria-label="Siguiente">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria">
+      <div class="wrap">
+        <p class="eyebrow center">Galería</p>
+        <h2 class="center">Momentos reales, comunidad real, energía real.</h2>
+        <div class="gallery-strip">
+          <figure><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80" alt="Clase grupal de yoga"></figure>
+          <figure><img src="https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?auto=format&fit=crop&w=400&q=80" alt="Postura de yoga"></figure>
+          <figure><img src="https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=400&q=80" alt="Práctica de yoga en grupo"></figure>
+          <figure><img src="https://images.unsplash.com/photo-1510894347713-fc3ed6fdf539?auto=format&fit=crop&w=400&q=80" alt="Meditación"></figure>
+          <figure><img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?auto=format&fit=crop&w=400&q=80" alt="Yoga en exterior"></figure>
+          <figure><img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=400&q=80" alt="Clase de yoga"></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-inner">
+        <h2>Tu transformación comienza hoy.</h2>
+        <a class="wa" href="https://wa.me/525512345678">Escríbenos por WhatsApp</a>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <div class="wrap contact-grid">
+        <a class="brand" href="#inicio">
+          <svg class="lotus" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 51C20 40 20 26 32 13c12 13 12 27 0 38Z" stroke="currentColor"/><path d="M31 51C17 48 10 38 12 24c13 4 19 13 19 27Z" stroke="currentColor"/><path d="M33 51c14-3 21-13 19-27-13 4-19 13-19 27Z" stroke="currentColor"/><path d="M19 48h26" stroke="currentColor"/></svg>
+          <span><span class="brand-title">Shakti</span><span class="brand-sub">YOGA ESTUDIO</span></span>
+        </a>
+        <div class="contact-list">
+          <div class="contact-item"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.1 7-12A7 7 0 1 0 5 9c0 6.9 7 12 7 12Z" stroke="currentColor"/><path d="M12 11.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor"/></svg>Coacalco, Estado de México</div>
+          <div class="contact-item"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19.2 6.2 16A8 8 0 1 1 9 18.2L5 19.2Z" stroke="currentColor"/></svg>WhatsApp: 55 1234 5678</div>
+          <div class="contact-item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4zM4 7l8 6 8-6" stroke="currentColor"/></svg>shakti.yoga.estudio</div>
+          <div class="contact-item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Zm8-4v8M8 12h8" stroke="currentColor"/></svg>@ @</div>
+        </div>
+        <div class="map" role="img" aria-label="Mapa de ubicación en Coacalco"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="script">Te esperamos en Shakti Yoga Estudio. ♡</p>
+  </footer>
 </body>
 </html>
