@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Latticce | Ecosistema Creativo</title>
+  <meta name="description" content="Latticce es un ecosistema creativo: studio, design, sound, agency, films y time conectados desde un nucleo latente.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --bg: #020304;
+      --ink: #f8f8f1;
+      --muted: #b8b8ae;
+      --soft: #77776f;
+      --line: rgba(255,255,245,.22);
+      --faint: rgba(255,255,245,.08);
+      --panel: rgba(10,10,10,.58);
+      --glow: 0 0 22px rgba(255,255,245,.56), 0 0 70px rgba(255,255,245,.18);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: Inter, system-ui, sans-serif;
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -3;
+    }
+
+    body::before {
+      background:
+        radial-gradient(circle at 52% 42%, rgba(255,255,255,.22), transparent 7%),
+        radial-gradient(circle at 48% 17%, rgba(255,255,255,.3), transparent 3%),
+        radial-gradient(circle at 73% 68%, rgba(255,255,255,.13), transparent 15%),
+        linear-gradient(#010101, #040505 45%, #010101);
+    }
+
+    body::after {
+      opacity: .72;
+      background-image:
+        radial-gradient(#fff 0 1px, transparent 1.5px),
+        radial-gradient(#fff 0 1px, transparent 1.5px),
+        radial-gradient(#fff 0 .7px, transparent 1px);
+      background-size: 43px 43px, 71px 71px, 19px 19px;
+      background-position: 0 0, 20px 16px, 12px 8px;
+      animation: drift 42s linear infinite;
+    }
+
+    @keyframes drift {
+      to { transform: translate3d(-90px, 70px, 0); }
+    }
+
+    a { color: inherit; text-decoration: none; }
+    p, h1, h2, h3 { margin-top: 0; }
+
+    .site {
+      position: relative;
+      width: min(1800px, 100%);
+      margin: 0 auto;
+      padding: clamp(18px, 2vw, 30px);
+    }
+
+    .site::before {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 7vh;
+      height: 160px;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,.95), rgba(255,255,255,.22) 16%, transparent 58%);
+      filter: blur(4px);
+      opacity: .8;
+      pointer-events: none;
+      z-index: -2;
+      transform: rotate(3deg);
+    }
+
+    .brand-row {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) minmax(260px, 360px);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .brand {
+      padding-top: 10px;
+    }
+
+    .brand h1 {
+      margin-bottom: 18px;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: clamp(48px, 8vw, 92px);
+      font-weight: 500;
+      line-height: .78;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      text-shadow: var(--glow);
+    }
+
+    .brand strong {
+      display: block;
+      margin-bottom: 6px;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: clamp(17px, 2vw, 23px);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .brand span,
+    .panel span,
+    .node span,
+    .step span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .legend,
+    .panel,
+    .contact-bar {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: inset 0 0 32px rgba(255,255,255,.04);
+      backdrop-filter: blur(10px);
+    }
+
+    .legend {
+      padding: 16px 20px;
+    }
+
+    .legend h2,
+    .panel h2 {
+      margin-bottom: 6px;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .legend p {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .key {
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .key i {
+      display: inline-block;
+      width: 64px;
+      margin-right: 10px;
+      border-top: 1px solid var(--ink);
+      vertical-align: middle;
+    }
+
+    .key .dotted { border-top-style: dotted; }
+    .key .flow { border-top-style: dashed; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(148px, 210px) 1fr minmax(190px, 250px);
+      gap: clamp(14px, 2vw, 28px);
+      margin-top: 8px;
+    }
+
+    .side-flow,
+    .right-stack {
+      display: grid;
+      align-content: start;
+      gap: 18px;
+    }
+
+    .marker {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      padding: 10px 0;
+    }
+
+    .num {
+      display: grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 13px;
+    }
+
+    .marker h3 {
+      margin-bottom: 2px;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .marker small {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .marker p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .universe {
+      position: relative;
+      min-height: 900px;
+      padding: 72px 0 0;
+    }
+
+    .node-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: clamp(10px, 2vw, 42px);
+      z-index: 2;
+    }
+
+    .node {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+      gap: 10px;
+      min-width: 0;
+      animation: appear .8s ease both;
+    }
+
+    .node:nth-child(2) { animation-delay: .08s; }
+    .node:nth-child(3) { animation-delay: .16s; }
+    .node:nth-child(4) { animation-delay: .24s; }
+    .node:nth-child(5) { animation-delay: .32s; }
+    .node:nth-child(6) { animation-delay: .4s; }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .orb {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: clamp(82px, 8vw, 128px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255,255,255,.18), transparent 60%);
+      box-shadow: var(--glow), inset 0 0 30px rgba(255,255,255,.14);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    .orb::before,
+    .orb::after,
+    .nucleus::before,
+    .nucleus::after {
+      content: "";
+      position: absolute;
+      inset: -14px;
+      border: 1px dotted rgba(255,255,255,.52);
+      border-radius: inherit;
+      animation: spin 20s linear infinite;
+    }
+
+    .orb::after {
+      inset: 10px;
+      animation-duration: 12s;
+      animation-direction: reverse;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .node:hover .orb {
+      transform: translateY(-7px) scale(1.04);
+      box-shadow: 0 0 38px rgba(255,255,255,.78), 0 0 110px rgba(255,255,255,.25);
+    }
+
+    .orb svg,
+    .nav-node svg,
+    .contact-card svg {
+      width: 34px;
+      height: 34px;
+      stroke-width: 1.2;
+    }
+
+    .node h2 {
+      margin-bottom: 0;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .constellation-line,
+    .constellation-line.two {
+      position: absolute;
+      left: 4%;
+      right: 4%;
+      top: 136px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.58), transparent);
+      box-shadow: 0 0 12px rgba(255,255,255,.6);
+      z-index: 1;
+    }
+
+    .constellation-line.two {
+      top: 384px;
+      left: 8%;
+      right: 8%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
+    }
+
+    .process {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 12px;
+      margin-top: 72px;
+      z-index: 2;
+    }
+
+    .step {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .step-visual {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      min-height: 92px;
+      border-top: 1px dotted var(--line);
+      border-bottom: 1px dotted var(--line);
+      color: var(--ink);
+      filter: drop-shadow(0 0 12px rgba(255,255,255,.45));
+    }
+
+    .step-visual svg {
+      width: 54px;
+      height: 54px;
+      stroke-width: 1;
+    }
+
+    .step strong {
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .reel {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+      gap: 6px;
+      margin: 40px auto 0;
+      width: min(1260px, 100%);
+      min-height: 116px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.03);
+      overflow: hidden;
+    }
+
+    .frame {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 100px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.2), transparent 35%),
+        radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,.25), transparent 24%),
+        #050607;
+      border: 1px solid rgba(255,255,255,.12);
+      overflow: hidden;
+    }
+
+    .frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(#fff 0 1px, transparent 1.4px);
+      background-size: 22px 22px;
+      opacity: .3;
+    }
+
+    .play {
+      width: 72px;
+      height: 72px;
+      border: 1px solid rgba(255,255,255,.75);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      box-shadow: var(--glow);
+      z-index: 1;
+    }
+
+    .play::before {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      margin: 23px 0 0 29px;
+      border-top: 13px solid transparent;
+      border-bottom: 13px solid transparent;
+      border-left: 20px solid white;
+    }
+
+    .core-zone {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(170px, 1fr) minmax(210px, 320px) minmax(170px, 1fr);
+      gap: 28px;
+      align-items: center;
+      margin: 22px auto 0;
+      width: min(960px, 100%);
+    }
+
+    .micro-panels {
+      display: grid;
+      gap: 10px;
+    }
+
+    .micro {
+      min-height: 70px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(255,255,255,.04);
+    }
+
+    .micro strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .micro span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nucleus {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: min(240px, 70vw);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 999px;
+      background:
+        radial-gradient(circle, rgba(255,255,255,.24), transparent 52%),
+        repeating-linear-gradient(90deg, transparent 0 10px, rgba(255,255,255,.26) 10px 12px, transparent 12px 20px);
+      box-shadow: var(--glow), inset 0 0 38px rgba(255,255,255,.13);
+      text-align: center;
+      animation: pulse 3.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      50% { transform: scale(1.035); box-shadow: 0 0 38px rgba(255,255,255,.9), 0 0 120px rgba(255,255,255,.28); }
+    }
+
+    .nucleus-label {
+      position: absolute;
+      top: calc(100% + 18px);
+      left: 50%;
+      width: 270px;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .nucleus-label h2 {
+      margin-bottom: 4px;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .nucleus-label p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .organic-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(16px, 3vw, 48px);
+      margin: 112px auto 0;
+      width: min(1120px, 100%);
+    }
+
+    .nav-node {
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      min-width: 74px;
+      color: var(--ink);
+      text-transform: uppercase;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 13px;
+      transition: transform .25s ease, color .25s ease;
+    }
+
+    .nav-node:hover {
+      transform: translateY(-5px);
+      color: white;
+    }
+
+    .mini-orb {
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 0 18px rgba(255,255,255,.23);
+    }
+
+    .home-link .mini-orb {
+      background: rgba(255,255,255,.86);
+      color: #030303;
+      box-shadow: var(--glow);
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .panel h2 {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    .panel ul,
+    .commerce {
+      display: grid;
+      gap: 12px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .panel li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .panel li svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 1.3;
+      color: var(--ink);
+    }
+
+    .panel strong {
+      display: block;
+      color: var(--ink);
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .commerce li {
+      grid-template-columns: 28px 1fr;
+      border-left: 1px solid rgba(255,255,255,.25);
+      padding-left: 10px;
+    }
+
+    .commerce b {
+      color: white;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .contact-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      margin: 30px auto 0;
+      width: min(1240px, 100%);
+      overflow: hidden;
+    }
+
+    .contact-card {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      align-items: center;
+      min-height: 82px;
+      padding: 16px 18px;
+      background: rgba(255,255,255,.025);
+      transition: background .25s ease, transform .25s ease;
+    }
+
+    .contact-card:hover {
+      background: rgba(255,255,255,.09);
+      transform: translateY(-2px);
+    }
+
+    .contact-card strong {
+      display: block;
+      margin-bottom: 3px;
+      font-family: Rajdhani, Inter, sans-serif;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .contact-card span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1180px) {
+      .brand-row,
+      .hero-grid,
+      .core-zone {
+        grid-template-columns: 1fr;
+      }
+
+      .side-flow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .right-stack {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .universe { min-height: 0; }
+      .process { grid-template-columns: repeat(4, 1fr); }
+      .contact-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 820px) {
+      .node-row,
+      .process,
+      .reel,
+      .side-flow,
+      .right-stack {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .reel .frame:nth-child(3) {
+        grid-column: 1 / -1;
+      }
+
+      .constellation-line,
+      .constellation-line.two {
+        display: none;
+      }
+
+      .contact-bar { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .site { padding: 16px 12px; }
+      .brand h1 { font-size: 42px; }
+      .node-row,
+      .process,
+      .reel,
+      .side-flow,
+      .right-stack {
+        grid-template-columns: 1fr;
+      }
+      .marker { grid-template-columns: 24px 1fr; }
+      .orb { width: 112px; }
+      .contact-card { grid-template-columns: 34px 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site" id="home">
+    <header class="brand-row reveal">
+      <div class="brand">
+        <h1>Latticce</h1>
+        <strong>Ecosistema creativo</strong>
+        <span>Todo esta conectado. Todo es posible.</span>
+      </div>
+      <aside class="legend" aria-label="Arquitectura general del sitio">
+        <h2>Arquitectura general del sitio</h2>
+        <p>Mapa estructural y funcional</p>
+        <div class="key">
+          <span><i></i> Navegacion principal</span>
+          <span><i class="dotted"></i> Navegacion secundaria</span>
+          <span><i class="flow"></i> Conecta / flujo</span>
+          <span><i style="width:14px;height:14px;border:1px solid white;border-radius:999px;border-top-style:solid"></i> Nucleo latente</span>
+        </div>
+      </aside>
+    </header>
+
+    <main class="hero-grid">
+      <aside class="side-flow reveal">
+        <section class="marker">
+          <span class="num">01</span>
+          <div>
+            <h3>Origen</h3>
+            <small>El comienzo de todo</small>
+            <p>Latticce nace, se desintegra en particulas y de estas particulas se forma todo nuestro universo.</p>
+          </div>
+        </section>
+        <section class="marker">
+          <span class="num">02</span>
+          <div>
+            <h3>Nodos Latticce</h3>
+            <small>Entradas al ecosistema</small>
+            <p>Cada nodo es un universo especializado. Haz clic para explorar su mundo.</p>
+          </div>
+        </section>
+        <section class="marker">
+          <span class="num">03</span>
+          <div>
+            <h3>Proceso creativo</h3>
+            <small>Del origen al impacto</small>
+            <p>Las particulas cuentan el viaje completo de cada idea hasta su conexion con las personas.</p>
+          </div>
+        </section>
+        <section class="marker">
+          <span class="num">04</span>
+          <div>
+            <h3>Reel interactivo</h3>
+            <small>Nuestro trabajo</small>
+            <p>Muestra viva de proyectos que cobran forma a traves del universo Latticce.</p>
+          </div>
+        </section>
+        <section class="marker">
+          <span class="num">06</span>
+          <div>
+            <h3>Navegacion organica</h3>
+            <small>Todo esta conectado</small>
+            <p>Explora libremente. Elige tu destino o dejate guiar por la red.</p>
+          </div>
+        </section>
+        <section class="marker">
+          <span class="num">07</span>
+          <div>
+            <h3>Conecta</h3>
+            <small>Empecemos algo real</small>
+            <p>Multiples formas de iniciar un proyecto con el equipo adecuado.</p>
+          </div>
+        </section>
+      </aside>
+
+      <section class="universe">
+        <div class="constellation-line"></div>
+        <div class="constellation-line two"></div>
+
+        <nav class="node-row reveal" aria-label="Nodos principales Latticce">
+          <a class="node" href="#studio">
+            <span class="orb"><i data-lucide="camera"></i></span>
+            <h2>Studio</h2>
+            <span>Foto + video<br>Produccion visual</span>
+          </a>
+          <a class="node" href="#design">
+            <span class="orb"><i data-lucide="pen-tool"></i></span>
+            <h2>Design</h2>
+            <span>Branding + UI/UX<br>Motion + 3D</span>
+          </a>
+          <a class="node" href="#sound">
+            <span class="orb"><i data-lucide="audio-waveform"></i></span>
+            <h2>Sound</h2>
+            <span>Diseno sonoro<br>Musica + mezcla</span>
+          </a>
+          <a class="node" href="#agency">
+            <span class="orb"><i data-lucide="network"></i></span>
+            <h2>Agency</h2>
+            <span>Estrategia + web<br>Ads + automatizacion</span>
+          </a>
+          <a class="node" href="#films">
+            <span class="orb"><i data-lucide="clapperboard"></i></span>
+            <h2>Films</h2>
+            <span>Cine autoral<br>Narrativas</span>
+          </a>
+          <a class="node" href="#time">
+            <span class="orb"><i data-lucide="circle-fading-plus"></i></span>
+            <h2>Time</h2>
+            <span>Bodas + eventos<br>Memorias reales</span>
+          </a>
+        </nav>
+
+        <section class="process reveal" aria-label="Proceso creativo">
+          <article class="step"><div class="step-visual"><i data-lucide="sparkles"></i></div><strong>01 Idea / necesidad</strong><span>Detectamos la chispa.</span></article>
+          <article class="step"><div class="step-visual"><i data-lucide="search"></i></div><strong>02 Exploracion</strong><span>Investigacion, referencias, conceptos.</span></article>
+          <article class="step"><div class="step-visual"><i data-lucide="panels-top-left"></i></div><strong>03 Preproduccion</strong><span>Planeacion, estrategia, guion, diseno.</span></article>
+          <article class="step"><div class="step-visual"><i data-lucide="video"></i></div><strong>04 Produccion</strong><span>Captura, direccion, creacion.</span></article>
+          <article class="step"><div class="step-visual"><i data-lucide="sliders-horizontal"></i></div><strong>05 Postproduccion</strong><span>Edicion, diseno, mezcla, perfeccionamiento.</span></article>
+          <article class="step"><div class="step-visual"><i data-lucide="presentation"></i></div><strong>06 Exhibicion</strong><span>Presentacion del proyecto al mundo.</span></article>
+          <article class="step"><div class="step-visual"><i data-lucide="share-2"></i></div><strong>07 Distribucion</strong><span>Plataformas, alcance, estrategia.</span></article>
+          <article class="step"><div class="step-visual"><i data-lucide="user-round"></i></div><strong>08 Consumo / impacto</strong><span>Audiencia, emocion, transformacion.</span></article>
+        </section>
+
+        <section class="reel reveal" aria-label="Reel interactivo">
+          <div class="frame" style="--x:20%;--y:30%"></div>
+          <div class="frame" style="--x:65%;--y:45%"></div>
+          <div class="frame" style="--x:50%;--y:50%"><button class="play" aria-label="Reproducir reel"></button></div>
+          <div class="frame" style="--x:25%;--y:70%"></div>
+          <div class="frame" style="--x:70%;--y:25%"></div>
+        </section>
+
+        <section class="core-zone reveal" aria-label="Nucleo latente">
+          <div class="micro-panels">
+            <div class="micro"><strong>Proyectos destacados</strong><span>Comercial, cine, musica, eventos y mas.</span></div>
+            <div class="micro"><strong>Procesos en curso</strong><span>Evolucion de ideas y trabajos en desarrollo.</span></div>
+            <div class="micro"><strong>Frases / manifiesto</strong><span>Ideas que nos guian y dan direccion.</span></div>
+          </div>
+          <div>
+            <div class="nucleus"><i data-lucide="audio-waveform"></i></div>
+            <div class="nucleus-label">
+              <h2>Nucleo latente</h2>
+              <p>Siempre vivo. Siempre cambiante. Conecta todo lo que somos.</p>
+            </div>
+          </div>
+          <div class="micro-panels">
+            <div class="micro"><strong>Nuevo en el lab</strong><span>Experimentacion visual, sonora y tecnologica.</span></div>
+            <div class="micro"><strong>Blog / insights</strong><span>Articulos, tendencias, consejos y conocimiento.</span></div>
+            <div class="micro"><strong>Datos latentes</strong><span>Estadisticas, aprendizajes, experiencias, senales.</span></div>
+          </div>
+        </section>
+
+        <nav class="organic-nav reveal" aria-label="Navegacion organica">
+          <a class="nav-node" id="studio" href="#home"><span class="mini-orb"><i data-lucide="camera"></i></span>Studio</a>
+          <a class="nav-node" id="design" href="#home"><span class="mini-orb"><i data-lucide="pen-tool"></i></span>Design</a>
+          <a class="nav-node" id="sound" href="#home"><span class="mini-orb"><i data-lucide="audio-waveform"></i></span>Sound</a>
+          <a class="nav-node" id="agency" href="#home"><span class="mini-orb"><i data-lucide="network"></i></span>Agency</a>
+          <a class="nav-node home-link" href="#home"><span class="mini-orb"><i data-lucide="house"></i></span>Home</a>
+          <a class="nav-node" id="films" href="#home"><span class="mini-orb"><i data-lucide="box"></i></span>Proyectos</a>
+          <a class="nav-node" href="#home"><span class="mini-orb"><i data-lucide="flask-conical"></i></span>Laboratorio</a>
+          <a class="nav-node" href="#home"><span class="mini-orb"><i data-lucide="book-open"></i></span>Manifiesto</a>
+          <a class="nav-node" id="time" href="#home"><span class="mini-orb"><i data-lucide="newspaper"></i></span>Blog</a>
+          <a class="nav-node" href="#contacto"><span class="mini-orb"><i data-lucide="send"></i></span>Contacto</a>
+        </nav>
+      </section>
+
+      <aside class="right-stack reveal">
+        <section class="panel">
+          <h2><span class="num">08</span> Entradas al sitio</h2>
+          <span>Desde cualquier punto</span>
+          <ul>
+            <li><i data-lucide="send"></i><span><strong>Anuncios / ads</strong>Campanas y promociones.</span></li>
+            <li><i data-lucide="search"></i><span><strong>Buscadores</strong>Google, Bing, etc.</span></li>
+            <li><i data-lucide="instagram"></i><span><strong>Redes sociales</strong>Instagram, Facebook, YouTube.</span></li>
+            <li><i data-lucide="link"></i><span><strong>Enlaces directos</strong>Portafolios, reels, proyectos.</span></li>
+            <li><i data-lucide="map-pin"></i><span><strong>Recomendaciones</strong>Referidos y colaboradores.</span></li>
+          </ul>
+        </section>
+        <section class="panel">
+          <h2><span class="num">09</span> Sistema interno CMS</h2>
+          <span>Gestion y contenido</span>
+          <ul>
+            <li><i data-lucide="folder-kanban"></i><span><strong>Proyectos / casos</strong>Contenido audiovisual.</span></li>
+            <li><i data-lucide="newspaper"></i><span><strong>Blog / insights</strong>Articulos y noticias.</span></li>
+            <li><i data-lucide="flask-conical"></i><span><strong>Laboratorio</strong>Experimentacion.</span></li>
+            <li><i data-lucide="package"></i><span><strong>Servicios / especialidades</strong>Nodos y paquetes.</span></li>
+            <li><i data-lucide="settings"></i><span><strong>Cotizaciones / leads</strong>Seguimiento y CRM.</span></li>
+          </ul>
+        </section>
+        <section class="panel">
+          <h2><span class="num">10</span> Flujo comercial</h2>
+          <span>Del contacto a la creacion</span>
+          <ol class="commerce">
+            <li><b>1</b><span><strong>Captura del lead</strong>Formulario / WhatsApp / llamada</span></li>
+            <li><b>2</b><span><strong>Clasificacion</strong>Area principal y secundarias</span></li>
+            <li><b>3</b><span><strong>Asignacion</strong>Se envia al especialista</span></li>
+            <li><b>4</b><span><strong>Contacto</strong>Respuesta y diagnostico</span></li>
+            <li><b>5</b><span><strong>Propuesta</strong>Alcance, tiempo y estrategia</span></li>
+            <li><b>6</b><span><strong>Desarrollo</strong>Ejecucion del proyecto</span></li>
+            <li><b>7</b><span><strong>Entrega</strong>Resultado e impacto</span></li>
+            <li><b>8</b><span><strong>Caso / difusion</strong>El proyecto vuelve al nucleo</span></li>
+          </ol>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="contact-bar reveal" id="contacto">
+      <a class="contact-card" href="mailto:hola@latticce.com">
+        <i data-lucide="calculator"></i>
+        <span><strong>Cotiza tu proyecto</strong>Cuentanos tu idea y te responderemos.</span>
+      </a>
+      <a class="contact-card" href="tel:+525512345678">
+        <i data-lucide="phone"></i>
+        <span><strong>Agenda una llamada</strong>Hablemos de tu proyecto en vivo.</span>
+      </a>
+      <a class="contact-card" href="https://wa.me/525512345678">
+        <i data-lucide="message-circle"></i>
+        <span><strong>WhatsApp</strong>Escribenos directamente.</span>
+      </a>
+      <a class="contact-card" href="mailto:hola@latticce.com">
+        <i data-lucide="mail"></i>
+        <span><strong>Envia un correo</strong>hola@latticce.com</span>
+      </a>
+      <a class="contact-card" href="#home">
+        <i data-lucide="map-pin"></i>
+        <span><strong>Visitanos</strong>Oficina / estudio. Conversemos en persona.</span>
+      </a>
+    </footer>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach((item) => observer.observe(item));
+
+    document.querySelectorAll(".frame").forEach((frame) => {
+      frame.addEventListener("pointermove", (event) => {
+        const rect = frame.getBoundingClientRect();
+        frame.style.setProperty("--x", `${event.clientX - rect.left}px`);
+        frame.style.setProperty("--y", `${event.clientY - rect.top}px`);
+      });
+    });
+  </script>
+</body>
+</html>
